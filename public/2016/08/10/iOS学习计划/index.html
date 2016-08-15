@@ -1,0 +1,728 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.useso.com/css?family=Monda:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="leeouf, Leeouf, LeeOuf, iOS, Blog" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="经过两次面试更加清楚地认识到，面试“绝对”没有运气的成分，所有结果都是平时积累的爆发。做的项目也算是不少，Java，Web，iOS均有实际项目开发上线经验，为什么面试如此失败呢？反省自身，开发时只求结果只求进度，却没有去深究原理，虽则有良好的编程习惯，项目表面上良好地运行，终究也只不过是码农而已，离工程师相去甚远。
+Stay hungry. Stay foolish.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS学习计划">
+<meta property="og:url" content="https://LeeOuf.github.io/2016/08/10/iOS学习计划/index.html">
+<meta property="og:site_name" content="LeeOuf's Blog">
+<meta property="og:description" content="经过两次面试更加清楚地认识到，面试“绝对”没有运气的成分，所有结果都是平时积累的爆发。做的项目也算是不少，Java，Web，iOS均有实际项目开发上线经验，为什么面试如此失败呢？反省自身，开发时只求结果只求进度，却没有去深究原理，虽则有良好的编程习惯，项目表面上良好地运行，终究也只不过是码农而已，离工程师相去甚远。
+Stay hungry. Stay foolish.">
+<meta property="og:updated_time" content="2016-08-15T09:41:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS学习计划">
+<meta name="twitter:description" content="经过两次面试更加清楚地认识到，面试“绝对”没有运气的成分，所有结果都是平时积累的爆发。做的项目也算是不少，Java，Web，iOS均有实际项目开发上线经验，为什么面试如此失败呢？反省自身，开发时只求结果只求进度，却没有去深究原理，虽则有良好的编程习惯，项目表面上良好地运行，终究也只不过是码农而已，离工程师相去甚远。
+Stay hungry. Stay foolish.">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <title> iOS学习计划 | LeeOuf's Blog </title>
+  <!-- <script type="text/javascript">
+    (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+    })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+    
+    _st('install','fJ4RztWwYeg1bSWfz3x1','2.0.0');
+  </script> -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd5f13bbcbc196ab6b286b6774bf922a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeeOuf's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Coding time.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hourglass-half"></i> <br />
+            
+            时间线
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-essay">
+          <a href="/categories/essay" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-pagelines"></i> <br />
+            
+            随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ios">
+          <a href="/categories/ios" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-apple"></i> <br />
+            
+            iOS
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'fJ4RztWwYeg1bSWfz3x1','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS学习计划
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-10T18:42:22+08:00" content="2016-08-10">
+              2016-08-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ios/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/10/iOS学习计划/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/10/iOS学习计划/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>经过两次面试更加清楚地认识到，面试“绝对”没有运气的成分，所有结果都是平时积累的爆发。<br>做的项目也算是不少，Java，Web，iOS均有实际项目开发上线经验，为什么面试如此失败呢？<br>反省自身，开发时只求结果只求进度，却没有去深究原理，虽则有良好的编程习惯，项目表面上良好地运行，终究也只不过是码农而已，离工程师相去甚远。</p>
+<p><strong>Stay hungry. Stay foolish.</strong><br><a id="more"></a></p>
+<p>制定一个学习和复习的计划，目的是重新扎实基础，了解“正确开发”的本质和原因，督促自己阅读源码，耐心动手实践。</p>
+<h2 id="罗列计划要看的书-划去的书已通读一遍-："><a href="#罗列计划要看的书-划去的书已通读一遍-：" class="headerlink" title="罗列计划要看的书(划去的书已通读一遍)："></a>罗列计划要看的书(划去的书已通读一遍)：</h2><p><strong>程序设计基础</strong><br>数据结构与算法分析：C语言描述+中文版<br>傅清祥算法与数据结构<br>计算机程序设计艺术（这个只能涉猎）<br>编程珠玑<br>编程之美<br>设计模式之禅（第2版）<br>人月神话<br>重构_改善既有代码的设计</p>
+<p><strong>iOS</strong><br><del>iOS开发指南</del><br>Objective-C程序设计  第6版<br>精通iOS开发<br>iOS开发进阶<br>Objective-C基础教程高清中文版（第2版）<br>Objective-C编程之道：IOS设计模式解析<br>Objective-C高级编程 iOS与OS X多线程和内存管理<br>Effective Objective-C 2.0  编写高质量iOS与OS X代码的52个有效方法</p>
+<h2 id="罗列必须要看的API："><a href="#罗列必须要看的API：" class="headerlink" title="罗列必须要看的API："></a>罗列必须要看的API：</h2><p><a href="http://opensource.apple.com" target="_blank" rel="external">Apple Open Source</a><br><a href="https://developer.apple.com/reference/" target="_blank" rel="external">API Reference</a><br><a href="https://developer.apple.com/library/prerelease/content/navigation/" target="_blank" rel="external">Guides and Sample Code</a><br><a href="https://swift.org/download/#using-downloads" target="_blank" rel="external">Swift开源</a></p>
+<h2 id="罗列有价值的Blog："><a href="#罗列有价值的Blog：" class="headerlink" title="罗列有价值的Blog："></a>罗列有价值的Blog：</h2><p><a href="http://blog.sunnyxx.com" target="_blank" rel="external">@sunnyxx</a><br><a href="http://blog.ibireme.com" target="_blank" rel="external">@ibireme</a></p>
+<h2 id="罗列必须要研究到清楚明白的知识点："><a href="#罗列必须要研究到清楚明白的知识点：" class="headerlink" title="罗列必须要研究到清楚明白的知识点："></a>罗列必须要研究到清楚明白的知识点：</h2><h3 id="基础-－-对象"><a href="#基础-－-对象" class="headerlink" title="基础 － 对象"></a><strong>基础 － 对象</strong></h3><h3 id="基础-－-类"><a href="#基础-－-类" class="headerlink" title="基础 － 类"></a><strong>基础 － 类</strong></h3><h3 id="基础-－-方法"><a href="#基础-－-方法" class="headerlink" title="基础 － 方法"></a><strong>基础 － 方法</strong></h3><h3 id="内存-－-堆"><a href="#内存-－-堆" class="headerlink" title="内存 － 堆"></a>内存 － 堆</h3><h3 id="内存-－-栈"><a href="#内存-－-栈" class="headerlink" title="内存 － 栈"></a>内存 － 栈</h3><h3 id="内存-－-指针"><a href="#内存-－-指针" class="headerlink" title="内存 － 指针"></a>内存 － 指针</h3><h3 id="内存-－-进程"><a href="#内存-－-进程" class="headerlink" title="内存 － 进程"></a>内存 － 进程</h3><h3 id="内存-－-线程"><a href="#内存-－-线程" class="headerlink" title="内存 － 线程"></a>内存 － 线程</h3><h3 id="内存-－-MRC"><a href="#内存-－-MRC" class="headerlink" title="内存 － MRC"></a>内存 － MRC</h3><h3 id="内存-－-ARC"><a href="#内存-－-ARC" class="headerlink" title="内存 － ARC"></a>内存 － ARC</h3><h3 id="多线程-－-GCD"><a href="#多线程-－-GCD" class="headerlink" title="多线程 － GCD"></a><strong>多线程 － GCD</strong></h3><h3 id="多线程-－-NSOperationQueue"><a href="#多线程-－-NSOperationQueue" class="headerlink" title="多线程 － NSOperationQueue"></a>多线程 － NSOperationQueue</h3><h3 id="多线程-－-锁"><a href="#多线程-－-锁" class="headerlink" title="多线程 － 锁"></a>多线程 － 锁</h3><h3 id="RunLoop"><a href="#RunLoop" class="headerlink" title="RunLoop"></a>RunLoop</h3><h3 id="Runtime-amp-isa"><a href="#Runtime-amp-isa" class="headerlink" title="Runtime &amp; isa"></a>Runtime &amp; isa</h3><h3 id="block"><a href="#block" class="headerlink" title="block"></a>block</h3><h3 id="Delegate"><a href="#Delegate" class="headerlink" title="Delegate"></a>Delegate</h3><h3 id="设计模式-－-单例"><a href="#设计模式-－-单例" class="headerlink" title="设计模式 － 单例"></a>设计模式 － 单例</h3><h3 id="设计模式-－-代理"><a href="#设计模式-－-代理" class="headerlink" title="设计模式 － 代理"></a>设计模式 － 代理</h3><h3 id="设计模式-－-观察者"><a href="#设计模式-－-观察者" class="headerlink" title="设计模式 － 观察者"></a>设计模式 － 观察者</h3><h3 id="架构-－-MVC"><a href="#架构-－-MVC" class="headerlink" title="架构 － MVC"></a>架构 － MVC</h3><h3 id="JSON解析"><a href="#JSON解析" class="headerlink" title="JSON解析"></a>JSON解析</h3><h3 id="网络-－-NSURLConnection"><a href="#网络-－-NSURLConnection" class="headerlink" title="网络 － NSURLConnection"></a>网络 － NSURLConnection</h3><h3 id="网络-－-AFNetworking"><a href="#网络-－-AFNetworking" class="headerlink" title="网络 － AFNetworking"></a>网络 － AFNetworking</h3><h3 id="网络-－-SDWebImage"><a href="#网络-－-SDWebImage" class="headerlink" title="网络 － SDWebImage"></a>网络 － SDWebImage</h3><h3 id="UI-－-UIResponder"><a href="#UI-－-UIResponder" class="headerlink" title="UI － UIResponder"></a>UI － UIResponder</h3><h3 id="UI-－-UIView"><a href="#UI-－-UIView" class="headerlink" title="UI － UIView"></a>UI － UIView</h3><h3 id="UI-－-UIControl"><a href="#UI-－-UIControl" class="headerlink" title="UI － UIControl"></a>UI － UIControl</h3><h3 id="UI-－-ScrollView"><a href="#UI-－-ScrollView" class="headerlink" title="UI － ScrollView"></a>UI － ScrollView</h3><h3 id="UI-－-TableView"><a href="#UI-－-TableView" class="headerlink" title="UI － TableView"></a>UI － TableView</h3><h3 id="UI-－-CollectionView"><a href="#UI-－-CollectionView" class="headerlink" title="UI － CollectionView"></a>UI － CollectionView</h3><h3 id="UI-－-自定义视图"><a href="#UI-－-自定义视图" class="headerlink" title="UI － 自定义视图"></a>UI － 自定义视图</h3><h3 id="UI-－-CALayer"><a href="#UI-－-CALayer" class="headerlink" title="UI － CALayer"></a>UI － CALayer</h3><h3 id="UI-－-CAAnimation"><a href="#UI-－-CAAnimation" class="headerlink" title="UI － CAAnimation"></a>UI － CAAnimation</h3>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/10/开始/" rel="next" title="开始">
+                <i class="fa fa-chevron-left"></i> 开始
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/11/理解GCD原理/" rel="prev" title="理解GCD原理">
+                理解GCD原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/10/iOS学习计划/"
+           data-title="iOS学习计划" data-url="https://LeeOuf.github.io/2016/08/10/iOS学习计划/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="LeeOuf" />
+          <p class="site-author-name" itemprop="name">LeeOuf</p>
+          <p class="site-description motion-element" itemprop="description">人生有时</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3216090377/profile" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/LeeOuf" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/6712857/leeouf?tab=profile" target="_blank" title="Stack Overflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  Stack Overflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#罗列计划要看的书-划去的书已通读一遍-："><span class="nav-number">1.</span> <span class="nav-text">罗列计划要看的书(划去的书已通读一遍)：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#罗列必须要看的API："><span class="nav-number">2.</span> <span class="nav-text">罗列必须要看的API：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#罗列有价值的Blog："><span class="nav-number">3.</span> <span class="nav-text">罗列有价值的Blog：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#罗列必须要研究到清楚明白的知识点："><span class="nav-number">4.</span> <span class="nav-text">罗列必须要研究到清楚明白的知识点：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础-－-对象"><span class="nav-number">4.1.</span> <span class="nav-text">基础 － 对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础-－-类"><span class="nav-number">4.2.</span> <span class="nav-text">基础 － 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础-－-方法"><span class="nav-number">4.3.</span> <span class="nav-text">基础 － 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存-－-堆"><span class="nav-number">4.4.</span> <span class="nav-text">内存 － 堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存-－-栈"><span class="nav-number">4.5.</span> <span class="nav-text">内存 － 栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存-－-指针"><span class="nav-number">4.6.</span> <span class="nav-text">内存 － 指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存-－-进程"><span class="nav-number">4.7.</span> <span class="nav-text">内存 － 进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存-－-线程"><span class="nav-number">4.8.</span> <span class="nav-text">内存 － 线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存-－-MRC"><span class="nav-number">4.9.</span> <span class="nav-text">内存 － MRC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存-－-ARC"><span class="nav-number">4.10.</span> <span class="nav-text">内存 － ARC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程-－-GCD"><span class="nav-number">4.11.</span> <span class="nav-text">多线程 － GCD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程-－-NSOperationQueue"><span class="nav-number">4.12.</span> <span class="nav-text">多线程 － NSOperationQueue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程-－-锁"><span class="nav-number">4.13.</span> <span class="nav-text">多线程 － 锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RunLoop"><span class="nav-number">4.14.</span> <span class="nav-text">RunLoop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Runtime-amp-isa"><span class="nav-number">4.15.</span> <span class="nav-text">Runtime & isa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#block"><span class="nav-number">4.16.</span> <span class="nav-text">block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Delegate"><span class="nav-number">4.17.</span> <span class="nav-text">Delegate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计模式-－-单例"><span class="nav-number">4.18.</span> <span class="nav-text">设计模式 － 单例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计模式-－-代理"><span class="nav-number">4.19.</span> <span class="nav-text">设计模式 － 代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计模式-－-观察者"><span class="nav-number">4.20.</span> <span class="nav-text">设计模式 － 观察者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构-－-MVC"><span class="nav-number">4.21.</span> <span class="nav-text">架构 － MVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON解析"><span class="nav-number">4.22.</span> <span class="nav-text">JSON解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络-－-NSURLConnection"><span class="nav-number">4.23.</span> <span class="nav-text">网络 － NSURLConnection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络-－-AFNetworking"><span class="nav-number">4.24.</span> <span class="nav-text">网络 － AFNetworking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络-－-SDWebImage"><span class="nav-number">4.25.</span> <span class="nav-text">网络 － SDWebImage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-－-UIResponder"><span class="nav-number">4.26.</span> <span class="nav-text">UI － UIResponder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-－-UIView"><span class="nav-number">4.27.</span> <span class="nav-text">UI － UIView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-－-UIControl"><span class="nav-number">4.28.</span> <span class="nav-text">UI － UIControl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-－-ScrollView"><span class="nav-number">4.29.</span> <span class="nav-text">UI － ScrollView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-－-TableView"><span class="nav-number">4.30.</span> <span class="nav-text">UI － TableView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-－-CollectionView"><span class="nav-number">4.31.</span> <span class="nav-text">UI － CollectionView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-－-自定义视图"><span class="nav-number">4.32.</span> <span class="nav-text">UI － 自定义视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-－-CALayer"><span class="nav-number">4.33.</span> <span class="nav-text">UI － CALayer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-－-CAAnimation"><span class="nav-number">4.34.</span> <span class="nav-text">UI － CAAnimation</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeOuf</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="http://ajax.useso.com/ajax/libs/jquery/1.7.2/jquery.min.js?ver=3.4.2"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"leeouf"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
