@@ -99,7 +99,7 @@ GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重�
 可以看到1大类中的三个任务同时执行。
 
 ### 6. `void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);`：将任务（也就是block）放到队列中，同步执行，也就是说在`当前线程`中执行任务，`阻塞当前线程`。
-1. dispatch_sync任务到其它串行队列中。
+#### dispatch_sync任务到其它串行队列中。
 
 ```
     dispatch_queue_t queue = dispatch_queue_create("cn.edu.bjtu.myQueue", DISPATCH_QUEUE_SERIAL);
@@ -122,7 +122,7 @@ GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重�
 ```
 block1处于用于用户自定义串行队列中，由当前线程（主线程）执行，阻塞主线程，step2必须等待block1返回后方可开始执行。
 
-2. dispatch_sync任务到当前串行队列中。
+#### dispatch_sync任务到当前串行队列中。
 
 ```
     dispatch_queue_t queue = dispatch_get_main_queue();
@@ -141,10 +141,10 @@ block1处于用于用户自定义串行队列中，由当前线程（主线程�
 ```
 2016-08-13 04:35:51.992 MyPractice[27577:4345752] step0 finished! - <NSThread: 0x7f80d8701fc0>{number = 1, name = main}
 ```
-整体为主队列中的block0，执行完step0后等待block1返回，然后才可执行step2；同时block1插入主队列，阻塞主线程，此时主线程中还有未完成的任务block0，因此block1开始等待block1完成。
-此时block0与block1循环等待，死锁。
+整体为主队列中的block0，执行完step0后等待block1返回，然后才可执行step2；同时block1插入主队列，阻塞主线程，此时主队列中还有未完成的任务block0，因此block1开始等待block1完成。
+至此，block0与block1循环等待，死锁。
 
-3. dispatch_sync任务到其它并发队列中。
+#### dispatch_sync任务到其它并发队列中。
 
 ```
     dispatch_queue_t queue = dispatch_queue_create("cn.edu.bjtu.myQueue", DISPATCH_QUEUE_CONCURRENT);
@@ -214,7 +214,7 @@ dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);
 - 参数block － 将要在目标队列中执行的任务；如果传递进来的block为NULL，返回结果为undedined。
 
 ### 7. `void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);`：将任务放到队列中，异步执行，也就是说在`其他线程`中执行任务，`不阻塞当前线程`。
-1. dispatch_sync任务到其它串行队列中。
+#### dispatch_async任务到其它串行队列中。
 
 ```
     dispatch_queue_t queue = dispatch_queue_create("cn.edu.bjtu.myQueue", DISPATCH_QUEUE_SERIAL);
@@ -238,7 +238,7 @@ dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);
 执行顺序为step0 -> step1 -> step2，step1在其它线程上执行，注意step2与step0时差2秒，step1与step0时差1秒，也就是说step1与step2并行。
 程序运行到step0，step1插入用户自定义串行队列，在其它线程执行，不阻塞当前线程（主线程），并立即返回，于是step2开始执行。
 
-2. dispatch_sync任务到当前串行队列中。
+#### dispatch_async任务到当前串行队列中。
 
 ```
     dispatch_queue_t queue = dispatch_get_main_queue();
@@ -262,7 +262,7 @@ dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);
 执行顺序为step0 -> step2 -> step1，step1在主线程上执行（这与我们猜想的新开线程不一致，说明我们的猜想错了，至于为什么，先放一放，后面再说），从执行时间来看任务是串行执行的。
 执行完step0，step1插入主队列，不阻塞当前线程（主线程）并立即返回，开始执行step2，但是block1却必须等待block0执行完毕，因此step1在step2结束后开始执行。
 
-3. dispatch_sync任务到其他并发队列中。
+#### dispatch_async任务到其他并发队列中。
 已经在5. xxx中实验过，3个任务在3个不同的线程上异步执行。
 
 **总结**
@@ -337,12 +337,17 @@ dispatch_async(dispatch_queue_t queue, dispatch_block_t block);
 2016-08-13 11:03:10.823 MyPractice[28927:4454751] step2 finished! - <NSThread: 0x7fbe786079a0>{number = 1, name = main}
 2016-08-13 11:03:10.832 MyPractice[28927:4454778] step1.2 finished! - <NSThread: 0x7fbe78419320>{number = 2, name = (null)}
 ```
-执行block1.1时不在当前队列中，执行block1.2时在当前队列中，前者从主线程来到一个新线程执行，后者则仍然在当前线程（新线程）中执行。
-结合实验的结果和一些blog的说法，我认为block在哪个线程取决于：
-- 对于每个queue来说，它和线程池有某种对应关系，主队列对应着主线程；并发队列对应多条线程；串行队列对应着一条线程；
+block1.1不在当前线程（主线程）中执行，而是在新线程（0x7fbe78419320）中，从当前线程切换到了新线程；
+block1.2仍然在当前线程（0x7fbe78419320）中执行；
+另外，block1.3也在（0x7fbe78419320）这一线程中执行，同样没有进入一个新线程；
+
+结合实验的结果和一些blog的说法，我认为block在哪个线程取决于queue，对于每个queue来说，它和线程池有某种对应关系：
+- 主队列对应着主线程；
+- 并发队列对应多条线程（非主线程）；
+- 串行队列对应着一条线程（非主线程）；
 - dispatch_sync&dispatch_async：调度对应线程池中的线程；
 
-继续解读官方API
+接下来继续解读官方API
 - 系统会保留目标队列的引用直到block结束。（queue中有任务时不会释放）
 - 参数queue － block任务提交的目标队列；如果传递进来的queue为NULL，返回结果为undefined。
 - dispatch_async()会代替它的调用者执行Block_copy()和Block_realease()。（block进入queue时会copy，出queue时会realease）

@@ -42,7 +42,11 @@ Effective Objective-C 2.0  编写高质量iOS与OS X代码的52个有效方法
 [Guides and Sample Code](https://developer.apple.com/library/prerelease/content/navigation/)
 [Swift开源](https://swift.org/download/#using-downloads)
 
+## 罗列有价值的教程：
+[斯坦福公开课：iOS 7应用开发](http://open.163.com/movie/2014/1/M/7/M9H7S9F1H_M9H7TMJM7.html)
+
 ## 罗列有价值的Blog：
+[@唐巧](http://blog.devtang.com)
 [@sunnyxx](http://blog.sunnyxx.com)
 [@ibireme](http://blog.ibireme.com)
 
