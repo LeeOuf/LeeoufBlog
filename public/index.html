@@ -353,15 +353,13 @@
 
       
         
-          
-            <h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h2 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h2><p><strong>栈区（stack）</strong><br>由编译器自动分配释放 ，当一个函数被调用,一个stack frame(栈帧)就会被压到stack里，包含函数的参数、局部变量、返回地址等。当函数返回后,这个栈帧就会被销毁。</p>
-<p><strong>堆区(heap)</strong><br>heap的空间需要手动分配。heap与动态内存分配相关,内存可以随时在堆中分配和销毁。我们需要明确请求内存分配与内存销毁。</p>
-<p><strong>全局区（static）</strong><br>全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域， 未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。程序结束后由系统释放 。</p>
-<p><strong>文字常量区</strong><br>常量字符串就是放在这里的。 程序结束后由系统释放。</p>
-<p><strong>程序代码区</strong><br>存放函数体的二进制代码。</p>
-<p><img src="/img/001.png" alt="内存空间"></p>
-
-          
+          <h1 id="&#x5185;&#x5B58;"><a href="#&#x5185;&#x5B58;" class="headerlink" title="&#x5185;&#x5B58;"></a>&#x5185;&#x5B58;</h1><h2 id="&#x5806;&#x6808;"><a href="#&#x5806;&#x6808;" class="headerlink" title="&#x5806;&#x6808;"></a>&#x5806;&#x6808;</h2><p><strong>&#x6808;&#x533A;&#xFF08;stack&#xFF09;</strong><br>&#x7531;&#x7F16;&#x8BD1;&#x5668;&#x81EA;&#x52A8;&#x5206;&#x914D;&#x91CA;&#x653E; &#xFF0C;&#x5F53;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;,&#x4E00;&#x4E2A;stack frame(&#x6808;&#x5E27;)&#x5C31;&#x4F1A;&#x88AB;&#x538B;&#x5230;stack&#x91CC;&#xFF0C;&#x5305;&#x542B;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x3001;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x3001;&#x8FD4;&#x56DE;&#x5730;&#x5740;&#x7B49;&#x3002;&#x5F53;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x540E;,&#x8FD9;&#x4E2A;&#x6808;&#x5E27;&#x5C31;&#x4F1A;&#x88AB;&#x9500;&#x6BC1;&#x3002;</p>
+<p><strong>&#x5806;&#x533A;(heap)</strong><br>heap&#x7684;&#x7A7A;&#x95F4;&#x9700;&#x8981;&#x624B;&#x52A8;&#x5206;&#x914D;&#x3002;heap&#x4E0E;&#x52A8;&#x6001;&#x5185;&#x5B58;&#x5206;&#x914D;&#x76F8;&#x5173;,&#x5185;&#x5B58;&#x53EF;&#x4EE5;&#x968F;&#x65F6;&#x5728;&#x5806;&#x4E2D;&#x5206;&#x914D;&#x548C;&#x9500;&#x6BC1;&#x3002;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x660E;&#x786E;&#x8BF7;&#x6C42;&#x5185;&#x5B58;&#x5206;&#x914D;&#x4E0E;&#x5185;&#x5B58;&#x9500;&#x6BC1;&#x3002;<br></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/17/Objective-C基础总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -478,14 +476,14 @@
 
       
         
-          <p>Blog托管在github，拉取代码后。</p>
+          <p>Blog&#x6258;&#x7BA1;&#x5728;github&#xFF0C;&#x62C9;&#x53D6;&#x4EE3;&#x7801;&#x540E;&#x3002;</p>
 <ul>
-<li>下载nodejs，<a href="https://nodejs.org/en/">Node.js官网</a></li>
-<li>安装hexo，<code>sudo npm install -g hexo</code></li>
-<li>保留原有deploy配置，执行<code>sudo npm install hexo-deployer-git --save</code></li>
-<li>安装server，<code>sudo npm install hexo-server</code></li>
+<li>&#x4E0B;&#x8F7D;nodejs&#xFF0C;<a href="https://nodejs.org/en/">Node.js&#x5B98;&#x7F51;</a></li>
+<li>&#x5B89;&#x88C5;hexo&#xFF0C;<code>sudo npm install -g hexo</code></li>
+<li>&#x4FDD;&#x7559;&#x539F;&#x6709;deploy&#x914D;&#x7F6E;&#xFF0C;&#x6267;&#x884C;<code>sudo npm install hexo-deployer-git --save</code></li>
+<li>&#x5B89;&#x88C5;server&#xFF0C;<code>sudo npm install hexo-server</code></li>
 </ul>
-<p>如发生github pages init错误，删除.deploy_git文件<br>
+<p>&#x5982;&#x53D1;&#x751F;github pages init&#x9519;&#x8BEF;&#xFF0C;&#x5220;&#x9664;.deploy_git&#x6587;&#x4EF6;<br></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/03/迁移hexo/#more" rel="contents">
               阅读全文 &raquo;
@@ -607,7 +605,7 @@
 
       
         
-          <p>我们知道iOS中的frame由x, y, width, height决定的一个个矩形。<br>接下来尝试用一个矩形类来探究如何使用类中的属性和方法。<br>
+          <p>&#x6211;&#x4EEC;&#x77E5;&#x9053;iOS&#x4E2D;&#x7684;frame&#x7531;x, y, width, height&#x51B3;&#x5B9A;&#x7684;&#x4E00;&#x4E2A;&#x4E2A;&#x77E9;&#x5F62;&#x3002;<br>&#x63A5;&#x4E0B;&#x6765;&#x5C1D;&#x8BD5;&#x7528;&#x4E00;&#x4E2A;&#x77E9;&#x5F62;&#x7C7B;&#x6765;&#x63A2;&#x7A76;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x7C7B;&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;&#x3002;<br></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/16/Objective-C：类的属性和方法/#more" rel="contents">
               阅读全文 &raquo;
@@ -729,7 +727,7 @@
 
       
         
-          <p>本文是在阅读<code>Objective-C程序设计  第6版</code>一书过程中写的学习笔记，文中出现的大部分代码基本与书中相同。<br>
+          <p>&#x672C;&#x6587;&#x662F;&#x5728;&#x9605;&#x8BFB;<code>Objective-C&#x7A0B;&#x5E8F;&#x8BBE;&#x8BA1;  &#x7B2C;6&#x7248;</code>&#x4E00;&#x4E66;&#x8FC7;&#x7A0B;&#x4E2D;&#x5199;&#x7684;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;&#xFF0C;&#x6587;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x5927;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x57FA;&#x672C;&#x4E0E;&#x4E66;&#x4E2D;&#x76F8;&#x540C;&#x3002;<br></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/14/iOS基础：类、对象和方法/#more" rel="contents">
               阅读全文 &raquo;
@@ -851,7 +849,7 @@
 
       
         
-          <p>GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。<br>
+          <p>GCD&#x662F;&#x8001;&#x751F;&#x5E38;&#x8C08;&#x4E86;&#xFF0C;&#x4E0D;&#x8FC7;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x65B0;&#x624B;&#x8FD9;&#x4E2A;&#x57FA;&#x7840;&#x4E43;&#x662F;&#x91CD;&#x4E2D;&#x4E4B;&#x91CD;&#xFF0C;&#x5149;&#x770B;&#x4ED6;&#x4EBA;&#x7684;blog&#x603B;&#x662F;&#x96BE;&#x4EE5;&#x6D88;&#x5316;&#xFF0C;&#x56E0;&#x6B64;&#x81EA;&#x5DF1;&#x505A;&#x4E9B;&#x7B14;&#x8BB0;&#x603B;&#x7ED3;&#x5B9E;&#x9A8C;&#x4E00;&#x4E0B;&#xFF0C;&#x5982;&#x6709;&#x504F;&#x5DEE;&#x8FD8;&#x671B;&#x6307;&#x6B63;&#x3002;<br></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/11/理解GCD原理/#more" rel="contents">
               阅读全文 &raquo;
@@ -973,8 +971,8 @@
 
       
         
-          <p>经过两次面试更加清楚地认识到，面试“绝对”没有运气的成分，所有结果都是平时积累的爆发。<br>做的项目也算是不少，Java，Web，iOS均有实际项目开发上线经验，为什么面试如此失败呢？<br>反省自身，开发时只求结果只求进度，却没有去深究原理，虽则有良好的编程习惯，项目表面上良好地运行，终究也只不过是码农而已，离工程师相去甚远。</p>
-<p><strong>Stay hungry. Stay foolish.</strong><br>
+          <p>&#x7ECF;&#x8FC7;&#x4E24;&#x6B21;&#x9762;&#x8BD5;&#x66F4;&#x52A0;&#x6E05;&#x695A;&#x5730;&#x8BA4;&#x8BC6;&#x5230;&#xFF0C;&#x9762;&#x8BD5;&#x201C;&#x7EDD;&#x5BF9;&#x201D;&#x6CA1;&#x6709;&#x8FD0;&#x6C14;&#x7684;&#x6210;&#x5206;&#xFF0C;&#x6240;&#x6709;&#x7ED3;&#x679C;&#x90FD;&#x662F;&#x5E73;&#x65F6;&#x79EF;&#x7D2F;&#x7684;&#x7206;&#x53D1;&#x3002;<br>&#x505A;&#x7684;&#x9879;&#x76EE;&#x4E5F;&#x7B97;&#x662F;&#x4E0D;&#x5C11;&#xFF0C;Java&#xFF0C;Web&#xFF0C;iOS&#x5747;&#x6709;&#x5B9E;&#x9645;&#x9879;&#x76EE;&#x5F00;&#x53D1;&#x4E0A;&#x7EBF;&#x7ECF;&#x9A8C;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x9762;&#x8BD5;&#x5982;&#x6B64;&#x5931;&#x8D25;&#x5462;&#xFF1F;<br>&#x53CD;&#x7701;&#x81EA;&#x8EAB;&#xFF0C;&#x5F00;&#x53D1;&#x65F6;&#x53EA;&#x6C42;&#x7ED3;&#x679C;&#x53EA;&#x6C42;&#x8FDB;&#x5EA6;&#xFF0C;&#x5374;&#x6CA1;&#x6709;&#x53BB;&#x6DF1;&#x7A76;&#x539F;&#x7406;&#xFF0C;&#x867D;&#x5219;&#x6709;&#x826F;&#x597D;&#x7684;&#x7F16;&#x7A0B;&#x4E60;&#x60EF;&#xFF0C;&#x9879;&#x76EE;&#x8868;&#x9762;&#x4E0A;&#x826F;&#x597D;&#x5730;&#x8FD0;&#x884C;&#xFF0C;&#x7EC8;&#x7A76;&#x4E5F;&#x53EA;&#x4E0D;&#x8FC7;&#x662F;&#x7801;&#x519C;&#x800C;&#x5DF2;&#xFF0C;&#x79BB;&#x5DE5;&#x7A0B;&#x5E08;&#x76F8;&#x53BB;&#x751A;&#x8FDC;&#x3002;</p>
+<p><strong>Stay hungry. Stay foolish.</strong><br></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/10/iOS学习计划/#more" rel="contents">
               阅读全文 &raquo;
@@ -1097,7 +1095,7 @@
       
         
           
-            <p>回想大学四年荒废了太多时间，看似忙碌，总是在一些虚名浮利间浪费光阴，悔之不及。<br>不过努力是从什么时候开始都不晚的，就从现在开始吧。</p>
+            <p>&#x56DE;&#x60F3;&#x5927;&#x5B66;&#x56DB;&#x5E74;&#x8352;&#x5E9F;&#x4E86;&#x592A;&#x591A;&#x65F6;&#x95F4;&#xFF0C;&#x770B;&#x4F3C;&#x5FD9;&#x788C;&#xFF0C;&#x603B;&#x662F;&#x5728;&#x4E00;&#x4E9B;&#x865A;&#x540D;&#x6D6E;&#x5229;&#x95F4;&#x6D6A;&#x8D39;&#x5149;&#x9634;&#xFF0C;&#x6094;&#x4E4B;&#x4E0D;&#x53CA;&#x3002;<br>&#x4E0D;&#x8FC7;&#x52AA;&#x529B;&#x662F;&#x4ECE;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x5F00;&#x59CB;&#x90FD;&#x4E0D;&#x665A;&#x7684;&#xFF0C;&#x5C31;&#x4ECE;&#x73B0;&#x5728;&#x5F00;&#x59CB;&#x5427;&#x3002;</p>
 
           
         

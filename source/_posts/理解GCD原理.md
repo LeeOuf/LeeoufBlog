@@ -11,7 +11,7 @@ tags:
 GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。
 <!-- more -->
 
-## 前提
+# 前提
 1. 代码是顺序执行的。
 2. queue是FIFO（先进先出）的数据结构。
 3. 线程之间是并行的。
@@ -21,8 +21,8 @@ GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重�
 7. `void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);`：将任务放到队列中，异步执行，也就是说在`其他线程`中执行任务，`不阻塞当前线程`。（在下文的推演中，发现其并不总是在`其他线程`中执行）
 （p.s. 在实际推演和API中，发现6、7两条中对于线程的描述均是错误的，block在哪个线程中运行取决于queue）
 
-## 验证
-### 1. 代码是顺序执行的。
+# 验证
+## 1. 代码是顺序执行的。
 ```
     NSLog(@"step0");
     NSLog(@"step1");
@@ -34,11 +34,11 @@ GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重�
 ```
 可以看到确实是顺序执行的（严肃脸）。
 
-### 2. queue是FIFO（先进先出）的数据结构。
+## 2. queue是FIFO（先进先出）的数据结构。
 
-### 3. 线程之间是并行的。
+## 3. 线程之间是并行的。
 
-### 4. `串行队列`：任务`不能同时进行`，这意味着第n+1个任务必须等待0...n个任务全部完成后才会开始。
+## 4. `串行队列`：任务`不能同时进行`，这意味着第n+1个任务必须等待0...n个任务全部完成后才会开始。
 首先来看什么是`DISPATCH_QUEUE_SERIAL`。
 ```
     /*!
@@ -73,7 +73,7 @@ GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重�
 ```
 可以看到1大类中的三个任务顺序执行。
 
-### 5. `并发队列`：任务`可以同时进行`，这意味着只要0...n个任务开始执行，那么第n+1个任务也可以开始。
+## 5. `并发队列`：任务`可以同时进行`，这意味着只要0...n个任务开始执行，那么第n+1个任务也可以开始。
 ```
     dispatch_queue_t queue = dispatch_queue_create("cn.edu.bjtu.myQueue", DISPATCH_QUEUE_CONCURRENT);
     
@@ -98,8 +98,8 @@ GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重�
 ```
 可以看到1大类中的三个任务同时执行。
 
-### 6. `void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);`：将任务（也就是block）放到队列中，同步执行，也就是说在`当前线程`中执行任务，`阻塞当前线程`。
-#### dispatch_sync任务到其它串行队列中。
+## 6. `void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);`：将任务（也就是block）放到队列中，同步执行，也就是说在`当前线程`中执行任务，`阻塞当前线程`。
+### dispatch_sync任务到其它串行队列中。
 
 ```
     dispatch_queue_t queue = dispatch_queue_create("cn.edu.bjtu.myQueue", DISPATCH_QUEUE_SERIAL);
@@ -122,7 +122,7 @@ GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重�
 ```
 block1处于用于用户自定义串行队列中，由当前线程（主线程）执行，阻塞主线程，step2必须等待block1返回后方可开始执行。
 
-#### dispatch_sync任务到当前串行队列中。
+### dispatch_sync任务到当前串行队列中。
 
 ```
     dispatch_queue_t queue = dispatch_get_main_queue();
@@ -144,7 +144,7 @@ block1处于用于用户自定义串行队列中，由当前线程（主线程�
 整体为主队列中的block0，执行完step0后等待block1返回，然后才可执行step2；同时block1插入主队列，阻塞主线程，此时主队列中还有未完成的任务block0，因此block1开始等待block1完成。
 至此，block0与block1循环等待，死锁。
 
-#### dispatch_sync任务到其它并发队列中。
+### dispatch_sync任务到其它并发队列中。
 
 ```
     dispatch_queue_t queue = dispatch_queue_create("cn.edu.bjtu.myQueue", DISPATCH_QUEUE_CONCURRENT);
@@ -213,8 +213,8 @@ dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);
 - 参数queue － block任务提交的目标队列；如果传递进来的queue为NULL，返回结果为undefined。
 - 参数block － 将要在目标队列中执行的任务；如果传递进来的block为NULL，返回结果为undedined。
 
-### 7. `void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);`：将任务放到队列中，异步执行，也就是说在`其他线程`中执行任务，`不阻塞当前线程`。
-#### dispatch_async任务到其它串行队列中。
+## 7. `void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);`：将任务放到队列中，异步执行，也就是说在`其他线程`中执行任务，`不阻塞当前线程`。
+### dispatch_async任务到其它串行队列中。
 
 ```
     dispatch_queue_t queue = dispatch_queue_create("cn.edu.bjtu.myQueue", DISPATCH_QUEUE_SERIAL);
@@ -238,7 +238,7 @@ dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);
 执行顺序为step0 -> step1 -> step2，step1在其它线程上执行，注意step2与step0时差2秒，step1与step0时差1秒，也就是说step1与step2并行。
 程序运行到step0，step1插入用户自定义串行队列，在其它线程执行，不阻塞当前线程（主线程），并立即返回，于是step2开始执行。
 
-#### dispatch_async任务到当前串行队列中。
+### dispatch_async任务到当前串行队列中。
 
 ```
     dispatch_queue_t queue = dispatch_get_main_queue();
@@ -262,7 +262,7 @@ dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);
 执行顺序为step0 -> step2 -> step1，step1在主线程上执行（这与我们猜想的新开线程不一致，说明我们的猜想错了，至于为什么，先放一放，后面再说），从执行时间来看任务是串行执行的。
 执行完step0，step1插入主队列，不阻塞当前线程（主线程）并立即返回，开始执行step2，但是block1却必须等待block0执行完毕，因此step1在step2结束后开始执行。
 
-#### dispatch_async任务到其他并发队列中。
+### dispatch_async任务到其他并发队列中。
 已经在5. xxx中实验过，3个任务在3个不同的线程上异步执行。
 
 **总结**

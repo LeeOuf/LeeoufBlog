@@ -14,7 +14,7 @@ tags:
 
 制定一个学习和复习的计划，目的是重新扎实基础，了解“正确开发”的本质和原因，督促自己阅读源码，耐心动手实践。
 
-## 罗列计划要看的书(划去的书已通读一遍)：
+# 罗列计划要看的书(划去的书已通读一遍)：
 
 **程序设计基础**
 数据结构与算法分析：C语言描述+中文版
@@ -36,86 +36,85 @@ Objective-C编程之道：IOS设计模式解析
 Objective-C高级编程 iOS与OS X多线程和内存管理
 Effective Objective-C 2.0  编写高质量iOS与OS X代码的52个有效方法
 
-## 罗列必须要看的API：
+# 罗列必须要看的API：
 [Apple Open Source](http://opensource.apple.com)
 [API Reference](https://developer.apple.com/reference/)
 [Guides and Sample Code](https://developer.apple.com/library/prerelease/content/navigation/)
 [Swift开源](https://swift.org/download/#using-downloads)
 
-## 罗列有价值的教程：
+# 罗列有价值的教程：
 [斯坦福公开课：iOS 7应用开发](http://open.163.com/movie/2014/1/M/7/M9H7S9F1H_M9H7TMJM7.html)
 
-## 罗列有价值的Blog：
+# 罗列有价值的Blog：
 [@唐巧](http://blog.devtang.com)
 [@sunnyxx](http://blog.sunnyxx.com)
 [@ibireme](http://blog.ibireme.com)
 
-## 罗列必须要研究到清楚明白的知识点：
-### **基础 － 对象**
+# 罗列必须要研究到清楚明白的知识点：
+## **基础 － 对象**
 
-### **基础 － 类**
+## **基础 － 类**
 
-### **基础 － 方法**
+## **基础 － 方法**
 
-### 内存 － 堆
+## 内存 － 堆
 
-### 内存 － 栈
+## 内存 － 栈
 
-### 内存 － 指针
+## 内存 － 指针
 
-### 内存 － 进程
+## 内存 － 进程
 
-### 内存 － 线程
+## 内存 － 线程
 
-### 内存 － MRC
+## 内存 － MRC
 
-### 内存 － ARC
+## 内存 － ARC
 
-### **多线程 － GCD**
+## **多线程 － GCD**
 
-### 多线程 － NSOperationQueue
+## 多线程 － NSOperationQueue
 
-### 多线程 － 锁
+## 多线程 － 锁
 
-### RunLoop
+## RunLoop
 
-### Runtime & isa
+## Runtime & isa
 
-### block
+## block
 
-### Delegate
+## Delegate
 
-### 设计模式 － 单例
+## 设计模式 － 单例
 
-### 设计模式 － 代理
+## 设计模式 － 代理
 
-### 设计模式 － 观察者
+## 设计模式 － 观察者
 
-### 架构 － MVC
+## 架构 － MVC
 
-### JSON解析
+## JSON解析
 
-### 网络 － NSURLConnection
+## 网络 － NSURLConnection
 
-### 网络 － AFNetworking
+## 网络 － AFNetworking
 
-### 网络 － SDWebImage
+## 网络 － SDWebImage
 
-### UI － UIResponder
+## UI － UIResponder
 
-### UI － UIView
+## UI － UIView
 
-### UI － UIControl
+## UI － UIControl
 
-### UI － ScrollView
+## UI － UIScrollView
 
-### UI － TableView
+## UI － TableView
 
-### UI － CollectionView
+## UI － CollectionView
 
-### UI － 自定义视图
+## UI － 自定义视图
 
-### UI － CALayer
+## UI － CALayer
 
-### UI － CAAnimation
-
+## UI － CAAnimation
