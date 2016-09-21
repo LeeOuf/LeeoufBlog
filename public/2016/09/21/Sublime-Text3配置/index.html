@@ -1,0 +1,697 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="开发环境配置,Sublime Text," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x5FEB;&amp;#x6377;&amp;#x952E;&amp;#xFF08;Eclipse&amp;#x98CE;&amp;#x683C;&amp;#xFF09;Sublime Text -&amp;gt; Preferences -&amp;gt; Key Bindings - User123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sublime Text3配置">
+<meta property="og:url" content="https://LeeOuf.github.io/2016/09/21/Sublime-Text3配置/index.html">
+<meta property="og:site_name" content="LeeOuf's Blog">
+<meta property="og:description" content="&amp;#x5FEB;&amp;#x6377;&amp;#x952E;&amp;#xFF08;Eclipse&amp;#x98CE;&amp;#x683C;&amp;#xFF09;Sublime Text -&amp;gt; Preferences -&amp;gt; Key Bindings - User123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+<meta property="og:updated_time" content="2016-09-21T03:16:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sublime Text3配置">
+<meta name="twitter:description" content="&amp;#x5FEB;&amp;#x6377;&amp;#x952E;&amp;#xFF08;Eclipse&amp;#x98CE;&amp;#x683C;&amp;#xFF09;Sublime Text -&amp;gt; Preferences -&amp;gt; Key Bindings - User123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <title> Sublime Text3配置 | LeeOuf's Blog </title>
+  <!-- <script type="text/javascript">
+    (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+    })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+    
+    _st('install','fJ4RztWwYeg1bSWfz3x1','2.0.0');
+  </script> -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd5f13bbcbc196ab6b286b6774bf922a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeeOuf's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Coding time.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hourglass-half"></i> <br />
+            
+            时间线
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-essay">
+          <a href="/categories/essay" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-pagelines"></i> <br />
+            
+            随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ios">
+          <a href="/categories/ios" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-apple"></i> <br />
+            
+            iOS
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Sublime Text3配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T11:09:54+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/开发环境配置/" itemprop="url" rel="index">
+                    <span itemprop="name">开发环境配置</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/21/Sublime-Text3配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/Sublime-Text3配置/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;"><a href="#&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;" class="headerlink" title="&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;"></a>&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;</h1><p>Sublime Text -&gt; Preferences -&gt; Key Bindings - User<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">[ // &#x4EE3;&#x7801;&#x683C;&#x5F0F;&#x5316;</div><div class="line">    { &quot;keys&quot;: [&quot;command+r&quot;], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: { &quot;target&quot;: &quot;browser&quot;} },</div><div class="line">    {</div><div class="line">        &quot;keys&quot;: [&quot;alt+shift+f&quot;],</div><div class="line">        &quot;command&quot;: &quot;reindent&quot;</div><div class="line">    },</div><div class="line">/**</div><div class="line">     * &#x9002;&#x914D;eclipse&#x5FEB;&#x6377;&#x952E;</div><div class="line">     *</div><div class="line">     * &#x4E0B;&#x9762;&#x8FD9;&#x4F4D;&#x4EC1;&#x5144;&#x65E9;&#x5C31;&#x6709;&#x4E86;&#x8FD9;&#x4E2A;&#x60F3;&#x6CD5;</div><div class="line">     * Eclipse shortcuts for Sublime Text 2</div><div class="line">     * http://icoloma.blogspot.com/2011/10/eclipse-shortcuts-for-sublime-text-2.html</div><div class="line">     */</div><div class="line">    { &quot;keys&quot;: [&quot;alt+/&quot;], &quot;command&quot;: &quot;auto_complete&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+i&quot;], &quot;command&quot;: &quot;reindent&quot; },</div><div class="line">    // &#x5F53;&#x524D;&#x884C;&#x548C;&#x4E0B;&#x9762;&#x4E00;&#x884C;&#x4EA4;&#x4E92;&#x4F4D;&#x7F6E;</div><div class="line">    { &quot;keys&quot;: [&quot;alt+up&quot;], &quot;command&quot;: &quot;swap_line_up&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;alt+down&quot;], &quot;command&quot;: &quot;swap_line_down&quot; },</div><div class="line">    // &#x590D;&#x5236;&#x5F53;&#x524D;&#x884C;&#x5230;&#x4E0A;&#x4E00;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+alt+up&quot;], &quot;command&quot;: &quot;duplicate_line&quot; },</div><div class="line">    // &#x590D;&#x5236;&#x5F53;&#x524D;&#x884C;&#x5230;&#x4E0B;&#x4E00;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+alt+down&quot;], &quot;command&quot;: &quot;duplicate_line&quot; },</div><div class="line">    // &#x5220;&#x9664;&#x6574;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+d&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: {&quot;file&quot;: &quot;Packages/Default/Delete Line.sublime-macro&quot;} },</div><div class="line">    // &#x5149;&#x6807;&#x79FB;&#x52A8;&#x5230;&#x6307;&#x5B9A;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+l&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;:&quot;} },</div><div class="line">    // &#x5FEB;&#x901F;&#x5B9A;&#x4F4D;&#x5230;&#x9009;&#x4E2D;&#x7684;&#x6587;&#x5B57;</div><div class="line">    { &quot;keys&quot;: [&quot;command+k&quot;], &quot;command&quot;: &quot;find_under_expand_skip&quot; },</div><div class="line">    // { &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;swap_case&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;upper_case&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+y&quot;], &quot;command&quot;: &quot;lower_case&quot; },</div><div class="line">    // &#x5728;&#x5F53;&#x524D;&#x884C;&#x7684;&#x4E0B;&#x4E00;&#x884C;&#x63D2;&#x5165;&#x7A7A;&#x884C;(&#x8FD9;&#x65F6;&#x9F20;&#x6807;&#x53EF;&#x4EE5;&#x5728;&#x5F53;&#x524D;&#x884C;&#x7684;&#x4EFB;&#x4E00;&#x4F4D;&#x7F6E;, &#x4E0D;&#x4E00;&#x5B9A;&#x662F;&#x6700;&#x540E;)</div><div class="line">    { &quot;keys&quot;: [&quot;shift+enter&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: {&quot;file&quot;: &quot;Packages/Default/Add Line.sublime-macro&quot;} },</div><div class="line">    // &#x5B9A;&#x4F4D;&#x5230;&#x5BF9;&#x4E8E;&#x7684;&#x5339;&#x914D;&#x7B26;(&#x8B6C;&#x5982;{})(&#x4ECE;&#x524D;&#x9762;&#x5B9A;&#x4F4D;&#x540E;&#x9762;&#x65F6;,&#x5149;&#x6807;&#x8981;&#x5728;&#x5339;&#x914D;&#x7B26;&#x91CC;&#x9762;,&#x540E;&#x9762;&#x5230;&#x524D;&#x9762;,&#x5219;&#x53CD;&#x4E4B;)</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+p&quot;], &quot;command&quot;: &quot;move_to&quot;, &quot;args&quot;: {&quot;to&quot;: &quot;brackets&quot;} },</div><div class="line">    // &#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;&#x7684;&#x662F;command+shift+p</div><div class="line">    { &quot;keys&quot;: [&quot;command+p&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;command_palette&quot;} },</div><div class="line">    // outline</div><div class="line">    { &quot;keys&quot;: [&quot;command+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;@&quot;} },</div><div class="line">    // &#x5F53;&#x524D;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5173;&#x952E;&#x5B57;(&#x65B9;&#x4FBF;&#x5FEB;&#x901F;&#x67E5;&#x627E;&#x5185;&#x5BB9;)</div><div class="line">    { &quot;keys&quot;: [&quot;command+alt+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;#&quot;} },</div><div class="line">    // open resource</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+r&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;show_files&quot;: true} },</div><div class="line">    // &#x6587;&#x4EF6;&#x5185;&#x67E5;&#x627E;/&#x66FF;&#x6362;</div><div class="line">    { &quot;keys&quot;: [&quot;command+f&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: {&quot;panel&quot;: &quot;replace&quot;} },</div><div class="line">    // &#x5168;&#x5C40;&#x67E5;&#x627E;/&#x66FF;&#x6362;, &#x5728;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x4E2D;&#x53CC;&#x51FB;&#x8DF3;&#x8F6C;&#x5230;&#x5339;&#x914D;&#x4F4D;&#x7F6E;</div><div class="line">    {&quot;keys&quot;: [&quot;command+h&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: {&quot;panel&quot;: &quot;find_in_files&quot;} },</div><div class="line"> </div><div class="line">    // plugin&#x914D;&#x7F6E;</div><div class="line">    { &quot;keys&quot;: [&quot;alt+a&quot;], &quot;command&quot;: &quot;alignment&quot; },</div><div class="line">    {&quot;keys&quot;: [&quot;command+shift+f&quot;], &quot;command&quot;: &quot;js_format&quot;}</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h1 id="Color-Scheme"><a href="#Color-Scheme" class="headerlink" title="Color Scheme"></a>Color Scheme</h1><p>Monokai</p>
+<h1 id="Package-Control"><a href="#Package-Control" class="headerlink" title="Package Control"></a>Package Control</h1><p>&#x5B89;&#x88C5;&#x65B9;&#x6CD5;&#x5404;&#x7248;&#x672C;&#x4E0D;&#x540C;&#xFF0C;&#x4EE5;&#x6700;&#x65B0;&#x641C;&#x7D22;&#x7ED3;&#x679C;&#x4E3A;&#x51C6;&#x3002;</p>
+<h2 id="&#x5E38;&#x7528;&#x63D2;&#x4EF6;"><a href="#&#x5E38;&#x7528;&#x63D2;&#x4EF6;" class="headerlink" title="&#x5E38;&#x7528;&#x63D2;&#x4EF6;"></a>&#x5E38;&#x7528;&#x63D2;&#x4EF6;</h2><p>Markdown Preview<br>Markdown Editing</p>
+<h1 id="&#x6FC0;&#x6D3B;"><a href="#&#x6FC0;&#x6D3B;" class="headerlink" title="&#x6FC0;&#x6D3B;"></a>&#x6FC0;&#x6D3B;</h1><p>&#x539F;&#x5219;&#x4E0A;&#x652F;&#x6301;&#x6B63;&#x7248;XD&#x3002;</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/开发环境配置/" rel="tag">#开发环境配置</a>
+          
+            <a href="/tags/Sublime-Text/" rel="tag">#Sublime Text</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/21/MAC-OS中的Vim-Git-SVN配置/" rel="next" title="MAC OS中的Vim&Git&SVN配置">
+                <i class="fa fa-chevron-left"></i> MAC OS中的Vim&Git&SVN配置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/21/Sublime-Text3配置/"
+           data-title="Sublime Text3配置" data-url="https://LeeOuf.github.io/2016/09/21/Sublime-Text3配置/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="LeeOuf" />
+          <p class="site-author-name" itemprop="name">LeeOuf</p>
+          <p class="site-description motion-element" itemprop="description">人生有时</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3216090377/profile" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/LeeOuf" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/6712857/leeouf?tab=profile" target="_blank" title="Stack Overflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  Stack Overflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快捷键（Eclipse风格）"><span class="nav-number">1.</span> <span class="nav-text">快捷键（Eclipse风格）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Color-Scheme"><span class="nav-number">2.</span> <span class="nav-text">Color Scheme</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Package-Control"><span class="nav-number">3.</span> <span class="nav-text">Package Control</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用插件"><span class="nav-number">3.1.</span> <span class="nav-text">常用插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#激活"><span class="nav-number">4.</span> <span class="nav-text">激活</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeOuf</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"leeouf"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

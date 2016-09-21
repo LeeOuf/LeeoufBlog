@@ -1,0 +1,46 @@
+---
+title: MAC OS中的Vim&Git&SVN配置
+date: 2016-09-21 10:57:19
+categories: 开发环境配置
+tags:
+    - 开发环境配置
+    - bash
+    - Vim
+    - Git
+    - SVN
+---
+# bash
+`vim /etc/profile`，添加如下
+```
+# base
+alias ll="ls -la"
+```
+<!-- more -->
+
+# Vim
+`vim /etc/profile`，添加`export TERM=xterm`。
+
+`vim ~/.vimrc`，配置如下
+```
+syntax on
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+set cindent
+set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s
+
+if &term=="xterm"
+set t_Co=8
+             set t_Sb=^[[4%dm
+set t_Sf=^[[3%dm
+endif
+```
+
+# Git
+## 添加中文支持
+bash中输入`git config --global core.quotepath false`
+
+# SVN
+`vim /etc/profile`，添加`export SVN_EDITOR=vim`。
+全局和局部参数配置用户信息，略。
