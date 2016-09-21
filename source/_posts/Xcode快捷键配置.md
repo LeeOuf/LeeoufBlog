@@ -11,10 +11,10 @@ tags:
 
 Xcode8以后，不再支持plugins，因此之前用来设置快捷键的boost等插件都已失效。
 有一些eclipse带过来的快捷键习惯该如何设置呢？
+<!-- more -->
 
 # 上下移动当前行
 Xcode -> Preference -> Key Bindings -> Move Line Up & Move Line Down
-<!-- more -->
 
 # 复制当前行
 ## 修改权限
