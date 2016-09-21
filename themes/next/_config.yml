@@ -78,7 +78,8 @@ scheme: Mist
 # ---------------------------------------------------------------
 font:
   # 注释此处可以大幅提高网站打开速度
-  enable: true
+  # 目前google字体服务器在北京，但是发现在浙江仍然连接不上，暂时关闭
+  enable: false
 
   # Uri of fonts host. E.g. //fonts.googleapis.com (Default)
   # 360 cdn
