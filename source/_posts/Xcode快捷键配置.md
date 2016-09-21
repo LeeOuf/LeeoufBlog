@@ -1,9 +1,10 @@
 ---
 title: Xcode快捷键配置
 date: 2016-09-21 10:12:12
-categories: Xcode
+categories: 开发环境配置
 tags:
     - 开发环境配置
+    - Xcode
 ---
 部分内容来自：[简书：为Xcode添加删除当前行、复制当前行快捷键](http://www.jianshu.com/p/2ed2c7ac6d53?nomobile=yes) 感谢作者的分享。
 本文仅为记录个人的开发配置。
