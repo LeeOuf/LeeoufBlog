@@ -3,6 +3,7 @@ title: 迁移hexo
 date: 2016-09-03 00:21:26
 categories: 随笔
 tags:
+    - hexo
 ---
 
 Blog托管在github，拉取代码后。

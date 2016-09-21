@@ -3,7 +3,7 @@ title: 'iOS基础: 类、对象和方法'
 date: 2016-08-14 16:15:39
 categories: iOS
 tags:
-    - Objective-C
+    - iOS
     - 程序设计基础
     - 类
     - 对象
