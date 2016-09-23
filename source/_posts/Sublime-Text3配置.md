@@ -8,7 +8,6 @@ tags:
 ---
 # 快捷键（Eclipse风格）
 Sublime Text -> Preferences -> Key Bindings - User
-<!-- more -->
 ```
 [ // 代码格式化
     { "keys": ["command+r"], "command": "markdown_preview", "args": { "target": "browser"} },

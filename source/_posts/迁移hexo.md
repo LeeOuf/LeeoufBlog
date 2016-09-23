@@ -13,7 +13,6 @@ Blog托管在github，拉取代码后。
 - 安装server，`sudo npm install hexo-server`
 
 如发生github pages init错误，删除.deploy_git文件
-<!-- more -->
 
 theme中配置`_config.yml`文件，将被墙资源改为cdn资源。
 另外，360前端cdn资源已经不再提供服务，Google资源服务器已经回到北京，不再需要通过镜像或反向代理等方法获取fonts和jQuery。

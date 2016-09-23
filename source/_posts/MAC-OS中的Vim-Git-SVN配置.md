@@ -15,7 +15,6 @@ tags:
 # base
 alias ll="ls -la"
 ```
-<!-- more -->
 
 # Vim
 `vim /etc/profile`，添加`export TERM=xterm`。
@@ -39,7 +38,7 @@ endif
 
 # Git
 ## 添加中文支持
-bash中输入`git config --global core.quotepath false`
+bash中输入`git config --global core.quotepath false`（已使用UTF-8字符集）。
 
 # SVN
 `vim /etc/profile`，添加`export SVN_EDITOR=vim`。
