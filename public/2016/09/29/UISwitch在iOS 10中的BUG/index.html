@@ -1,0 +1,677 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,iOS 10,BUG," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="UISwitchUISwitch&amp;#x662F;UIControl&amp;#x7684;&amp;#x5B50;&amp;#x7C7B;&amp;#xFF0C;&amp;#x5B9A;&amp;#x4E49;&amp;#x5982;&amp;#x4E0B;&amp;#xFF1A;1234567891011121314151617181920212223242526#import &amp;lt;Foundation/Foundation.h&amp;gt;#import &amp;lt;C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UISwitch在iOS 10中的BUG">
+<meta property="og:url" content="https://LeeOuf.github.io/2016/09/29/UISwitch在iOS 10中的BUG/index.html">
+<meta property="og:site_name" content="LeeOuf's Blog">
+<meta property="og:description" content="UISwitchUISwitch&amp;#x662F;UIControl&amp;#x7684;&amp;#x5B50;&amp;#x7C7B;&amp;#xFF0C;&amp;#x5B9A;&amp;#x4E49;&amp;#x5982;&amp;#x4E0B;&amp;#xFF1A;1234567891011121314151617181920212223242526#import &amp;lt;Foundation/Foundation.h&amp;gt;#import &amp;lt;C">
+<meta property="og:updated_time" content="2016-09-29T05:52:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UISwitch在iOS 10中的BUG">
+<meta name="twitter:description" content="UISwitchUISwitch&amp;#x662F;UIControl&amp;#x7684;&amp;#x5B50;&amp;#x7C7B;&amp;#xFF0C;&amp;#x5B9A;&amp;#x4E49;&amp;#x5982;&amp;#x4E0B;&amp;#xFF1A;1234567891011121314151617181920212223242526#import &amp;lt;Foundation/Foundation.h&amp;gt;#import &amp;lt;C">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <title> UISwitch在iOS 10中的BUG | LeeOuf's Blog </title>
+  <!-- <script type="text/javascript">
+    (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+    })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+    
+    _st('install','fJ4RztWwYeg1bSWfz3x1','2.0.0');
+  </script> -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd5f13bbcbc196ab6b286b6774bf922a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeeOuf's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Coding time.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hourglass-half"></i> <br />
+            
+            时间线
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-essay">
+          <a href="/categories/essay" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-pagelines"></i> <br />
+            
+            随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ios">
+          <a href="/categories/ios" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-apple"></i> <br />
+            
+            iOS
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                UISwitch在iOS 10中的BUG
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-29T13:31:22+08:00" content="2016-09-29">
+              2016-09-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ios/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/29/UISwitch在iOS 10中的BUG/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/29/UISwitch在iOS 10中的BUG/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="UISwitch"><a href="#UISwitch" class="headerlink" title="UISwitch"></a>UISwitch</h1><p>UISwitch&#x662F;UIControl&#x7684;&#x5B50;&#x7C7B;&#xFF0C;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line">#import &lt;CoreGraphics/CoreGraphics.h&gt;</div><div class="line">#import &lt;UIKit/UIControl.h&gt;</div><div class="line">#import &lt;UIKit/UIKitDefines.h&gt;</div><div class="line"></div><div class="line">NS_ASSUME_NONNULL_BEGIN</div><div class="line"></div><div class="line">NS_CLASS_AVAILABLE_IOS(2_0) __TVOS_PROHIBITED @interface UISwitch : UIControl &lt;NSCoding&gt;</div><div class="line"></div><div class="line">@property(nullable, nonatomic, strong) UIColor *onTintColor NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;</div><div class="line">@property(null_resettable, nonatomic, strong) UIColor *tintColor NS_AVAILABLE_IOS(6_0);</div><div class="line">@property(nullable, nonatomic, strong) UIColor *thumbTintColor NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</div><div class="line"></div><div class="line">@property(nullable, nonatomic, strong) UIImage *onImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</div><div class="line">@property(nullable, nonatomic, strong) UIImage *offImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</div><div class="line"></div><div class="line">@property(nonatomic,getter=isOn) BOOL on;</div><div class="line"></div><div class="line">- (instancetype)initWithFrame:(CGRect)frame NS_DESIGNATED_INITIALIZER;      // This class enforces a size appropriate for the control, and so the frame size is ignored.</div><div class="line">- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;</div><div class="line"></div><div class="line">- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">NS_ASSUME_NONNULL_END</div></pre></td></tr></table></figure></p>
+<p>&#x65B9;&#x6CD5;&#x5B9A;&#x4E49;&#x4E2D;&#x6709;&#x4E00;&#x4E2A;<code>- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action</code>&#xFF0C;&#x5982;&#x6CE8;&#x91CA;&#x6240;&#x8BF4;&#x4E0D;&#x53D1;&#x9001;action&#x3002;</p>
+<h1 id="iOS-9&#x4E0B;&#x8868;&#x73B0;"><a href="#iOS-9&#x4E0B;&#x8868;&#x73B0;" class="headerlink" title="iOS 9&#x4E0B;&#x8868;&#x73B0;"></a>iOS 9&#x4E0B;&#x8868;&#x73B0;</h1><p>&#x63A5;&#x4E0B;&#x6765;&#x5728;iOS 9&#x4E2D;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line"></div><div class="line">@interface ViewController ()</div><div class="line"></div><div class="line">@property (nonatomic, strong) UISwitch *lkSwitch;</div><div class="line">@property (nonatomic, strong) UISwitch *lkSwitch1;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line"></div><div class="line">- (void)viewDidLoad {</div><div class="line">    [super viewDidLoad];</div><div class="line">    </div><div class="line">    _lkSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(50, 100, 50, 31)];</div><div class="line">    [_lkSwitch addTarget:self action:@selector(onSwitch:) forControlEvents:UIControlEventValueChanged];</div><div class="line">    [self.view addSubview:_lkSwitch];</div><div class="line">    </div><div class="line">    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(50, 150, 50, 31)];</div><div class="line">    [button addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    button.backgroundColor = [UIColor redColor];</div><div class="line">    [self.view addSubview:button];</div><div class="line">    </div><div class="line">    _lkSwitch1 = [[UISwitch alloc] initWithFrame:CGRectMake(150, 100, 50, 31)];</div><div class="line">    [_lkSwitch1 addTarget:self action:@selector(onSwitch1:) forControlEvents:UIControlEventValueChanged];</div><div class="line">    [self.view addSubview:_lkSwitch1];</div><div class="line">    </div><div class="line">    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(150, 150, 50, 31)];</div><div class="line">    [button1 addTarget:self action:@selector(onButton1:) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    button1.backgroundColor = [UIColor redColor];</div><div class="line">    [self.view addSubview:button1];</div><div class="line">}</div><div class="line"></div><div class="line">- (void)onSwitch:(UISwitch *)sender {</div><div class="line">    [sender setOn:!sender.isOn];</div><div class="line">}</div><div class="line"></div><div class="line">- (void)onButton:(UIButton *)sender {</div><div class="line">    [_lkSwitch setOn:!_lkSwitch.isOn];</div><div class="line">}</div><div class="line"></div><div class="line">- (void)onSwitch1:(UISwitch *)sender {</div><div class="line">    [sender setOn:!sender.isOn animated:YES];</div><div class="line">}</div><div class="line"></div><div class="line">- (void)onButton1:(UIButton *)sender {</div><div class="line">    [_lkSwitch1 setOn:!_lkSwitch1.isOn animated:YES];</div><div class="line">}</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure></p>
+<p>&#x9A8C;&#x8BC1;&#x7ED3;&#x679C;&#xFF1A;&#x65E0;&#x8BBA;&#x662F;<code>setOn</code>&#x65B9;&#x6CD5;&#x8FD8;&#x662F;<code>setOn:_animated:_</code>&#x65B9;&#x6CD5;&#xFF0C;&#x90FD;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;<code>onSwitch</code>&#x3002;</p>
+<h1 id="iOS-10&#x4E0B;&#x8868;&#x73B0;"><a href="#iOS-10&#x4E0B;&#x8868;&#x73B0;" class="headerlink" title="iOS 10&#x4E0B;&#x8868;&#x73B0;"></a>iOS 10&#x4E0B;&#x8868;&#x73B0;</h1><p>&#x7136;&#x800C;&#xFF0C;&#x5728;iOS 10&#x4E2D;&#xFF0C;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x663E;&#x793A;&#xFF0C;&#x5728;<code>onSwitch</code>&#x65B9;&#x6CD5;&#x4E2D;&#x8C03;&#x7528;<code>setOn</code>&#x6216;<code>setOn:_animated:_</code>&#xFF0C;&#x5747;&#x4F1A;&#x518D;&#x6B21;&#x89E6;&#x53D1;<code>onSwitch</code>&#x3002;</p>
+<h1 id="&#x7ED3;&#x8BBA;"><a href="#&#x7ED3;&#x8BBA;" class="headerlink" title="&#x7ED3;&#x8BBA;"></a>&#x7ED3;&#x8BBA;</h1><p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;UISwitch&#x4E2D;on&#x5C5E;&#x6027;&#x7684;set&#x65B9;&#x6CD5;&#x5728;iOS 10&#x4E2D;&#x7684;&#x8868;&#x73B0;&#x4E0E;iOS 10&#x4EE5;&#x4E0B;&#x4E0D;&#x540C;&#xFF0C;&#x5982;&#x679C;&#x76D1;&#x542C;&#x4E8B;&#x4EF6;&#x4E3A;<code>UIControlEventValueChanged</code>&#xFF0C;&#x5C06;&#x989D;&#x5916;&#x89E6;&#x53D1;&#x4E00;&#x6B21;action&#xFF08;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x662F;&#x4E0D;&#x505C;&#x5730;&#x6765;&#x56DE;&#x89E6;&#x53D1;&#x76F4;&#x5230;crash&#x5462;&#xFF1F;&#x601D;&#x8003;&#x2026;&#xFF09;&#x3002;</p>
+<h1 id="&#x89E3;&#x51B3;&#x65B9;&#x6848;"><a href="#&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="&#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>&#x89E3;&#x51B3;&#x65B9;&#x6848;</h1><p>&#x5728;action&#x4E2D;&#x9700;&#x8981;&#x6539;&#x53D8;&#x6309;&#x94AE;&#x72B6;&#x6001;&#x65F6;&#xFF0C;&#x5C06;setOn&#x65B9;&#x6CD5;&#x5728;&#x4E3B;&#x961F;&#x5217;&#x4E2D;&#x5F02;&#x6B65;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x66FE;&#x63D0;&#x51FA;&#x53E6;&#x4E00;&#x4E2A;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;XXSwitch&#x7EE7;&#x627F;UISwitch&#xFF0C;&#x91CD;&#x5199;<code>setOn</code>&#x548C;<code>setOn:_animated:_</code>&#x65B9;&#x6CD5;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x6837;&#x5E26;&#x6765;&#x7684;&#x98CE;&#x9669;&#x662F;&#xFF0C;dispatch queue&#x4EE5;&#x540E;&#x7684;&#x8BED;&#x53E5;&#x4F1A;&#x5148;&#x4E8E;<code>setOn</code>&#x6267;&#x884C;&#xFF0C;&#x82E5;&#x6B64;&#x65F6;&#x83B7;&#x53D6;<code>isOn</code>&#xFF0C;&#x5C06;&#x65E0;&#x6CD5;&#x5F97;&#x5230;&#x9884;&#x671F;&#x7684;&#x7ED3;&#x679C;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#x6700;&#x7EC8;&#x51B3;&#x5B9A;&#x5728;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x5C42;&#x5C40;&#x90E8;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x3002;</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/iOS-10/" rel="tag">#iOS 10</a>
+          
+            <a href="/tags/BUG/" rel="tag">#BUG</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/24/2016-10-01旅游计划/" rel="next" title="2016.10.01旅游计划">
+                <i class="fa fa-chevron-left"></i> 2016.10.01旅游计划
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/29/UISwitch在iOS 10中的BUG/"
+           data-title="UISwitch在iOS 10中的BUG" data-url="https://LeeOuf.github.io/2016/09/29/UISwitch在iOS 10中的BUG/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="LeeOuf" />
+          <p class="site-author-name" itemprop="name">LeeOuf</p>
+          <p class="site-description motion-element" itemprop="description">人生有时</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3216090377/profile" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/LeeOuf" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/6712857/leeouf?tab=profile" target="_blank" title="Stack Overflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  Stack Overflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UISwitch"><span class="nav-number">1.</span> <span class="nav-text">UISwitch</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS-9下表现"><span class="nav-number">2.</span> <span class="nav-text">iOS 9下表现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS-10下表现"><span class="nav-number">3.</span> <span class="nav-text">iOS 10下表现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-number">5.</span> <span class="nav-text">解决方案</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeOuf</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"leeouf"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
