@@ -32,7 +32,7 @@ set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s
 
 if &term=="xterm"
 set t_Co=8
-             set t_Sb=^[[4%dm
+set t_Sb=^[[4%dm
 set t_Sf=^[[3%dm
 endif
 ```
@@ -48,6 +48,7 @@ vim ~/.gitconfig
 ```
 [alias]
     co = checkout
+    ad = add 
     aa = add -A
     au = add -u
     ci = commit
