@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://LeeOuf.github.io/2016/09/21/MAC-OS%E4%B8%AD%E7%9A%84Vim-Git-SVN%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2016-10-08T08:58:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://LeeOuf.github.io/2016/09/29/UISwitch%E5%9C%A8iOS%2010%E4%B8%AD%E7%9A%84BUG/</loc>
     
     <lastmod>2016-09-29T05:52:19.000Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>https://LeeOuf.github.io/2016/08/10/iOS%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/</loc>
     
     <lastmod>2016-09-23T06:56:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://LeeOuf.github.io/2016/09/21/MAC-OS%E4%B8%AD%E7%9A%84Vim-Git-SVN%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2016-09-23T06:56:43.000Z</lastmod>
     
   </url>
   

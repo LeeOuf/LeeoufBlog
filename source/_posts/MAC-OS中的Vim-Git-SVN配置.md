@@ -40,6 +40,26 @@ endif
 ## 添加中文支持
 bash中输入`git config --global core.quotepath false`（已使用UTF-8字符集）。
 
+## ignore
+`vim ~/.gitignore_global`
+添加
+```
+*~
+.DS_Store
+xcuserdata
+*.xcuserdatad
+```
+
+p.s.
+删除误提交的xcuserdata
+```
+// -n：加上这个参数，执行命令时，是不会删除任何文件，而是展示此命令要删除的文件列表预览。
+git rm -r -n --cached  */src/\*
+
+// 删除文件的版本控制
+git rm -r --cached  */src/\*      
+```
+
 # SVN
 `vim /etc/profile`，添加`export SVN_EDITOR=vim`。
 全局和局部参数配置用户信息，略。
