@@ -48,14 +48,16 @@ vim ~/.gitconfig
 ```
 [alias]
     co = checkout
+    aa = add -a
+    au = add -u
     ci = commit
+    ca = commit -a
     st = status
     pl = pull
     ps = push
     dt = difftool
     l = log --stat
     cp = cherry-pick
-    ca = commit -a
     b = branch
 ```
 
