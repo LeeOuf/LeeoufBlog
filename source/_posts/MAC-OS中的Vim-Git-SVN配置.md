@@ -19,6 +19,7 @@ alias ll="ls -la"
 # Vim
 `vim /etc/profile`，添加`export TERM=xterm`。
 
+## 样式
 `vim ~/.vimrc`，配置如下
 ```
 syntax on
@@ -36,7 +37,28 @@ set t_Sf=^[[3%dm
 endif
 ```
 
+## 命令
+[vim命令大全](http://www.cnblogs.com/softwaretesting/archive/2011/07/12/2104435.html)
+
 # Git
+## alias
+```
+vim ~/.gitconfig
+```
+```
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    pl = pull
+    ps = push
+    dt = difftool
+    l = log --stat
+    cp = cherry-pick
+    ca = commit -a
+    b = branch
+```
+
 ## 添加中文支持
 bash中输入`git config --global core.quotepath false`（已使用UTF-8字符集）。
 
