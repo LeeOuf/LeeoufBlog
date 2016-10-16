@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://LeeOuf.github.io/tags/index.html</loc>
+    
+    <lastmod>2016-10-16T13:51:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://LeeOuf.github.io/categories/index.html</loc>
+    
+    <lastmod>2016-10-16T13:51:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://LeeOuf.github.io/2016/09/21/Sublime-Text3%E9%85%8D%E7%BD%AE/</loc>
     
-    <lastmod>2016-10-11T06:49:38.000Z</lastmod>
+    <lastmod>2016-10-16T13:02:09.000Z</lastmod>
     
   </url>
   
@@ -89,20 +103,6 @@
     <loc>https://LeeOuf.github.io/2016/08/10/%E5%BC%80%E5%A7%8B/</loc>
     
     <lastmod>2016-09-23T06:48:01.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://LeeOuf.github.io/categories/index.html</loc>
-    
-    <lastmod>2016-09-08T13:33:48.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://LeeOuf.github.io/tags/index.html</loc>
-    
-    <lastmod>2016-09-08T13:33:48.000Z</lastmod>
     
   </url>
   

@@ -18,14 +18,12 @@ Sublime Text -> Preferences -> Key Bindings - User
         "keys": ["alt+shift+f"],
         "command": "reindent"
     },
-
     /**
      * json格式化
      */
     { "keys": ["command+shift+x"], "command": "tidy_xml" },
     { "keys": ["command+shift+j"], "command": "pretty_json" }, 
-    { "keys": [ "ctrl+alt+m" ], "command": "un_pretty_json" },
-
+    { "keys": ["command+shift+m"], "command": "un_pretty_json" },
     /**
      * 适配eclipse快捷键
      */
@@ -77,6 +75,7 @@ Monokai
 Markdown Preview
 Markdown Editing
 [Pretty Json](https://github.com/dzhibas/SublimePrettyJson)
+(也可以在chrome浏览器中安装JSON Formatter插件)
 
 # 激活
 原则上支持正版XD。
