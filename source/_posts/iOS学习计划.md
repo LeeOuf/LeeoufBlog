@@ -29,12 +29,13 @@ tags:
 
 **iOS**
 ~~iOS开发指南~~
+iOS核心开发手册
 Objective-C程序设计  第6版
 精通iOS开发
 iOS开发进阶
 Objective-C基础教程高清中文版（第2版）
 Objective-C编程之道：IOS设计模式解析
-Objective-C高级编程 iOS与OS X多线程和内存管理
+~~Objective-C高级编程 iOS与OS X多线程和内存管理~~
 Effective Objective-C 2.0  编写高质量iOS与OS X代码的52个有效方法
 
 # 罗列必须要看的API：
