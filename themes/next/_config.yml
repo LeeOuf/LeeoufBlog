@@ -362,7 +362,7 @@ fancybox: true
 # Be aware that you should use the same version as internal ones to avoid potential problems.
 vendors:
   # Internal path prefix. Please do not edit it.
-  _internal: vendors
+  _internal: lib
 
   # cdn方式
   # # Internal version: 2.1.3
