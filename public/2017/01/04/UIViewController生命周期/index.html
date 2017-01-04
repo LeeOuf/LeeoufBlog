@@ -42,7 +42,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="leeouf, Leeouf, LeeOuf, iOS, Blog" />
+  <meta name="keywords" content="iOS,UIViewController," />
 
 
 
@@ -58,16 +58,52 @@
 
 
 
-<meta name="description" content="&amp;#x56DE;&amp;#x60F3;&amp;#x5927;&amp;#x5B66;&amp;#x56DB;&amp;#x5E74;&amp;#x8352;&amp;#x5E9F;&amp;#x4E86;&amp;#x592A;&amp;#x591A;&amp;#x65F6;&amp;#x95F4;&amp;#xFF0C;&amp;#x770B;&amp;#x4F3C;&amp;#x5FD9;&amp;#x788C;&amp;#xFF0C;&amp;#x603B;&amp;#x662F;&amp;#x5728;&amp;#x4E00;&amp;#x4E9B;&amp;#x865A;">
+<meta name="description" content="UIViewController&amp;#x751F;&amp;#x547D;&amp;#x5468;&amp;#x671F;
+init
+loadView
+viewDidLoad
+viewWillAppear
+viewWillLayoutSubviews
+viewDidLayoutSubviews
+viewDidAppear
+viewWillDisappear
+viewDidDisappear
+dealloc
+
+UIView">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开始">
-<meta property="og:url" content="https://LeeOuf.github.io/2016/08/10/开始/index.html">
+<meta property="og:title" content="UIViewController生命周期">
+<meta property="og:url" content="https://LeeOuf.github.io/2017/01/04/UIViewController生命周期/index.html">
 <meta property="og:site_name" content="LeeOuf's Blog">
-<meta property="og:description" content="&amp;#x56DE;&amp;#x60F3;&amp;#x5927;&amp;#x5B66;&amp;#x56DB;&amp;#x5E74;&amp;#x8352;&amp;#x5E9F;&amp;#x4E86;&amp;#x592A;&amp;#x591A;&amp;#x65F6;&amp;#x95F4;&amp;#xFF0C;&amp;#x770B;&amp;#x4F3C;&amp;#x5FD9;&amp;#x788C;&amp;#xFF0C;&amp;#x603B;&amp;#x662F;&amp;#x5728;&amp;#x4E00;&amp;#x4E9B;&amp;#x865A;">
-<meta property="og:updated_time" content="2016-12-07T06:43:05.000Z">
+<meta property="og:description" content="UIViewController&amp;#x751F;&amp;#x547D;&amp;#x5468;&amp;#x671F;
+init
+loadView
+viewDidLoad
+viewWillAppear
+viewWillLayoutSubviews
+viewDidLayoutSubviews
+viewDidAppear
+viewWillDisappear
+viewDidDisappear
+dealloc
+
+UIView">
+<meta property="og:updated_time" content="2017-01-04T04:48:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开始">
-<meta name="twitter:description" content="&amp;#x56DE;&amp;#x60F3;&amp;#x5927;&amp;#x5B66;&amp;#x56DB;&amp;#x5E74;&amp;#x8352;&amp;#x5E9F;&amp;#x4E86;&amp;#x592A;&amp;#x591A;&amp;#x65F6;&amp;#x95F4;&amp;#xFF0C;&amp;#x770B;&amp;#x4F3C;&amp;#x5FD9;&amp;#x788C;&amp;#xFF0C;&amp;#x603B;&amp;#x662F;&amp;#x5728;&amp;#x4E00;&amp;#x4E9B;&amp;#x865A;">
+<meta name="twitter:title" content="UIViewController生命周期">
+<meta name="twitter:description" content="UIViewController&amp;#x751F;&amp;#x547D;&amp;#x5468;&amp;#x671F;
+init
+loadView
+viewDidLoad
+viewWillAppear
+viewWillLayoutSubviews
+viewDidLayoutSubviews
+viewDidAppear
+viewWillDisappear
+viewDidDisappear
+dealloc
+
+UIView">
 
 
 
@@ -88,7 +124,7 @@
 
 
 
-  <title> 开始 | LeeOuf's Blog </title>
+  <title> UIViewController生命周期 | LeeOuf's Blog </title>
   <!-- <script type="text/javascript">
     (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
     (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
@@ -256,7 +292,7 @@
             
             
               
-                开始
+                UIViewController生命周期
               
             
           </h1>
@@ -268,8 +304,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-10T14:13:07+08:00" content="2016-08-10">
-              2016-08-10
+            <time itemprop="dateCreated" datetime="2017-01-04T11:44:02+08:00" content="2017-01-04">
+              2017-01-04
             </time>
           </span>
 
@@ -282,8 +318,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/essay/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
+                  <a href="/categories/ios/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -298,8 +334,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/10/开始/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/10/开始/" itemprop="commentsCount"></span>
+                <a href="/2017/01/04/UIViewController生命周期/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/04/UIViewController生命周期/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -322,7 +358,31 @@
       
 
       
-        <p>&#x56DE;&#x60F3;&#x5927;&#x5B66;&#x56DB;&#x5E74;&#x8352;&#x5E9F;&#x4E86;&#x592A;&#x591A;&#x65F6;&#x95F4;&#xFF0C;&#x770B;&#x4F3C;&#x5FD9;&#x788C;&#xFF0C;&#x603B;&#x662F;&#x5728;&#x4E00;&#x4E9B;&#x865A;&#x540D;&#x6D6E;&#x5229;&#x95F4;&#x6D6A;&#x8D39;&#x5149;&#x9634;&#xFF0C;&#x6094;&#x4E4B;&#x4E0D;&#x53CA;&#x3002;<br>&#x4E0D;&#x8FC7;&#x52AA;&#x529B;&#x662F;&#x4ECE;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x5F00;&#x59CB;&#x90FD;&#x4E0D;&#x665A;&#x7684;&#xFF0C;&#x5C31;&#x4ECE;&#x73B0;&#x5728;&#x5F00;&#x59CB;&#x5427;&#x3002;</p>
+        <h1 id="UIViewController&#x751F;&#x547D;&#x5468;&#x671F;"><a href="#UIViewController&#x751F;&#x547D;&#x5468;&#x671F;" class="headerlink" title="UIViewController&#x751F;&#x547D;&#x5468;&#x671F;"></a>UIViewController&#x751F;&#x547D;&#x5468;&#x671F;</h1><ol>
+<li>init</li>
+<li>loadView</li>
+<li>viewDidLoad</li>
+<li>viewWillAppear</li>
+<li>viewWillLayoutSubviews</li>
+<li>viewDidLayoutSubviews</li>
+<li>viewDidAppear</li>
+<li>viewWillDisappear</li>
+<li>viewDidDisappear</li>
+<li>dealloc</li>
+</ol>
+<h1 id="UIView-layoutSubviews&#x65B9;&#x6CD5;&#x89E6;&#x53D1;&#x6761;&#x4EF6;"><a href="#UIView-layoutSubviews&#x65B9;&#x6CD5;&#x89E6;&#x53D1;&#x6761;&#x4EF6;" class="headerlink" title="UIView layoutSubviews&#x65B9;&#x6CD5;&#x89E6;&#x53D1;&#x6761;&#x4EF6;"></a>UIView layoutSubviews&#x65B9;&#x6CD5;&#x89E6;&#x53D1;&#x6761;&#x4EF6;</h1><p><a href="http://stackoverflow.com/questions/728372/when-is-layoutsubviews-called" target="_blank" rel="external">layoutSubviews&#x89E6;&#x53D1;&#x6761;&#x4EF6;</a></p>
+<ul>
+<li>init does not cause layoutSubviews to be called (duh)</li>
+<li>addSubview: causes layoutSubviews to be called on the view being added, the view it&#x2019;s being added to (target view), and all the subviews of the target</li>
+<li>view setFrame intelligently calls layoutSubviews on the view having its frame set only if the size parameter of the frame is different</li>
+<li>scrolling a UIScrollView causes layoutSubviews to be called on the scrollView, and its superview</li>
+<li>rotating a device only calls layoutSubview on the parent view (the responding viewControllers primary view)</li>
+<li>Resizing a view will call layoutSubviews on its superview</li>
+</ul>
+<h1 id="&#x5728;UIViewController&#x4E2D;&#x4F7F;&#x7528;UIView&#x65F6;&#xFF0C;layoutSubviews&#x7684;&#x89E6;&#x53D1;&#x65F6;&#x673A;"><a href="#&#x5728;UIViewController&#x4E2D;&#x4F7F;&#x7528;UIView&#x65F6;&#xFF0C;layoutSubviews&#x7684;&#x89E6;&#x53D1;&#x65F6;&#x673A;" class="headerlink" title="&#x5728;UIViewController&#x4E2D;&#x4F7F;&#x7528;UIView&#x65F6;&#xFF0C;layoutSubviews&#x7684;&#x89E6;&#x53D1;&#x65F6;&#x673A;"></a>&#x5728;UIViewController&#x4E2D;&#x4F7F;&#x7528;UIView&#x65F6;&#xFF0C;layoutSubviews&#x7684;&#x89E6;&#x53D1;&#x65F6;&#x673A;</h1><h2 id="&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;"><a href="#&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;" class="headerlink" title="&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;"></a>&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;</h2><p><code>ViewController.m</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line">#import &quot;LKView.h&quot;</div><div class="line"></div><div class="line">@interface ViewController ()</div><div class="line">@end</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line"></div><div class="line">- (void)viewDidLoad {</div><div class="line">    [super viewDidLoad];</div><div class="line">    </div><div class="line">    LKView *view = [[LKView alloc] initWithFrame:CGRectMake(50, 50, 100, 100)];</div><div class="line">    [self.view addSubview:view];</div><div class="line">    </div><div class="line">    NSLog(@&quot;1...&quot;);</div><div class="line">}</div><div class="line"></div><div class="line">- (void)viewWillLayoutSubviews</div><div class="line">{</div><div class="line">    [super viewWillLayoutSubviews];</div><div class="line">    NSLog(@&quot;3...&quot;);</div><div class="line">}</div><div class="line"></div><div class="line">- (void)viewDidLayoutSubviews</div><div class="line">{</div><div class="line">    [super viewDidLayoutSubviews];</div><div class="line">    NSLog(@&quot;4...&quot;);</div><div class="line">}</div><div class="line"></div><div class="line">- (void)viewWillAppear:(BOOL)animated</div><div class="line">{</div><div class="line">    [super viewWillAppear:animated];</div><div class="line">    NSLog(@&quot;2...&quot;);</div><div class="line">}</div><div class="line"></div><div class="line">- (void)viewDidAppear:(BOOL)animated</div><div class="line">{</div><div class="line">    [super viewDidAppear:animated];</div><div class="line">    NSLog(@&quot;5...&quot;);</div><div class="line">}</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure></p>
+<p><code>LKView.m</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#import &quot;LKView.h&quot;</div><div class="line"></div><div class="line">@implementation LKView</div><div class="line"></div><div class="line">- (instancetype)initWithFrame:(CGRect)frame</div><div class="line">{</div><div class="line">    self = [super initWithFrame:frame];</div><div class="line">    if (self)</div><div class="line">    {</div><div class="line">        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 10)];</div><div class="line">        [self addSubview:btn];</div><div class="line">    }</div><div class="line">    return self;</div><div class="line">}</div><div class="line"></div><div class="line">- (void)layoutSubviews</div><div class="line">{</div><div class="line">    NSLog(@&quot;lay out...&quot;);</div><div class="line">}</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure></p>
+<h2 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;"><a href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;" class="headerlink" title="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;"></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">2017-01-04 11:34:07.557 LKTestApp[39746:2070216] 1...</div><div class="line">2017-01-04 11:34:07.557 LKTestApp[39746:2070216] 2...</div><div class="line">2017-01-04 11:34:07.561 LKTestApp[39746:2070216] 3...</div><div class="line">2017-01-04 11:34:07.561 LKTestApp[39746:2070216] 4...</div><div class="line">2017-01-04 11:34:07.562 LKTestApp[39746:2070216] lay out...</div><div class="line">2017-01-04 11:34:07.564 LKTestApp[39746:2070216] 5...</div></pre></td></tr></table></figure>
+<p>&#x5728;UIViewController viewDidLayoutSubviews&#x751F;&#x547D;&#x5468;&#x671F;&#x7ED3;&#x675F;&#x540E;&#xFF0C;&#x624D;&#x4F1A;&#x89E6;&#x53D1;&#x5B50;view&#x7684;layoutSubviews&#x65B9;&#x6CD5;&#x3002;</p>
 
       
     </div>
@@ -343,18 +403,26 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/UIViewController/" rel="tag">#UIViewController</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/12/19/笔记：iOS开发过程中遇到的坑/" rel="next" title="笔记：iOS开发过程中遇到的坑">
+                <i class="fa fa-chevron-left"></i> 笔记：iOS开发过程中遇到的坑
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/10/iOS学习计划/" rel="prev" title="iOS学习计划">
-                iOS学习计划 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -380,8 +448,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/10/开始/"
-           data-title="开始" data-url="https://LeeOuf.github.io/2016/08/10/开始/">
+      <div class="ds-thread" data-thread-key="2017/01/04/UIViewController生命周期/"
+           data-title="UIViewController生命周期" data-url="https://LeeOuf.github.io/2017/01/04/UIViewController生命周期/">
       </div>
     
   </div>
@@ -501,7 +569,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UIViewController生命周期"><span class="nav-number">1.</span> <span class="nav-text">UIViewController生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UIView-layoutSubviews方法触发条件"><span class="nav-number">2.</span> <span class="nav-text">UIView layoutSubviews方法触发条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在UIViewController中使用UIView时，layoutSubviews的触发时机"><span class="nav-number">3.</span> <span class="nav-text">在UIViewController中使用UIView时，layoutSubviews的触发时机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试代码"><span class="nav-number">3.1.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试结果"><span class="nav-number">3.2.</span> <span class="nav-text">测试结果</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
