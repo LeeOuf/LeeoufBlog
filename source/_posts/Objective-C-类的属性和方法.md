@@ -37,6 +37,7 @@ tags:
 
 @end
 ```
+<!-- more -->
 
 **矩形类MyRect**
 ```

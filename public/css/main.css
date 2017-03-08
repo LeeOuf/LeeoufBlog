@@ -1548,7 +1548,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #dfb060;
+  background: #8e121d;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2274,6 +2274,16 @@ hr {
 .site-search form {
   display: none;
 }
+.posts-home .post-header {
+  border-left: 3px solid #c33;
+  padding-left: 13px;
+}
+@media (max-width: 767px) {
+  .posts-home .post-header {
+    border-left: 0px;
+    padding-left: 0px;
+  }
+}
 .posts-expand {
   padding-top: 0;
 }
@@ -2291,7 +2301,7 @@ hr {
   display: none;
 }
 .posts-expand .post {
-  margin-top: 20px;
+  margin-top: 60px;
   padding-bottom: 20px;
   border-bottom: 1px dashed #ccc;
 }

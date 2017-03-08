@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion">
+<html class="theme-next mist">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -70,7 +68,7 @@
 <meta property="og:image" content="https://LeeOuf.github.io/2016/09/17/Objective-C基础总结/GCD02.png">
 <meta property="og:image" content="https://LeeOuf.github.io/2016/09/17/Objective-C基础总结/调试01.png">
 <meta property="og:image" content="https://LeeOuf.github.io/2016/09/17/Objective-C基础总结/调试02.png">
-<meta property="og:updated_time" content="2016-11-16T02:53:12.000Z">
+<meta property="og:updated_time" content="2017-03-08T08:25:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C基础总结">
 <meta name="twitter:description" content="&amp;#x5185;&amp;#x5B58;&amp;#x5806;&amp;#x6808;&amp;#x6808;&amp;#x533A;&amp;#xFF08;stack&amp;#xFF09;&amp;#x7531;&amp;#x7F16;&amp;#x8BD1;&amp;#x5668;&amp;#x81EA;&amp;#x52A8;&amp;#x5206;&amp;#x914D;&amp;#x91CA;&amp;#x653E; &amp;#xFF0C;&amp;#x5F53;&amp;#x4E00;&amp;#x4E2A;&amp;#x51FD;&amp;#x6570;&amp;#">
@@ -82,9 +80,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"right","display":"post"},
+    sidebar: {"position":"right","display":"hide"},
     fancybox: true,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: 0,
       author: '博主'
@@ -164,16 +162,6 @@
 
   
     <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
       
         
         <li class="menu-item menu-item-archives">
@@ -334,7 +322,7 @@
 <p><strong>&#x5168;&#x5C40;&#x533A;&#xFF08;static&#xFF09;</strong><br>&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x7684;&#x5B58;&#x50A8;&#x662F;&#x653E;&#x5728;&#x4E00;&#x5757;&#x7684;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x5728;&#x4E00;&#x5757;&#x533A;&#x57DF;&#xFF0C; &#x672A;&#x521D;&#x59CB;&#x5316;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x672A;&#x521D;&#x59CB;&#x5316;&#x7684;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x5728;&#x76F8;&#x90BB;&#x7684;&#x53E6;&#x4E00;&#x5757;&#x533A;&#x57DF;&#x3002;&#x7A0B;&#x5E8F;&#x7ED3;&#x675F;&#x540E;&#x7531;&#x7CFB;&#x7EDF;&#x91CA;&#x653E; &#x3002;</p>
 <p><strong>&#x6587;&#x5B57;&#x5E38;&#x91CF;&#x533A;</strong><br>&#x5E38;&#x91CF;&#x5B57;&#x7B26;&#x4E32;&#x5C31;&#x662F;&#x653E;&#x5728;&#x8FD9;&#x91CC;&#x7684;&#x3002; &#x7A0B;&#x5E8F;&#x7ED3;&#x675F;&#x540E;&#x7531;&#x7CFB;&#x7EDF;&#x91CA;&#x653E;&#x3002;</p>
 <p><strong>&#x7A0B;&#x5E8F;&#x4EE3;&#x7801;&#x533A;</strong><br>&#x5B58;&#x653E;&#x51FD;&#x6570;&#x4F53;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x4EE3;&#x7801;&#x3002;</p>
-<p><img src="/2016/09/17/Objective-C&#x57FA;&#x7840;&#x603B;&#x7ED3;/&#x5185;&#x5B58;&#x7A7A;&#x95F4;.png" alt="&#x5185;&#x5B58;&#x7A7A;&#x95F4;"></p>
+<p><img src="/2016/09/17/Objective-C&#x57FA;&#x7840;&#x603B;&#x7ED3;/&#x5185;&#x5B58;&#x7A7A;&#x95F4;.png" alt="&#x5185;&#x5B58;&#x7A7A;&#x95F4;"><br><a id="more"></a></p>
 <h2 id="&#x5F15;&#x7528;&#x8BA1;&#x6570;"><a href="#&#x5F15;&#x7528;&#x8BA1;&#x6570;" class="headerlink" title="&#x5F15;&#x7528;&#x8BA1;&#x6570;"></a>&#x5F15;&#x7528;&#x8BA1;&#x6570;</h2><h3 id="4&#x4E2A;&#x539F;&#x5219;"><a href="#4&#x4E2A;&#x539F;&#x5219;" class="headerlink" title="4&#x4E2A;&#x539F;&#x5219;"></a>4&#x4E2A;&#x539F;&#x5219;</h3><ul>
 <li>&#x81EA;&#x5DF1;&#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x81EA;&#x5DF1;&#x6301;&#x6709;&#x3002;</li>
 <li>&#x975E;&#x81EA;&#x5DF1;&#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x81EA;&#x5DF1;&#x4E5F;&#x80FD;&#x6301;&#x6709;&#x3002;</li>

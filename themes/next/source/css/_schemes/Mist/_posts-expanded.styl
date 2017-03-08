@@ -1,5 +1,13 @@
 // Post Expanded
 // --------------------------------------------------
+.posts-home {
+  .post-header {
+    border-left: 3px solid #c33;
+    padding-left: 13px;
+    +mobile() { border-left: 0px; padding-left: 0px; }
+  }
+}
+
 .posts-expand {
   padding-top: 0;
 
@@ -12,7 +20,7 @@
 
   .post {
     // 更改首页文章样式
-    margin-top: 20px;
+    margin-top: 60px;
     padding-bottom: 20px;
     // the-transition();
     // transition-property: border;

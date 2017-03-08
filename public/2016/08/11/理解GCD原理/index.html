@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion">
+<html class="theme-next mist">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -64,7 +62,7 @@
 <meta property="og:url" content="https://LeeOuf.github.io/2016/08/11/理解GCD原理/index.html">
 <meta property="og:site_name" content="LeeOuf's Blog">
 <meta property="og:description" content="GCD&amp;#x662F;&amp;#x8001;&amp;#x751F;&amp;#x5E38;&amp;#x8C08;&amp;#x4E86;&amp;#xFF0C;&amp;#x4E0D;&amp;#x8FC7;&amp;#x4F5C;&amp;#x4E3A;&amp;#x4E00;&amp;#x4E2A;&amp;#x65B0;&amp;#x624B;&amp;#x8FD9;&amp;#x4E2A;&amp;#x57FA;&amp;#x7840;&amp;#x4E43;&amp;#x662F;&amp;#x91CD;&amp;#x4E2D;&amp;#x4E4B;&amp;#x91">
-<meta property="og:updated_time" content="2016-11-16T02:53:12.000Z">
+<meta property="og:updated_time" content="2017-03-08T08:26:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解GCD原理">
 <meta name="twitter:description" content="GCD&amp;#x662F;&amp;#x8001;&amp;#x751F;&amp;#x5E38;&amp;#x8C08;&amp;#x4E86;&amp;#xFF0C;&amp;#x4E0D;&amp;#x8FC7;&amp;#x4F5C;&amp;#x4E3A;&amp;#x4E00;&amp;#x4E2A;&amp;#x65B0;&amp;#x624B;&amp;#x8FD9;&amp;#x4E2A;&amp;#x57FA;&amp;#x7840;&amp;#x4E43;&amp;#x662F;&amp;#x91CD;&amp;#x4E2D;&amp;#x4E4B;&amp;#x91">
@@ -75,9 +73,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"right","display":"post"},
+    sidebar: {"position":"right","display":"hide"},
     fancybox: true,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: 0,
       author: '博主'
@@ -157,16 +155,6 @@
 
   
     <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
       
         
         <li class="menu-item menu-item-archives">
@@ -330,7 +318,8 @@
 <li><code>&#x4E32;&#x884C;&#x961F;&#x5217;</code>&#xFF1A;&#x4EFB;&#x52A1;<code>&#x4E0D;&#x80FD;&#x540C;&#x65F6;&#x8FDB;&#x884C;</code>&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x7B2C;n+1&#x4E2A;&#x4EFB;&#x52A1;&#x5FC5;&#x987B;&#x7B49;&#x5F85;0&#x2026;n&#x4E2A;&#x4EFB;&#x52A1;&#x5168;&#x90E8;&#x5B8C;&#x6210;&#x540E;&#x624D;&#x4F1A;&#x5F00;&#x59CB;&#x3002;</li>
 <li><code>&#x5E76;&#x53D1;&#x961F;&#x5217;</code>&#xFF1A;&#x4EFB;&#x52A1;<code>&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x8FDB;&#x884C;</code>&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x53EA;&#x8981;0&#x2026;n&#x4E2A;&#x4EFB;&#x52A1;&#x5F00;&#x59CB;&#x6267;&#x884C;&#xFF0C;&#x90A3;&#x4E48;&#x7B2C;n+1&#x4E2A;&#x4EFB;&#x52A1;&#x4E5F;&#x53EF;&#x4EE5;&#x5F00;&#x59CB;&#x3002;</li>
 <li><code>void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</code>&#xFF1A;&#x5C06;&#x4EFB;&#x52A1;&#xFF08;&#x4E5F;&#x5C31;&#x662F;block&#xFF09;&#x653E;&#x5230;&#x961F;&#x5217;&#x4E2D;&#xFF0C;&#x540C;&#x6B65;&#x6267;&#x884C;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5728;<code>&#x5F53;&#x524D;&#x7EBF;&#x7A0B;</code>&#x4E2D;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#xFF0C;<code>&#x963B;&#x585E;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;</code>&#x3002;</li>
-<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code>&#xFF1A;&#x5C06;&#x4EFB;&#x52A1;&#x653E;&#x5230;&#x961F;&#x5217;&#x4E2D;&#xFF0C;&#x5F02;&#x6B65;&#x6267;&#x884C;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5728;<code>&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;</code>&#x4E2D;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#xFF0C;<code>&#x4E0D;&#x963B;&#x585E;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;</code>&#x3002;&#xFF08;&#x5728;&#x4E0B;&#x6587;&#x7684;&#x63A8;&#x6F14;&#x4E2D;&#xFF0C;&#x53D1;&#x73B0;&#x5176;&#x5E76;&#x4E0D;&#x603B;&#x662F;&#x5728;<code>&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;</code>&#x4E2D;&#x6267;&#x884C;&#xFF09;<br>&#xFF08;p.s. &#x5728;&#x5B9E;&#x9645;&#x63A8;&#x6F14;&#x548C;API&#x4E2D;&#xFF0C;&#x53D1;&#x73B0;6&#x3001;7&#x4E24;&#x6761;&#x4E2D;&#x5BF9;&#x4E8E;&#x7EBF;&#x7A0B;&#x7684;&#x63CF;&#x8FF0;&#x5747;&#x662F;&#x9519;&#x8BEF;&#x7684;&#xFF0C;block&#x5728;&#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E2D;&#x8FD0;&#x884C;&#x53D6;&#x51B3;&#x4E8E;queue&#xFF09;</li>
+<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code>&#xFF1A;&#x5C06;&#x4EFB;&#x52A1;&#x653E;&#x5230;&#x961F;&#x5217;&#x4E2D;&#xFF0C;&#x5F02;&#x6B65;&#x6267;&#x884C;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5728;<code>&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;</code>&#x4E2D;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#xFF0C;<code>&#x4E0D;&#x963B;&#x585E;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;</code>&#x3002;&#xFF08;&#x5728;&#x4E0B;&#x6587;&#x7684;&#x63A8;&#x6F14;&#x4E2D;&#xFF0C;&#x53D1;&#x73B0;&#x5176;&#x5E76;&#x4E0D;&#x603B;&#x662F;&#x5728;<code>&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;</code>&#x4E2D;&#x6267;&#x884C;&#xFF09;<br>&#xFF08;p.s. &#x5728;&#x5B9E;&#x9645;&#x63A8;&#x6F14;&#x548C;API&#x4E2D;&#xFF0C;&#x53D1;&#x73B0;6&#x3001;7&#x4E24;&#x6761;&#x4E2D;&#x5BF9;&#x4E8E;&#x7EBF;&#x7A0B;&#x7684;&#x63CF;&#x8FF0;&#x5747;&#x662F;&#x9519;&#x8BEF;&#x7684;&#xFF0C;block&#x5728;&#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E2D;&#x8FD0;&#x884C;&#x53D6;&#x51B3;&#x4E8E;queue&#xFF09;<a id="more"></a>
+</li>
 </ol>
 <h1 id="&#x9A8C;&#x8BC1;"><a href="#&#x9A8C;&#x8BC1;" class="headerlink" title="&#x9A8C;&#x8BC1;"></a>&#x9A8C;&#x8BC1;</h1><h2 id="1-&#x4EE3;&#x7801;&#x662F;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x7684;&#x3002;"><a href="#1-&#x4EE3;&#x7801;&#x662F;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x7684;&#x3002;" class="headerlink" title="1. &#x4EE3;&#x7801;&#x662F;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x7684;&#x3002;"></a>1. &#x4EE3;&#x7801;&#x662F;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x7684;&#x3002;</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSLog(@&quot;step0&quot;);</div><div class="line">NSLog(@&quot;step1&quot;);</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">2016-08-12 22:29:49.002 MyPractice[25215:3752290] step0</div><div class="line">2016-08-12 22:29:49.002 MyPractice[25215:3752290] step1</div></pre></td></tr></table></figure>

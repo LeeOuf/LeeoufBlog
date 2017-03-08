@@ -11,6 +11,7 @@ Blog托管在github，拉取代码后。
 - 安装hexo，`sudo npm install -g hexo`
 - 保留原有deploy配置，执行`sudo npm install hexo-deployer-git --save`
 - 安装server，`sudo npm install hexo-server`
+<!-- more -->
 
 如发生github pages init错误，删除.deploy_git文件
 

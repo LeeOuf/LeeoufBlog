@@ -19,6 +19,7 @@ GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重�
 6. `void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);`：将任务（也就是block）放到队列中，同步执行，也就是说在`当前线程`中执行任务，`阻塞当前线程`。
 7. `void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);`：将任务放到队列中，异步执行，也就是说在`其他线程`中执行任务，`不阻塞当前线程`。（在下文的推演中，发现其并不总是在`其他线程`中执行）
 （p.s. 在实际推演和API中，发现6、7两条中对于线程的描述均是错误的，block在哪个线程中运行取决于queue）
+<!-- more -->
 
 # 验证
 ## 1. 代码是顺序执行的。

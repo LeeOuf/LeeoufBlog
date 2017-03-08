@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion">
+<html class="theme-next mist">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -64,7 +62,7 @@
 <meta property="og:url" content="https://LeeOuf.github.io/2016/08/16/Objective-C-类的属性和方法/index.html">
 <meta property="og:site_name" content="LeeOuf's Blog">
 <meta property="og:description" content="&amp;#x6211;&amp;#x4EEC;&amp;#x77E5;&amp;#x9053;iOS&amp;#x4E2D;&amp;#x7684;frame&amp;#x7531;x, y, width, height&amp;#x51B3;&amp;#x5B9A;&amp;#x7684;&amp;#x4E00;&amp;#x4E2A;&amp;#x4E2A;&amp;#x77E9;&amp;#x5F62;&amp;#x3002;&amp;#x63A5;&amp;#x4E0B;&amp;#x6765;&amp;#x5C1D;&amp;#x8BD5;&amp;#x75">
-<meta property="og:updated_time" content="2016-11-16T02:53:12.000Z">
+<meta property="og:updated_time" content="2017-03-08T08:25:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C: 类的属性和方法">
 <meta name="twitter:description" content="&amp;#x6211;&amp;#x4EEC;&amp;#x77E5;&amp;#x9053;iOS&amp;#x4E2D;&amp;#x7684;frame&amp;#x7531;x, y, width, height&amp;#x51B3;&amp;#x5B9A;&amp;#x7684;&amp;#x4E00;&amp;#x4E2A;&amp;#x4E2A;&amp;#x77E9;&amp;#x5F62;&amp;#x3002;&amp;#x63A5;&amp;#x4E0B;&amp;#x6765;&amp;#x5C1D;&amp;#x8BD5;&amp;#x75">
@@ -75,9 +73,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"right","display":"post"},
+    sidebar: {"position":"right","display":"hide"},
     fancybox: true,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: 0,
       author: '博主'
@@ -157,16 +155,6 @@
 
   
     <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
       
         
         <li class="menu-item menu-item-archives">
@@ -325,6 +313,7 @@
         <p>&#x6211;&#x4EEC;&#x77E5;&#x9053;iOS&#x4E2D;&#x7684;frame&#x7531;x, y, width, height&#x51B3;&#x5B9A;&#x7684;&#x4E00;&#x4E2A;&#x4E2A;&#x77E9;&#x5F62;&#x3002;<br>&#x63A5;&#x4E0B;&#x6765;&#x5C1D;&#x8BD5;&#x7528;&#x4E00;&#x4E2A;&#x77E9;&#x5F62;&#x7C7B;&#x6765;&#x63A2;&#x7A76;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x7C7B;&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;&#x3002;</p>
 <p><strong>&#x5750;&#x6807;&#x7C7B;XYPoint&#x3002;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line"></div><div class="line">@interface XYPoint : NSObject</div><div class="line"></div><div class="line">@property int x, y;</div><div class="line"></div><div class="line">- (void)setX:(int)xVal andY:(int)yVal;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#import &quot;XYPoint.h&quot;</div><div class="line"></div><div class="line">@implementation XYPoint</div><div class="line"></div><div class="line">-(void)setX:(int)xVal andY:(int)yVal {</div><div class="line">    _x = xVal;</div><div class="line">    _y = yVal;</div><div class="line">}</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p><strong>&#x77E9;&#x5F62;&#x7C7B;MyRect</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line">#import &quot;XYPoint.h&quot;</div><div class="line"></div><div class="line">@interface MyRect : NSObject</div><div class="line"></div><div class="line">@property (nonatomic) int width, height;</div><div class="line">@property (nonatomic) XYPoint *origin;</div><div class="line"></div><div class="line">- (void)setWidth:(int)w andHeight:(int)h;</div><div class="line">- (int)area;</div><div class="line">- (int)perimeter;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">#import &quot;MyRect.h&quot;</div><div class="line"></div><div class="line">@implementation MyRect</div><div class="line"></div><div class="line">- (XYPoint *)origin {</div><div class="line">    return _origin;</div><div class="line">}</div><div class="line"></div><div class="line">- (void)setOrigin:(XYPoint *)origin {</div><div class="line">    _origin = origin;</div><div class="line">}</div><div class="line"></div><div class="line">- (void)setWidth:(int)w andHeight:(int)h {</div><div class="line">    _width = w;</div><div class="line">    _height = h;</div><div class="line">}</div><div class="line"></div><div class="line">- (int)area {</div><div class="line">    return _width * _height;</div><div class="line">}</div><div class="line"></div><div class="line">- (int)perimeter {</div><div class="line">    return (_width + _height) * 2;</div><div class="line">}</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
 <p><strong>main&#x51FD;&#x6570;</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line">#import &quot;MyRect.h&quot;</div><div class="line"></div><div class="line">int main(int argc, const char * argv[]) {</div><div class="line">    @autoreleasepool {</div><div class="line">        MyRect *rect = [[MyRect alloc] init];</div><div class="line">        XYPoint *point = [[XYPoint alloc] init];</div><div class="line">        </div><div class="line">        [point setX:100 andY:200];</div><div class="line">        </div><div class="line">        [rect setWidth:5 andHeight:8];</div><div class="line">        rect.origin = point;</div><div class="line">        </div><div class="line">        NSLog(@&quot;Rect w = %i, h = %i&quot;, rect.width, rect.height);</div><div class="line">        NSLog(@&quot;Origin at (%i, %i)&quot;, rect.origin.x, rect.origin.y);</div><div class="line">        </div><div class="line">        [point setX:50 andY:50];</div><div class="line">        NSLog(@&quot;Origin at (%i, %i)&quot;, rect.origin.x, rect.origin.y);</div><div class="line">//        NSLog(@&quot;Area = %i, Perimeter = %i&quot;, [rect area], [rect perimeter]);</div><div class="line">    }</div><div class="line">    return 0;</div><div class="line">}</div></pre></td></tr></table></figure></p>

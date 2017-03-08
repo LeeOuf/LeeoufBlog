@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion">
+<html class="theme-next mist">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -68,9 +66,7 @@ viewDidLayoutSubviews
 viewDidAppear
 viewWillDisappear
 viewDidDisappear
-dealloc
-
-UIView">
+dealloc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UIViewController生命周期">
 <meta property="og:url" content="https://LeeOuf.github.io/2017/01/04/UIViewController生命周期/index.html">
@@ -85,10 +81,8 @@ viewDidLayoutSubviews
 viewDidAppear
 viewWillDisappear
 viewDidDisappear
-dealloc
-
-UIView">
-<meta property="og:updated_time" content="2017-01-04T04:48:25.000Z">
+dealloc">
+<meta property="og:updated_time" content="2017-03-08T08:25:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UIViewController生命周期">
 <meta name="twitter:description" content="UIViewController&amp;#x751F;&amp;#x547D;&amp;#x5468;&amp;#x671F;
@@ -101,9 +95,7 @@ viewDidLayoutSubviews
 viewDidAppear
 viewWillDisappear
 viewDidDisappear
-dealloc
-
-UIView">
+dealloc">
 
 
 
@@ -111,9 +103,9 @@ UIView">
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"right","display":"post"},
+    sidebar: {"position":"right","display":"hide"},
     fancybox: true,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: 0,
       author: '博主'
@@ -193,16 +185,6 @@ UIView">
 
   
     <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
       
         
         <li class="menu-item menu-item-archives">
@@ -368,7 +350,8 @@ UIView">
 <li>viewDidAppear</li>
 <li>viewWillDisappear</li>
 <li>viewDidDisappear</li>
-<li>dealloc</li>
+<li>dealloc<a id="more"></a>
+</li>
 </ol>
 <h1 id="UIView-layoutSubviews&#x65B9;&#x6CD5;&#x89E6;&#x53D1;&#x6761;&#x4EF6;"><a href="#UIView-layoutSubviews&#x65B9;&#x6CD5;&#x89E6;&#x53D1;&#x6761;&#x4EF6;" class="headerlink" title="UIView layoutSubviews&#x65B9;&#x6CD5;&#x89E6;&#x53D1;&#x6761;&#x4EF6;"></a>UIView layoutSubviews&#x65B9;&#x6CD5;&#x89E6;&#x53D1;&#x6761;&#x4EF6;</h1><p><a href="http://stackoverflow.com/questions/728372/when-is-layoutsubviews-called" target="_blank" rel="external">layoutSubviews&#x89E6;&#x53D1;&#x6761;&#x4EF6;</a></p>
 <ul>

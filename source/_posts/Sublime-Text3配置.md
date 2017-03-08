@@ -65,6 +65,7 @@ Sublime Text -> Preferences -> Key Bindings - User
     {"keys": ["command+shift+f"], "command": "js_format"}
 ]
 ```
+<!-- more -->
 
 # Color Scheme
 Monokai

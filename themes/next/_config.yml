@@ -28,7 +28,7 @@ canonical: false
 
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
-  home: /
+  #home: /
   archives: /archives
   categories: /categories
   tags: /tags
@@ -46,7 +46,7 @@ menu:
 menu_icons:
   enable: true
   #KeyMapsToMenuItemKey: NameOfTheIconFromFontAwesome
-  home: home
+  #home: home
   archives: hourglass-half
   essay: pagelines
   ios: apple
@@ -180,9 +180,9 @@ sidebar:
   #  - always  expand for all pages automatically
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  Totally remove sidebar including sidebar toggler.
-  display: post
+  # display: post
   # display: always
-  #display: hide
+  display: hide
   #display: remove
 
 
@@ -217,14 +217,14 @@ highlight_theme: normal
 
 # Automatically scroll page to section which is under <!-- more --> mark.
 # 自动从more位置开始看
-scroll_to_more: false
+scroll_to_more: true
 
 
 # Automatically Excerpt. Not recommand.
 # Please use <!-- more --> in the post to control excerpt accurately.
 auto_excerpt:
-  enable: true
-  length: 0
+  enable: false
+  length: 200
 
 
 # Wechat Subscriber
@@ -349,7 +349,7 @@ baidu_push: true
 #! ---------------------------------------------------------------
 
 # Motion
-use_motion: true
+use_motion: false
 
 # Fancybox
 fancybox: true
