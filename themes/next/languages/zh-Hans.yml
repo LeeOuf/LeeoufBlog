@@ -1,8 +1,8 @@
 title:
-  archive: 时间线
+  archive: 时间
   category: 分类
   tag: 标签
-  essay: 随笔
+  essay: 雨滴
   ios: iOS
   about: 关于
   search: 搜索
@@ -12,10 +12,10 @@ author: 博主
 
 menu:
   home: 首页
-  archives: 时间线
+  archives: 时间
   categories: 分类
   tags: 标签
-  essay: 随笔
+  essay: 雨滴
   ios: iOS
   about: 关于
   search: 搜索

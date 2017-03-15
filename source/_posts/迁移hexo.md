@@ -1,7 +1,7 @@
 ---
 title: 迁移hexo
 date: 2016-09-03 00:21:26
-categories: 随笔
+categories: 笔记
 tags:
     - hexo
 ---

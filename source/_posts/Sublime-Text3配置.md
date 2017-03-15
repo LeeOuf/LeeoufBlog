@@ -1,7 +1,7 @@
 ---
 title: Sublime Text3配置
 date: 2016-09-21 11:09:54
-categories: 开发环境配置
+categories: 笔记
 tags:
     - 开发环境配置
     - Sublime Text

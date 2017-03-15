@@ -1,7 +1,7 @@
 ---
 title: UISwitch在iOS 10中的BUG
 date: 2016-09-29 13:31:22
-categories: iOS
+categories: 笔记
 tags: 
     - iOS
     - iOS 10
