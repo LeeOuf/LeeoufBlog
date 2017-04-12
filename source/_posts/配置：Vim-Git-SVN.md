@@ -1,5 +1,5 @@
 ---
-title: MAC OS中的Vim&Git&SVN配置
+title: 配置：Vim-Git-SVN
 date: 2016-09-21 10:57:19
 categories: 笔记
 tags:

@@ -1,5 +1,5 @@
 ---
-title: 迁移hexo
+title: 配置：迁移hexo
 date: 2016-09-03 00:21:26
 categories: 笔记
 tags:

@@ -1,5 +1,5 @@
 ---
-title: 'Objective-C: 类的属性和方法'
+title: 初学Objective-C
 date: 2016-08-16 15:36:56
 categories: iOS
 tags:

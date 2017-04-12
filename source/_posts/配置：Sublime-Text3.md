@@ -1,5 +1,5 @@
 ---
-title: Sublime Text3配置
+title: 配置：Sublime-Text3
 date: 2016-09-21 11:09:54
 categories: 笔记
 tags:

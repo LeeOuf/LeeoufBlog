@@ -40,7 +40,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="开发环境配置,Sublime Text," />
+  <meta name="keywords" content="开发环境配置,bash,Vim,Git,SVN," />
 
 
 
@@ -56,16 +56,22 @@
 
 
 
-<meta name="description" content="&amp;#x5FEB;&amp;#x6377;&amp;#x952E;&amp;#xFF08;Eclipse&amp;#x98CE;&amp;#x683C;&amp;#xFF09;Sublime Text -&amp;gt; Preferences -&amp;gt; Key Bindings - User123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+<meta name="description" content="bashvim /etc/profile&amp;#xFF0C;&amp;#x6DFB;&amp;#x52A0;&amp;#x5982;&amp;#x4E0B;12# basealias ll=&amp;quot;ls -la&amp;quot;
+Vimvim /etc/profile&amp;#xFF0C;&amp;#x6DFB;&amp;#x52A0;export TERM=xterm&amp;#x3002;
+&amp;#x6837;&amp;#x5F0F;vim ~/.vimrc&amp;#xFF0C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Sublime Text3配置">
-<meta property="og:url" content="https://LeeOuf.github.io/2016/09/21/Sublime-Text3配置/index.html">
+<meta property="og:title" content="配置：Vim-Git-SVN">
+<meta property="og:url" content="https://LeeOuf.github.io/2016/09/21/配置：Vim-Git-SVN/index.html">
 <meta property="og:site_name" content="LeeOuf's Blog">
-<meta property="og:description" content="&amp;#x5FEB;&amp;#x6377;&amp;#x952E;&amp;#xFF08;Eclipse&amp;#x98CE;&amp;#x683C;&amp;#xFF09;Sublime Text -&amp;gt; Preferences -&amp;gt; Key Bindings - User123456789101112131415161718192021222324252627282930313233343536373839404142434445">
-<meta property="og:updated_time" content="2017-03-13T11:44:18.000Z">
+<meta property="og:description" content="bashvim /etc/profile&amp;#xFF0C;&amp;#x6DFB;&amp;#x52A0;&amp;#x5982;&amp;#x4E0B;12# basealias ll=&amp;quot;ls -la&amp;quot;
+Vimvim /etc/profile&amp;#xFF0C;&amp;#x6DFB;&amp;#x52A0;export TERM=xterm&amp;#x3002;
+&amp;#x6837;&amp;#x5F0F;vim ~/.vimrc&amp;#xFF0C">
+<meta property="og:updated_time" content="2017-03-15T09:17:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sublime Text3配置">
-<meta name="twitter:description" content="&amp;#x5FEB;&amp;#x6377;&amp;#x952E;&amp;#xFF08;Eclipse&amp;#x98CE;&amp;#x683C;&amp;#xFF09;Sublime Text -&amp;gt; Preferences -&amp;gt; Key Bindings - User123456789101112131415161718192021222324252627282930313233343536373839404142434445">
+<meta name="twitter:title" content="配置：Vim-Git-SVN">
+<meta name="twitter:description" content="bashvim /etc/profile&amp;#xFF0C;&amp;#x6DFB;&amp;#x52A0;&amp;#x5982;&amp;#x4E0B;12# basealias ll=&amp;quot;ls -la&amp;quot;
+Vimvim /etc/profile&amp;#xFF0C;&amp;#x6DFB;&amp;#x52A0;export TERM=xterm&amp;#x3002;
+&amp;#x6837;&amp;#x5F0F;vim ~/.vimrc&amp;#xFF0C">
 
 
 
@@ -86,7 +92,7 @@
 
 
 
-  <title> Sublime Text3配置 | LeeOuf's Blog </title>
+  <title> 配置：Vim-Git-SVN | LeeOuf's Blog </title>
   <!-- <script type="text/javascript">
     (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
     (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
@@ -244,7 +250,7 @@
             
             
               
-                Sublime Text3配置
+                配置：Vim-Git-SVN
               
             
           </h1>
@@ -256,7 +262,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-21T11:09:54+08:00" content="2016-09-21">
+            <time itemprop="dateCreated" datetime="2016-09-21T10:57:19+08:00" content="2016-09-21">
               2016-09-21
             </time>
           </span>
@@ -286,8 +292,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/21/Sublime-Text3配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/Sublime-Text3配置/" itemprop="commentsCount"></span>
+                <a href="/2016/09/21/配置：Vim-Git-SVN/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/配置：Vim-Git-SVN/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -310,12 +316,18 @@
       
 
       
-        <h1 id="&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;"><a href="#&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;" class="headerlink" title="&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;"></a>&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;</h1><p>Sublime Text -&gt; Preferences -&gt; Key Bindings - User<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    /**</div><div class="line">     * &#x4EE3;&#x7801;&#x683C;&#x5F0F;&#x5316;</div><div class="line">     */</div><div class="line">    { &quot;keys&quot;: [&quot;command+r&quot;], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: { &quot;target&quot;: &quot;browser&quot;} },</div><div class="line">    {</div><div class="line">        &quot;keys&quot;: [&quot;alt+shift+f&quot;],</div><div class="line">        &quot;command&quot;: &quot;reindent&quot;</div><div class="line">    },</div><div class="line">    /**</div><div class="line">     * json&#x683C;&#x5F0F;&#x5316;</div><div class="line">     */</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;tidy_xml&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+j&quot;], &quot;command&quot;: &quot;pretty_json&quot; }, </div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+m&quot;], &quot;command&quot;: &quot;un_pretty_json&quot; },</div><div class="line">    /**</div><div class="line">     * &#x9002;&#x914D;eclipse&#x5FEB;&#x6377;&#x952E;</div><div class="line">     */</div><div class="line">    { &quot;keys&quot;: [&quot;alt+/&quot;], &quot;command&quot;: &quot;auto_complete&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+i&quot;], &quot;command&quot;: &quot;reindent&quot; },</div><div class="line">    // &#x5F53;&#x524D;&#x884C;&#x548C;&#x4E0B;&#x9762;&#x4E00;&#x884C;&#x4EA4;&#x4E92;&#x4F4D;&#x7F6E;</div><div class="line">    { &quot;keys&quot;: [&quot;alt+up&quot;], &quot;command&quot;: &quot;swap_line_up&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;alt+down&quot;], &quot;command&quot;: &quot;swap_line_down&quot; },</div><div class="line">    // &#x590D;&#x5236;&#x5F53;&#x524D;&#x884C;&#x5230;&#x4E0A;&#x4E00;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+alt+up&quot;], &quot;command&quot;: &quot;duplicate_line&quot; },</div><div class="line">    // &#x590D;&#x5236;&#x5F53;&#x524D;&#x884C;&#x5230;&#x4E0B;&#x4E00;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+alt+down&quot;], &quot;command&quot;: &quot;duplicate_line&quot; },</div><div class="line">    // &#x5220;&#x9664;&#x6574;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+d&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: {&quot;file&quot;: &quot;Packages/Default/Delete Line.sublime-macro&quot;} },</div><div class="line">    // &#x5149;&#x6807;&#x79FB;&#x52A8;&#x5230;&#x6307;&#x5B9A;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+l&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;:&quot;} },</div><div class="line">    // &#x5FEB;&#x901F;&#x5B9A;&#x4F4D;&#x5230;&#x9009;&#x4E2D;&#x7684;&#x6587;&#x5B57;</div><div class="line">    { &quot;keys&quot;: [&quot;command+k&quot;], &quot;command&quot;: &quot;find_under_expand_skip&quot; },</div><div class="line">    // { &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;swap_case&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;upper_case&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+y&quot;], &quot;command&quot;: &quot;lower_case&quot; },</div><div class="line">    // &#x5728;&#x5F53;&#x524D;&#x884C;&#x7684;&#x4E0B;&#x4E00;&#x884C;&#x63D2;&#x5165;&#x7A7A;&#x884C;(&#x8FD9;&#x65F6;&#x9F20;&#x6807;&#x53EF;&#x4EE5;&#x5728;&#x5F53;&#x524D;&#x884C;&#x7684;&#x4EFB;&#x4E00;&#x4F4D;&#x7F6E;, &#x4E0D;&#x4E00;&#x5B9A;&#x662F;&#x6700;&#x540E;)</div><div class="line">    { &quot;keys&quot;: [&quot;shift+enter&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: {&quot;file&quot;: &quot;Packages/Default/Add Line.sublime-macro&quot;} },</div><div class="line">    // &#x5B9A;&#x4F4D;&#x5230;&#x5BF9;&#x4E8E;&#x7684;&#x5339;&#x914D;&#x7B26;(&#x8B6C;&#x5982;{})(&#x4ECE;&#x524D;&#x9762;&#x5B9A;&#x4F4D;&#x540E;&#x9762;&#x65F6;,&#x5149;&#x6807;&#x8981;&#x5728;&#x5339;&#x914D;&#x7B26;&#x91CC;&#x9762;,&#x540E;&#x9762;&#x5230;&#x524D;&#x9762;,&#x5219;&#x53CD;&#x4E4B;)</div><div class="line">    { &quot;keys&quot;: [&quot;command+p&quot;], &quot;command&quot;: &quot;move_to&quot;, &quot;args&quot;: {&quot;to&quot;: &quot;brackets&quot;} },</div><div class="line">    // outline</div><div class="line">    { &quot;keys&quot;: [&quot;command+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;@&quot;} },</div><div class="line">    // &#x5F53;&#x524D;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5173;&#x952E;&#x5B57;(&#x65B9;&#x4FBF;&#x5FEB;&#x901F;&#x67E5;&#x627E;&#x5185;&#x5BB9;)</div><div class="line">    { &quot;keys&quot;: [&quot;command+alt+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;#&quot;} },</div><div class="line">    // open resource</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+r&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;show_files&quot;: true} },</div><div class="line">    // &#x6587;&#x4EF6;&#x5185;&#x67E5;&#x627E;/&#x66FF;&#x6362;</div><div class="line">    { &quot;keys&quot;: [&quot;command+f&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: {&quot;panel&quot;: &quot;replace&quot;} },</div><div class="line">    // &#x5168;&#x5C40;&#x67E5;&#x627E;/&#x66FF;&#x6362;, &#x5728;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x4E2D;&#x53CC;&#x51FB;&#x8DF3;&#x8F6C;&#x5230;&#x5339;&#x914D;&#x4F4D;&#x7F6E;</div><div class="line">    {&quot;keys&quot;: [&quot;command+h&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: {&quot;panel&quot;: &quot;find_in_files&quot;} },</div><div class="line"> </div><div class="line">    // plugin&#x914D;&#x7F6E;</div><div class="line">    { &quot;keys&quot;: [&quot;alt+a&quot;], &quot;command&quot;: &quot;alignment&quot; },</div><div class="line">    {&quot;keys&quot;: [&quot;command+shift+f&quot;], &quot;command&quot;: &quot;js_format&quot;}</div><div class="line">]</div></pre></td></tr></table></figure></p>
+        <h1 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h1><p><code>vim /etc/profile</code>&#xFF0C;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># base</div><div class="line">alias ll=&quot;ls -la&quot;</div></pre></td></tr></table></figure></p>
+<h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><p><code>vim /etc/profile</code>&#xFF0C;&#x6DFB;&#x52A0;<code>export TERM=xterm</code>&#x3002;</p>
+<h2 id="&#x6837;&#x5F0F;"><a href="#&#x6837;&#x5F0F;" class="headerlink" title="&#x6837;&#x5F0F;"></a>&#x6837;&#x5F0F;</h2><p><code>vim ~/.vimrc</code>&#xFF0C;&#x914D;&#x7F6E;&#x5982;&#x4E0B;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">syntax on</div><div class="line">set tabstop=4</div><div class="line">set softtabstop=4</div><div class="line">set shiftwidth=4</div><div class="line">set autoindent</div><div class="line">set cindent</div><div class="line">set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,&gt;1s,=1s,:1s</div><div class="line"></div><div class="line">if &amp;term==&quot;xterm&quot;</div><div class="line">set t_Co=8</div><div class="line">set t_Sb=^[[4%dm</div><div class="line">set t_Sf=^[[3%dm</div><div class="line">endif</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<h1 id="Color-Scheme"><a href="#Color-Scheme" class="headerlink" title="Color Scheme"></a>Color Scheme</h1><p>Monokai</p>
-<h1 id="Package-Control"><a href="#Package-Control" class="headerlink" title="Package Control"></a>Package Control</h1><p>&#x5B89;&#x88C5;&#x65B9;&#x6CD5;&#x5404;&#x7248;&#x672C;&#x4E0D;&#x540C;&#xFF0C;&#x4EE5;&#x6700;&#x65B0;&#x641C;&#x7D22;&#x7ED3;&#x679C;&#x4E3A;&#x51C6;&#x3002;</p>
-<h2 id="&#x5E38;&#x7528;&#x63D2;&#x4EF6;"><a href="#&#x5E38;&#x7528;&#x63D2;&#x4EF6;" class="headerlink" title="&#x5E38;&#x7528;&#x63D2;&#x4EF6;"></a>&#x5E38;&#x7528;&#x63D2;&#x4EF6;</h2><p>Markdown Preview<br>Markdown Editing<br><a href="https://github.com/dzhibas/SublimePrettyJson" target="_blank" rel="external">Pretty Json</a><br>(&#x4E5F;&#x53EF;&#x4EE5;&#x5728;chrome&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x5B89;&#x88C5;JSON Formatter&#x63D2;&#x4EF6;)</p>
-<h1 id="&#x6FC0;&#x6D3B;"><a href="#&#x6FC0;&#x6D3B;" class="headerlink" title="&#x6FC0;&#x6D3B;"></a>&#x6FC0;&#x6D3B;</h1><p>&#x539F;&#x5219;&#x4E0A;&#x652F;&#x6301;&#x6B63;&#x7248;XD&#x3002;</p>
+<h2 id="&#x547D;&#x4EE4;"><a href="#&#x547D;&#x4EE4;" class="headerlink" title="&#x547D;&#x4EE4;"></a>&#x547D;&#x4EE4;</h2><p><a href="http://www.cnblogs.com/softwaretesting/archive/2011/07/12/2104435.html" target="_blank" rel="external">vim&#x547D;&#x4EE4;&#x5927;&#x5168;</a></p>
+<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h2 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim ~/.gitconfig</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[alias]</div><div class="line">    co = checkout</div><div class="line">    ad = add </div><div class="line">    aa = add -A</div><div class="line">    au = add -u</div><div class="line">    ci = commit</div><div class="line">    ca = commit -a</div><div class="line">    st = status</div><div class="line">    pl = pull</div><div class="line">    ps = push</div><div class="line">    dt = difftool</div><div class="line">    l = log --stat</div><div class="line">    cp = cherry-pick</div><div class="line">    b = branch</div></pre></td></tr></table></figure>
+<p>p.s.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># &#x4E09;&#x79CD;add&#x547D;&#x4EE4;&#x7684;&#x533A;&#x522B;</div><div class="line">1.  git add -A   &#x4FDD;&#x5B58;&#x6240;&#x6709;&#x7684;&#x4FEE;&#x6539;</div><div class="line">2.  git add .     &#x4FDD;&#x5B58;&#x65B0;&#x7684;&#x6DFB;&#x52A0;&#x548C;&#x4FEE;&#x6539;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x5305;&#x62EC;&#x5220;&#x9664;</div><div class="line">3.  git add -u   &#x4FDD;&#x5B58;&#x4FEE;&#x6539;&#x548C;&#x5220;&#x9664;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x5305;&#x62EC;&#x65B0;&#x5EFA;&#x6587;&#x4EF6;</div><div class="line"></div><div class="line"># &#x67E5;&#x770B;&#x547D;&#x4EE4;&#x5E2E;&#x52A9;</div><div class="line">git xxx -h</div></pre></td></tr></table></figure></p>
+<h2 id="&#x6DFB;&#x52A0;&#x4E2D;&#x6587;&#x652F;&#x6301;"><a href="#&#x6DFB;&#x52A0;&#x4E2D;&#x6587;&#x652F;&#x6301;" class="headerlink" title="&#x6DFB;&#x52A0;&#x4E2D;&#x6587;&#x652F;&#x6301;"></a>&#x6DFB;&#x52A0;&#x4E2D;&#x6587;&#x652F;&#x6301;</h2><p>bash&#x4E2D;&#x8F93;&#x5165;<code>git config --global core.quotepath false</code>&#xFF08;&#x5DF2;&#x4F7F;&#x7528;UTF-8&#x5B57;&#x7B26;&#x96C6;&#xFF09;&#x3002;</p>
+<h2 id="ignore"><a href="#ignore" class="headerlink" title="ignore"></a>ignore</h2><p><code>vim ~/.gitignore_global</code><br>&#x6DFB;&#x52A0;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">*~</div><div class="line">.DS_Store</div><div class="line">xcuserdata</div><div class="line">*.xcuserdatad</div></pre></td></tr></table></figure></p>
+<p>p.s.<br>&#x5220;&#x9664;&#x8BEF;&#x63D0;&#x4EA4;&#x7684;xcuserdata<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// -n&#xFF1A;&#x52A0;&#x4E0A;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x65F6;&#xFF0C;&#x662F;&#x4E0D;&#x4F1A;&#x5220;&#x9664;&#x4EFB;&#x4F55;&#x6587;&#x4EF6;&#xFF0C;&#x800C;&#x662F;&#x5C55;&#x793A;&#x6B64;&#x547D;&#x4EE4;&#x8981;&#x5220;&#x9664;&#x7684;&#x6587;&#x4EF6;&#x5217;&#x8868;&#x9884;&#x89C8;&#x3002;</div><div class="line">git rm -r -n --cached  */src/\*</div><div class="line"></div><div class="line">// &#x5220;&#x9664;&#x6587;&#x4EF6;&#x7684;&#x7248;&#x672C;&#x63A7;&#x5236;</div><div class="line">git rm -r --cached  */src/\*</div></pre></td></tr></table></figure></p>
+<h1 id="SVN"><a href="#SVN" class="headerlink" title="SVN"></a>SVN</h1><p><code>vim /etc/profile</code>&#xFF0C;&#x6DFB;&#x52A0;<code>export SVN_EDITOR=vim</code>&#x3002;<br>&#x5168;&#x5C40;&#x548C;&#x5C40;&#x90E8;&#x53C2;&#x6570;&#x914D;&#x7F6E;&#x7528;&#x6237;&#x4FE1;&#x606F;&#xFF0C;&#x7565;&#x3002;</p>
 
       
     </div>
@@ -340,7 +352,13 @@
           
             <a href="/tags/开发环境配置/" rel="tag">#开发环境配置</a>
           
-            <a href="/tags/Sublime-Text/" rel="tag">#Sublime Text</a>
+            <a href="/tags/bash/" rel="tag">#bash</a>
+          
+            <a href="/tags/Vim/" rel="tag">#Vim</a>
+          
+            <a href="/tags/Git/" rel="tag">#Git</a>
+          
+            <a href="/tags/SVN/" rel="tag">#SVN</a>
           
         </div>
       
@@ -349,16 +367,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/21/MAC-OS中的Vim-Git-SVN配置/" rel="next" title="MAC OS中的Vim&Git&SVN配置">
-                <i class="fa fa-chevron-left"></i> MAC OS中的Vim&Git&SVN配置
+              <a href="/2016/09/21/配置：Xcode快捷键配置/" rel="next" title="配置：Xcode快捷键配置">
+                <i class="fa fa-chevron-left"></i> 配置：Xcode快捷键配置
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/29/UISwitch在iOS 10中的BUG/" rel="prev" title="UISwitch在iOS 10中的BUG">
-                UISwitch在iOS 10中的BUG <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/21/配置：Sublime-Text3/" rel="prev" title="配置：Sublime-Text3">
+                配置：Sublime-Text3 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -385,8 +403,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/21/Sublime-Text3配置/"
-           data-title="Sublime Text3配置" data-url="https://LeeOuf.github.io/2016/09/21/Sublime-Text3配置/">
+      <div class="ds-thread" data-thread-key="2016/09/21/配置：Vim-Git-SVN/"
+           data-title="配置：Vim-Git-SVN" data-url="https://LeeOuf.github.io/2016/09/21/配置：Vim-Git-SVN/">
       </div>
     
   </div>
@@ -506,7 +524,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快捷键（Eclipse风格）"><span class="nav-number">1.</span> <span class="nav-text">快捷键（Eclipse风格）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Color-Scheme"><span class="nav-number">2.</span> <span class="nav-text">Color Scheme</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Package-Control"><span class="nav-number">3.</span> <span class="nav-text">Package Control</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用插件"><span class="nav-number">3.1.</span> <span class="nav-text">常用插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#激活"><span class="nav-number">4.</span> <span class="nav-text">激活</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#bash"><span class="nav-number">1.</span> <span class="nav-text">bash</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vim"><span class="nav-number">2.</span> <span class="nav-text">Vim</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#样式"><span class="nav-number">2.1.</span> <span class="nav-text">样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令"><span class="nav-number">2.2.</span> <span class="nav-text">命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git"><span class="nav-number">3.</span> <span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#alias"><span class="nav-number">3.1.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加中文支持"><span class="nav-number">3.2.</span> <span class="nav-text">添加中文支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ignore"><span class="nav-number">3.3.</span> <span class="nav-text">ignore</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVN"><span class="nav-number">4.</span> <span class="nav-text">SVN</span></a></li></ol></div>
             
           </div>
         </section>
