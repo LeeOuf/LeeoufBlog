@@ -15,6 +15,7 @@ JSON解析过程如下：
 2. 若用户自定义class，则根据元类YYModelMeta获取class（如根据字段将类分为圆、正方形等）。
 3. 根据JSON转化Model。
 自定义class属于扩展功能，先分析JSON转化Model这一主要功能。
+<!-- more -->
 
 ## JSON转化Model
 此功能核心方法如下：

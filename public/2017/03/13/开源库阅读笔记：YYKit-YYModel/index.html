@@ -65,7 +65,7 @@ YYModelYYModel&amp;#x4F5C;&amp;#x4E3A;NSObject&amp;#x7684;Category&amp;#xFF0C;&a
 <meta property="og:description" content="YYKit&amp;#xFF0C;&amp;#x4F5C;&amp;#x8005;ibireme&amp;#xFF0C;Blog&amp;#xFF0C;YYKitDemo&amp;#x3002;
 YYModelYYModel&amp;#x4F5C;&amp;#x4E3A;NSObject&amp;#x7684;Category&amp;#xFF0C;&amp;#x5177;&amp;#x6709;JSON&amp;#x5B57;&amp;#x7B26;&amp;#x4E32;&amp;#x4E0E;Model&amp;#x76F8">
 <meta property="og:image" content="https://LeeOuf.github.io/2017/03/13/开源库阅读笔记：YYKit-YYModel/对象模型图.png">
-<meta property="og:updated_time" content="2017-04-14T06:54:01.000Z">
+<meta property="og:updated_time" content="2017-04-14T07:06:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开源库阅读笔记：YYKit-YYModel">
 <meta name="twitter:description" content="YYKit&amp;#xFF0C;&amp;#x4F5C;&amp;#x8005;ibireme&amp;#xFF0C;Blog&amp;#xFF0C;YYKitDemo&amp;#x3002;
@@ -313,7 +313,8 @@ YYModelYYModel&amp;#x4F5C;&amp;#x4E3A;NSObject&amp;#x7684;Category&amp;#xFF0C;&a
 <ol>
 <li>&#x5224;&#x7A7A;&#xFF0C;&#x83B7;&#x53D6;class&#x3002;</li>
 <li>&#x82E5;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;class&#xFF0C;&#x5219;&#x6839;&#x636E;&#x5143;&#x7C7B;YYModelMeta&#x83B7;&#x53D6;class&#xFF08;&#x5982;&#x6839;&#x636E;&#x5B57;&#x6BB5;&#x5C06;&#x7C7B;&#x5206;&#x4E3A;&#x5706;&#x3001;&#x6B63;&#x65B9;&#x5F62;&#x7B49;&#xFF09;&#x3002;</li>
-<li>&#x6839;&#x636E;JSON&#x8F6C;&#x5316;Model&#x3002;<br>&#x81EA;&#x5B9A;&#x4E49;class&#x5C5E;&#x4E8E;&#x6269;&#x5C55;&#x529F;&#x80FD;&#xFF0C;&#x5148;&#x5206;&#x6790;JSON&#x8F6C;&#x5316;Model&#x8FD9;&#x4E00;&#x4E3B;&#x8981;&#x529F;&#x80FD;&#x3002;</li>
+<li>&#x6839;&#x636E;JSON&#x8F6C;&#x5316;Model&#x3002;<br>&#x81EA;&#x5B9A;&#x4E49;class&#x5C5E;&#x4E8E;&#x6269;&#x5C55;&#x529F;&#x80FD;&#xFF0C;&#x5148;&#x5206;&#x6790;JSON&#x8F6C;&#x5316;Model&#x8FD9;&#x4E00;&#x4E3B;&#x8981;&#x529F;&#x80FD;&#x3002;<a id="more"></a>
+</li>
 </ol>
 <h2 id="JSON&#x8F6C;&#x5316;Model"><a href="#JSON&#x8F6C;&#x5316;Model" class="headerlink" title="JSON&#x8F6C;&#x5316;Model"></a>JSON&#x8F6C;&#x5316;Model</h2><p>&#x6B64;&#x529F;&#x80FD;&#x6838;&#x5FC3;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">- (BOOL)modelSetWithDictionary:(NSDictionary *)dic {</div><div class="line">    if (!dic || dic == (id)kCFNull) return NO;</div><div class="line">    if (![dic isKindOfClass:[NSDictionary class]]) return NO;</div><div class="line">    </div><div class="line">    _YYModelMeta *modelMeta = [_YYModelMeta metaWithClass:object_getClass(self)];</div><div class="line">    if (modelMeta-&gt;_keyMappedCount == 0) return NO;</div><div class="line">    </div><div class="line">    if (modelMeta-&gt;_hasCustomWillTransformFromDictionary) {</div><div class="line">        dic = [((id&lt;YYModel&gt;)self) modelCustomWillTransformFromDictionary:dic];</div><div class="line">        if (![dic isKindOfClass:[NSDictionary class]]) return NO;</div><div class="line">    }</div><div class="line">    </div><div class="line">    ModelSetContext context = {0};</div><div class="line">    context.modelMeta = (__bridge void *)(modelMeta);</div><div class="line">    context.model = (__bridge void *)(self);</div><div class="line">    context.dictionary = (__bridge void *)(dic);</div><div class="line">    </div><div class="line">    if (modelMeta-&gt;_keyMappedCount &gt;= CFDictionaryGetCount((CFDictionaryRef)dic)) {</div><div class="line">        CFDictionaryApplyFunction((CFDictionaryRef)dic, ModelSetWithDictionaryFunction, &amp;context);</div><div class="line">        if (modelMeta-&gt;_keyPathPropertyMetas) {</div><div class="line">            CFArrayApplyFunction((CFArrayRef)modelMeta-&gt;_keyPathPropertyMetas,</div><div class="line">                                 CFRangeMake(0, CFArrayGetCount((CFArrayRef)modelMeta-&gt;_keyPathPropertyMetas)),</div><div class="line">                                 ModelSetWithPropertyMetaArrayFunction,</div><div class="line">                                 &amp;context);</div><div class="line">        }</div><div class="line">        if (modelMeta-&gt;_multiKeysPropertyMetas) {</div><div class="line">            CFArrayApplyFunction((CFArrayRef)modelMeta-&gt;_multiKeysPropertyMetas,</div><div class="line">                                 CFRangeMake(0, CFArrayGetCount((CFArrayRef)modelMeta-&gt;_multiKeysPropertyMetas)),</div><div class="line">                                 ModelSetWithPropertyMetaArrayFunction,</div><div class="line">                                 &amp;context);</div><div class="line">        }</div><div class="line">    } else {</div><div class="line">        CFArrayApplyFunction((CFArrayRef)modelMeta-&gt;_allPropertyMetas,</div><div class="line">                             CFRangeMake(0, modelMeta-&gt;_keyMappedCount),</div><div class="line">                             ModelSetWithPropertyMetaArrayFunction,</div><div class="line">                             &amp;context);</div><div class="line">    }</div><div class="line">    </div><div class="line">    if (modelMeta-&gt;_hasCustomTransformFromDictionary) {</div><div class="line">        return [((id&lt;YYModel&gt;)self) modelCustomTransformFromDictionary:dic];</div><div class="line">    }</div><div class="line">    return YES;</div><div class="line">}</div></pre></td></tr></table></figure></p>
 <p>&#x5176;&#x601D;&#x8DEF;&#x7B80;&#x5355;&#x660E;&#x4E86;&#xFF0C;&#x901A;&#x8FC7;class&#x83B7;&#x53D6;YYMoel&#x5143;&#x7C7B;&#xFF0C;&#x968F;&#x540E;&#x6839;&#x636E;YYModelMeta&#x9012;&#x5F52;&#x8C03;&#x7528;&#x81EA;&#x8EAB;&#xFF0C;&#x76F4;&#x5230;&#x5C06;Model&#x4E2D;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x8F6C;&#x5316;&#x5B8C;&#x6210;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x4ED4;&#x7EC6;&#x9605;&#x8BFB;&#x4EE3;&#x7801;&#x3002;</p>
@@ -405,10 +406,6 @@ YYModelYYModel&amp;#x4F5C;&amp;#x4E3A;NSObject&amp;#x7684;Category&amp;#xFF0C;&a
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/13/贴吧实习半年录/" rel="prev" title="贴吧实习半年录">
-                贴吧实习半年录 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
       
@@ -475,7 +472,7 @@ YYModelYYModel&amp;#x4F5C;&amp;#x4E3A;NSObject&amp;#x7684;Category&amp;#xFF0C;&a
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -483,7 +480,7 @@ YYModelYYModel&amp;#x4F5C;&amp;#x4E3A;NSObject&amp;#x7684;Category&amp;#xFF0C;&a
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -492,7 +489,7 @@ YYModelYYModel&amp;#x4F5C;&amp;#x4E3A;NSObject&amp;#x7684;Category&amp;#xFF0C;&a
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

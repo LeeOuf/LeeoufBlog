@@ -68,7 +68,7 @@
 <meta property="og:image" content="https://LeeOuf.github.io/2016/09/17/Objective-C基础知识小结/GCD02.png">
 <meta property="og:image" content="https://LeeOuf.github.io/2016/09/17/Objective-C基础知识小结/调试01.png">
 <meta property="og:image" content="https://LeeOuf.github.io/2016/09/17/Objective-C基础知识小结/调试02.png">
-<meta property="og:updated_time" content="2017-03-15T09:11:16.000Z">
+<meta property="og:updated_time" content="2017-04-14T07:07:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C基础知识小结">
 <meta name="twitter:description" content="&amp;#x5185;&amp;#x5B58;&amp;#x5806;&amp;#x6808;&amp;#x6808;&amp;#x533A;&amp;#xFF08;stack&amp;#xFF09;&amp;#x7531;&amp;#x7F16;&amp;#x8BD1;&amp;#x5668;&amp;#x81EA;&amp;#x52A8;&amp;#x5206;&amp;#x914D;&amp;#x91CA;&amp;#x653E; &amp;#xFF0C;&amp;#x5F53;&amp;#x4E00;&amp;#x4E2A;&amp;#x51FD;&amp;#x6570;&amp;#">
@@ -311,11 +311,11 @@
 
       
         <h1 id="&#x5185;&#x5B58;"><a href="#&#x5185;&#x5B58;" class="headerlink" title="&#x5185;&#x5B58;"></a>&#x5185;&#x5B58;</h1><h2 id="&#x5806;&#x6808;"><a href="#&#x5806;&#x6808;" class="headerlink" title="&#x5806;&#x6808;"></a>&#x5806;&#x6808;</h2><p><strong>&#x6808;&#x533A;&#xFF08;stack&#xFF09;</strong><br>&#x7531;&#x7F16;&#x8BD1;&#x5668;&#x81EA;&#x52A8;&#x5206;&#x914D;&#x91CA;&#x653E; &#xFF0C;&#x5F53;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;,&#x4E00;&#x4E2A;stack frame(&#x6808;&#x5E27;)&#x5C31;&#x4F1A;&#x88AB;&#x538B;&#x5230;stack&#x91CC;&#xFF0C;&#x5305;&#x542B;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x3001;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x3001;&#x8FD4;&#x56DE;&#x5730;&#x5740;&#x7B49;&#x3002;&#x5F53;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x540E;,&#x8FD9;&#x4E2A;&#x6808;&#x5E27;&#x5C31;&#x4F1A;&#x88AB;&#x9500;&#x6BC1;&#x3002;</p>
-<p><strong>&#x5806;&#x533A;(heap)</strong><br>heap&#x7684;&#x7A7A;&#x95F4;&#x9700;&#x8981;&#x624B;&#x52A8;&#x5206;&#x914D;&#x3002;heap&#x4E0E;&#x52A8;&#x6001;&#x5185;&#x5B58;&#x5206;&#x914D;&#x76F8;&#x5173;,&#x5185;&#x5B58;&#x53EF;&#x4EE5;&#x968F;&#x65F6;&#x5728;&#x5806;&#x4E2D;&#x5206;&#x914D;&#x548C;&#x9500;&#x6BC1;&#x3002;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x660E;&#x786E;&#x8BF7;&#x6C42;&#x5185;&#x5B58;&#x5206;&#x914D;&#x4E0E;&#x5185;&#x5B58;&#x9500;&#x6BC1;&#x3002;</p>
+<p><strong>&#x5806;&#x533A;(heap)</strong><br>heap&#x7684;&#x7A7A;&#x95F4;&#x9700;&#x8981;&#x624B;&#x52A8;&#x5206;&#x914D;&#x3002;heap&#x4E0E;&#x52A8;&#x6001;&#x5185;&#x5B58;&#x5206;&#x914D;&#x76F8;&#x5173;,&#x5185;&#x5B58;&#x53EF;&#x4EE5;&#x968F;&#x65F6;&#x5728;&#x5806;&#x4E2D;&#x5206;&#x914D;&#x548C;&#x9500;&#x6BC1;&#x3002;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x660E;&#x786E;&#x8BF7;&#x6C42;&#x5185;&#x5B58;&#x5206;&#x914D;&#x4E0E;&#x5185;&#x5B58;&#x9500;&#x6BC1;&#x3002;<br><a id="more"></a></p>
 <p><strong>&#x5168;&#x5C40;&#x533A;&#xFF08;static&#xFF09;</strong><br>&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x7684;&#x5B58;&#x50A8;&#x662F;&#x653E;&#x5728;&#x4E00;&#x5757;&#x7684;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x5728;&#x4E00;&#x5757;&#x533A;&#x57DF;&#xFF0C; &#x672A;&#x521D;&#x59CB;&#x5316;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x548C;&#x672A;&#x521D;&#x59CB;&#x5316;&#x7684;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x5728;&#x76F8;&#x90BB;&#x7684;&#x53E6;&#x4E00;&#x5757;&#x533A;&#x57DF;&#x3002;&#x7A0B;&#x5E8F;&#x7ED3;&#x675F;&#x540E;&#x7531;&#x7CFB;&#x7EDF;&#x91CA;&#x653E; &#x3002;</p>
 <p><strong>&#x6587;&#x5B57;&#x5E38;&#x91CF;&#x533A;</strong><br>&#x5E38;&#x91CF;&#x5B57;&#x7B26;&#x4E32;&#x5C31;&#x662F;&#x653E;&#x5728;&#x8FD9;&#x91CC;&#x7684;&#x3002; &#x7A0B;&#x5E8F;&#x7ED3;&#x675F;&#x540E;&#x7531;&#x7CFB;&#x7EDF;&#x91CA;&#x653E;&#x3002;</p>
 <p><strong>&#x7A0B;&#x5E8F;&#x4EE3;&#x7801;&#x533A;</strong><br>&#x5B58;&#x653E;&#x51FD;&#x6570;&#x4F53;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x4EE3;&#x7801;&#x3002;</p>
-<p><img src="/2016/09/17/Objective-C&#x57FA;&#x7840;&#x77E5;&#x8BC6;&#x5C0F;&#x7ED3;/&#x5185;&#x5B58;&#x7A7A;&#x95F4;.png" alt="&#x5185;&#x5B58;&#x7A7A;&#x95F4;"><br><a id="more"></a></p>
+<p><img src="/2016/09/17/Objective-C&#x57FA;&#x7840;&#x77E5;&#x8BC6;&#x5C0F;&#x7ED3;/&#x5185;&#x5B58;&#x7A7A;&#x95F4;.png" alt="&#x5185;&#x5B58;&#x7A7A;&#x95F4;"></p>
 <h2 id="&#x5F15;&#x7528;&#x8BA1;&#x6570;"><a href="#&#x5F15;&#x7528;&#x8BA1;&#x6570;" class="headerlink" title="&#x5F15;&#x7528;&#x8BA1;&#x6570;"></a>&#x5F15;&#x7528;&#x8BA1;&#x6570;</h2><h3 id="4&#x4E2A;&#x539F;&#x5219;"><a href="#4&#x4E2A;&#x539F;&#x5219;" class="headerlink" title="4&#x4E2A;&#x539F;&#x5219;"></a>4&#x4E2A;&#x539F;&#x5219;</h3><ul>
 <li>&#x81EA;&#x5DF1;&#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x81EA;&#x5DF1;&#x6301;&#x6709;&#x3002;</li>
 <li>&#x975E;&#x81EA;&#x5DF1;&#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x81EA;&#x5DF1;&#x4E5F;&#x80FD;&#x6301;&#x6709;&#x3002;</li>
@@ -530,7 +530,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -538,7 +538,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -547,7 +547,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
