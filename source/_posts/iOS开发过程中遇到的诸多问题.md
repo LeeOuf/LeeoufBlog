@@ -21,3 +21,4 @@ self.string2 = self.string1;   // unsafe_unretain
 self.string1 = nil;  
 NSLog(@"String 2 = %@", self.string2);  
 ```
+9. MRC goto语法，目标语句中的代码，与switch中的finally类似，正常执行。

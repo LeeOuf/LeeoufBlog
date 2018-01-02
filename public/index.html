@@ -246,6 +246,120 @@
             
               
                 
+                <a class="post-title-link" href="/2018/01/02/NSNotificationCenter小结/" itemprop="url">
+                  NSNotificationCenter小结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-01-02T14:51:20+08:00" content="2018-01-02">
+              2018-01-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ios/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="&#x7EBF;&#x7A0B;&#x95EE;&#x9898;"><a href="#&#x7EBF;&#x7A0B;&#x95EE;&#x9898;" class="headerlink" title="&#x7EBF;&#x7A0B;&#x95EE;&#x9898;"></a>&#x7EBF;&#x7A0B;&#x95EE;&#x9898;</h2><p>&#x65E5;&#x5E38;&#x5F00;&#x53D1;&#x4E2D;&#x4F1A;&#x9047;&#x5230;&#x4E00;&#x4E9B;&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;&#x4FEE;&#x6539;UI&#x7684;crash&#xFF0C;&#x5F88;&#x96BE;&#x8FFD;&#x67E5;&#xFF0C;&#x5176;&#x4E2D;&#x6709;&#x4E00;&#x5927;&#x90E8;&#x5206;&#x53EF;&#x80FD;&#x6765;&#x6E90;&#x4E8E;&#x5BF9;&#x901A;&#x77E5;&#x7684;&#x9519;&#x8BEF;&#x4F7F;&#x7528;&#x3002;<br>NSNotificationCenter&#x662F;iOS&#x5F00;&#x53D1;&#x4E2D;&#x5F88;&#x5E38;&#x89C1;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#xFF0C;&#x5206;&#x4E3A;post&#x548C;observer&#xFF0C;&#x5176;&#x4E2D;&#x6D89;&#x53CA;&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x539F;&#x5219;&#x5176;&#x5B9E;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x901A;&#x77E5;&#x5728;&#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#x53D1;&#x51FA;&#xFF0C;observer&#x5C31;&#x4F1A;&#x5728;&#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#x5904;&#x7406;&#x3002;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad</div><div class="line">{</div><div class="line">    [super viewDidLoad];</div><div class="line">    </div><div class="line">    UIButton *test = [[UIButton alloc] initWithFrame:CGRectMake(50, 50, 100, 40)];</div><div class="line">    test.backgroundColor = [UIColor blueColor];</div><div class="line">    [test addTarget:self action:@selector(syncPost) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    [self.view addSubview:test];</div><div class="line">    </div><div class="line">    dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">    dispatch_async(queue, ^{</div><div class="line">        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lisetner) name:@&quot;asycObserverNotification&quot; object:nil];</div><div class="line">    });</div><div class="line">    </div><div class="line">    UIButton *test1 = [[UIButton alloc] initWithFrame:CGRectMake(50, 150, 100, 40)];</div><div class="line">    test1.backgroundColor = [UIColor blueColor];</div><div class="line">    [test1 addTarget:self action:@selector(asyncPost) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    [self.view addSubview:test1];</div><div class="line">    </div><div class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lisetner1) name:@&quot;asycPostNotification&quot; object:nil];</div><div class="line">}</div><div class="line"></div><div class="line">// &#x4E3B;&#x7EBF;&#x7A0B;&#x53D1;</div><div class="line">- (void)syncPost</div><div class="line">{</div><div class="line">    [[NSNotificationCenter defaultCenter] postNotificationName:@&quot;asycObserverNotification&quot; object:nil];</div><div class="line">}</div><div class="line"></div><div class="line">// &#x5B50;&#x7EBF;&#x7A0B;&#x6536;</div><div class="line">- (void)lisetner</div><div class="line">{</div><div class="line">    NSLog(@&quot;Async Observer! - %@&quot;, [NSThread currentThread]);</div><div class="line">}</div><div class="line"></div><div class="line">// &#x5B50;&#x7EBF;&#x7A0B;&#x53D1;</div><div class="line">- (void)asyncPost</div><div class="line">{</div><div class="line">    dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">    dispatch_async(queue, ^{</div><div class="line">        [[NSNotificationCenter defaultCenter] postNotificationName:@&quot;asycPostNotification&quot; object:nil];</div><div class="line">    });</div><div class="line">}</div><div class="line"></div><div class="line">// &#x4E3B;&#x7EBF;&#x7A0B;&#x6536;</div><div class="line">- (void)lisetner1</div><div class="line">{</div><div class="line">    NSLog(@&quot;Async Post! - %@&quot;, [NSThread currentThread]);</div><div class="line">    self.view.backgroundColor = [UIColor grayColor];</div><div class="line">    [self.view layoutIfNeeded];</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x6267;&#x884C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">2018-01-02 14:57:56.048000+0800 LKTestApp[5192:2351336] Async Observer! - &lt;NSThread: 0x1c407d4c0&gt;{number = 1, name = main}</div><div class="line"></div><div class="line">2018-01-02 14:58:09.066149+0800 LKTestApp[5192:2353929] Async Post! - &lt;NSThread: 0x1c027dc40&gt;{number = 5, name = (null)}</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/03/13/开源库阅读笔记：YYKit-YYModel/" itemprop="url">
                   开源库阅读笔记：YYKit-YYModel
                 </a>
@@ -562,7 +676,10 @@
 <li>&#x5FEB;&#x901F;&#x4FBF;&#x5229;Array\Set&#x65F6;&#xFF0C;&#x5BF9;&#x5143;&#x7D20;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#x5FC5;&#x6302;</li>
 <li>&#x5728;block&#x4E2D;&#x4F7F;&#x7528;&#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x5FAA;&#x73AF;&#x5F15;&#x7528;</li>
 <li>iOS10&#x4EE5;&#x4E0B;&#x5BFC;&#x822A;&#x680F;&#x95EE;&#x9898;<a href="&#x5BFC;&#x822A;&#x680F;&#x9690;&#x85CF; &amp;&amp; &#x5BFC;&#x822A;&#x680F;&#x9519;&#x4E71;">http://www.jianshu.com/p/e4448c24d900</a> <a href="iOS &#x9690;&#x85CF;&#x5BFC;&#x822A;&#x680F;&#x5BFC;&#x81F4;&#x5BFC;&#x822A;&#x680F;&#x9519;&#x4E71;&#x7684;&#x90A3;&#x4E9B;&#x5751;">http://www.jianshu.com/p/4b8af425a7d0</a></li>
-<li>__block&#x76F8;&#x5F53;&#x4E8E;unsafe_unretain&#xFF0C;&#x5728;&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;crash<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">self.string1 = @&quot;String 1&quot;;   </div><div class="line">self.string2 = self.string1;   // unsafe_unretain</div><div class="line">self.string1 = nil;  </div><div class="line">NSLog(@&quot;String 2 = %@&quot;, self.string2);</div></pre></td></tr></table></figure>
+<li><p>__block&#x76F8;&#x5F53;&#x4E8E;unsafe_unretain&#xFF0C;&#x5728;&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;crash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">self.string1 = @&quot;String 1&quot;;   </div><div class="line">self.string2 = self.string1;   // unsafe_unretain</div><div class="line">self.string1 = nil;  </div><div class="line">NSLog(@&quot;String 2 = %@&quot;, self.string2);</div></pre></td></tr></table></figure>
+</li>
+<li><p>MRC goto&#x8BED;&#x6CD5;&#xFF0C;&#x76EE;&#x6807;&#x8BED;&#x53E5;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x4E0E;switch&#x4E2D;&#x7684;finally&#x7C7B;&#x4F3C;&#xFF0C;&#x6B63;&#x5E38;&#x6267;&#x884C;&#x3002;</p>
 </li>
 </ol>
 
@@ -1290,126 +1407,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/03/配置：迁移hexo/" itemprop="url">
-                  配置：迁移hexo
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-03T00:21:26+08:00" content="2016-09-03">
-              2016-09-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Blog&#x6258;&#x7BA1;&#x5728;github&#xFF0C;&#x62C9;&#x53D6;&#x4EE3;&#x7801;&#x540E;&#x3002;</p>
-<ul>
-<li>&#x4E0B;&#x8F7D;nodejs&#xFF0C;<a href="https://nodejs.org/en/">Node.js&#x5B98;&#x7F51;</a></li>
-<li>&#x5B89;&#x88C5;hexo&#xFF0C;<code>sudo npm install -g hexo</code></li>
-<li>&#x4FDD;&#x7559;&#x539F;&#x6709;deploy&#x914D;&#x7F6E;&#xFF0C;&#x6267;&#x884C;<code>sudo npm install hexo-deployer-git --save</code></li>
-<li>&#x5B89;&#x88C5;server&#xFF0C;<code>sudo npm install hexo-server</code></li></ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/03/配置：迁移hexo/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1455,7 +1452,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1472,7 +1469,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1538,7 +1535,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
