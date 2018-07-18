@@ -26,3 +26,5 @@ NSLog(@"String 2 = %@", self.string2);
 11. iOS10及以下系统，在viewDidLoad中设置导航栏标题的透明度是无效的，会被系统重设；而在iOS11中是生效的，但是，在滑动返回过程中，alpha会被重设为1。
 12. Notification在主线程中是同步执行的。
 13. 若给UIButton高亮状态设置了backgroundImage，则需要相应地设置高亮状态icon及字色。
+14. iOS8以上系统加在Window上的UIViewController会自动调整frame，而iOS8不会。
+15. 虽然GCD和UIViewAnimation不会造成循环引用，但是dispatch_after会持有对象使其无法释放。
