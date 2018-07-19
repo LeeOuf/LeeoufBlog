@@ -62,7 +62,7 @@
 <meta property="og:url" content="https://LeeOuf.github.io/2016/12/19/iOS开发过程中遇到的诸多问题/index.html">
 <meta property="og:site_name" content="LeeOuf's Blog">
 <meta property="og:description" content="NSNumber&amp;#x7C7B;&amp;#x578B;&amp;#x5224;&amp;#x65AD;&amp;#x662F;&amp;#x5426;&amp;#x4E3A;0&amp;#x4E0D;&amp;#x80FD;&amp;#x4F7F;&amp;#x7528;aIntegerNum == 0&amp;#xFF0C;&amp;#x800C;&amp;#x5E94;&amp;#x4F7F;&amp;#x7528;[aIntegerNum isEqualToNumber:@0]&amp;#xFF0C;&amp;#x524">
-<meta property="og:updated_time" content="2018-06-21T05:59:56.926Z">
+<meta property="og:updated_time" content="2018-07-19T02:28:28.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发过程中遇到的诸多问题">
 <meta name="twitter:description" content="NSNumber&amp;#x7C7B;&amp;#x578B;&amp;#x5224;&amp;#x65AD;&amp;#x662F;&amp;#x5426;&amp;#x4E3A;0&amp;#x4E0D;&amp;#x80FD;&amp;#x4F7F;&amp;#x7528;aIntegerNum == 0&amp;#xFF0C;&amp;#x800C;&amp;#x5E94;&amp;#x4F7F;&amp;#x7528;[aIntegerNum isEqualToNumber:@0]&amp;#xFF0C;&amp;#x524">
@@ -320,6 +320,10 @@
 <li>iOS10&#x53CA;&#x4EE5;&#x4E0B;&#x7CFB;&#x7EDF;&#xFF0C;&#x5728;viewDidLoad&#x4E2D;&#x8BBE;&#x7F6E;&#x5BFC;&#x822A;&#x680F;&#x6807;&#x9898;&#x7684;&#x900F;&#x660E;&#x5EA6;&#x662F;&#x65E0;&#x6548;&#x7684;&#xFF0C;&#x4F1A;&#x88AB;&#x7CFB;&#x7EDF;&#x91CD;&#x8BBE;&#xFF1B;&#x800C;&#x5728;iOS11&#x4E2D;&#x662F;&#x751F;&#x6548;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x5728;&#x6ED1;&#x52A8;&#x8FD4;&#x56DE;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;alpha&#x4F1A;&#x88AB;&#x91CD;&#x8BBE;&#x4E3A;1&#x3002;</li>
 <li>Notification&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x4E2D;&#x662F;&#x540C;&#x6B65;&#x6267;&#x884C;&#x7684;&#x3002;</li>
 <li>&#x82E5;&#x7ED9;UIButton&#x9AD8;&#x4EAE;&#x72B6;&#x6001;&#x8BBE;&#x7F6E;&#x4E86;backgroundImage&#xFF0C;&#x5219;&#x9700;&#x8981;&#x76F8;&#x5E94;&#x5730;&#x8BBE;&#x7F6E;&#x9AD8;&#x4EAE;&#x72B6;&#x6001;icon&#x53CA;&#x5B57;&#x8272;&#x3002;</li>
+<li>iOS8&#x4EE5;&#x4E0A;&#x7CFB;&#x7EDF;&#x52A0;&#x5728;Window&#x4E0A;&#x7684;UIViewController&#x4F1A;&#x81EA;&#x52A8;&#x8C03;&#x6574;frame&#xFF0C;&#x800C;iOS8&#x4E0D;&#x4F1A;&#x3002;</li>
+<li>&#x867D;&#x7136;GCD&#x548C;UIViewAnimation&#x4E0D;&#x4F1A;&#x9020;&#x6210;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#xFF0C;&#x4F46;&#x662F;dispatch_after&#x4F1A;&#x6301;&#x6709;&#x5BF9;&#x8C61;&#x4F7F;&#x5176;&#x65E0;&#x6CD5;&#x91CA;&#x653E;&#x3002;</li>
+<li>&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x4E2D;&#x6709;&#x591A;&#x4E2A;UIScrollView&#x65F6;&#xFF0C;scrollsToTop&#x9700;&#x4EC5;&#x5F00;&#x542F;&#x4E00;&#x4E2A;&#xFF0C;&#x5426;&#x5219;&#x72B6;&#x6001;&#x680F;&#x8FD4;&#x56DE;&#x9876;&#x90E8;&#x529F;&#x80FD;&#x5931;&#x6548;&#x3002;</li>
+<li>UIButton&#x7684;&#x70B9;&#x51FB;&#x6001;&#x6709;UIControlStateHighlighted&#x548C;UIControlStateSelected | UIControlStateHighlighted&#xFF0C;&#x53C2;&#x7167;<a href="UIButton&#x9009;&#x4E2D;&#x72B6;&#x6001;&#x4E0B;&#x7684;&#x70B9;&#x51FB;">https://www.jianshu.com/p/57b2c41448bf</a>&#x3002;</li>
 </ol>
 
       
@@ -432,7 +436,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -449,7 +453,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

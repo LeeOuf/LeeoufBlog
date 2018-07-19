@@ -28,3 +28,5 @@ NSLog(@"String 2 = %@", self.string2);
 13. 若给UIButton高亮状态设置了backgroundImage，则需要相应地设置高亮状态icon及字色。
 14. iOS8以上系统加在Window上的UIViewController会自动调整frame，而iOS8不会。
 15. 虽然GCD和UIViewAnimation不会造成循环引用，但是dispatch_after会持有对象使其无法释放。
+16. 一个页面中有多个UIScrollView时，scrollsToTop需仅开启一个，否则状态栏返回顶部功能失效。
+17. UIButton的点击态有UIControlStateHighlighted和UIControlStateSelected | UIControlStateHighlighted，参照[https://www.jianshu.com/p/57b2c41448bf](UIButton选中状态下的点击)。
