@@ -56,49 +56,18 @@
 
 
 
-<meta name="description" content="iOS&amp;#x5E38;&amp;#x89C1;warning&amp;#x68B3;&amp;#x7406;&amp;#x5E38;&amp;#x89C1;warning&amp;#x7C7B;&amp;#x578B;
-
-
-warning&amp;#x7C7B;&amp;#x578B;
-&amp;#x5F71;&amp;#x54CD;
-&amp;#x4FEE;&amp;#x590D;&amp;#x65B9;&amp;#x5F0F;
-&amp;#x4E25;&amp;#x91CD;&amp;#x7B49;&amp;#x7EA7;
-
-
-
-
-&amp;#x65">
+<meta name="description" content="iOS常见warning梳理常见warning类型   warning类型 影响 修复方式 严重等级     方法有定义无实现 crash 补齐或删除方法 P0   调用不存在的方法 crash 调用正确方法 P0   调用系统DEPRECATED方法/属性 crash、bug 分系统进行调用 P0   方法调用中参数类型错误 crash、bug 转化对象类型 P0   赋值类型不一致 crash">
+<meta name="keywords" content="iOS,warning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS常见warning梳理">
 <meta property="og:url" content="https://LeeOuf.github.io/2018/07/26/iOS常见warning梳理/index.html">
-<meta property="og:site_name" content="LeeOuf's Blog">
-<meta property="og:description" content="iOS&amp;#x5E38;&amp;#x89C1;warning&amp;#x68B3;&amp;#x7406;&amp;#x5E38;&amp;#x89C1;warning&amp;#x7C7B;&amp;#x578B;
-
-
-warning&amp;#x7C7B;&amp;#x578B;
-&amp;#x5F71;&amp;#x54CD;
-&amp;#x4FEE;&amp;#x590D;&amp;#x65B9;&amp;#x5F0F;
-&amp;#x4E25;&amp;#x91CD;&amp;#x7B49;&amp;#x7EA7;
-
-
-
-
-&amp;#x65">
-<meta property="og:updated_time" content="2018-07-26T09:57:57.568Z">
+<meta property="og:site_name" content="LeeOuf&#39;s Blog">
+<meta property="og:description" content="iOS常见warning梳理常见warning类型   warning类型 影响 修复方式 严重等级     方法有定义无实现 crash 补齐或删除方法 P0   调用不存在的方法 crash 调用正确方法 P0   调用系统DEPRECATED方法/属性 crash、bug 分系统进行调用 P0   方法调用中参数类型错误 crash、bug 转化对象类型 P0   赋值类型不一致 crash">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-22T02:11:21.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS常见warning梳理">
-<meta name="twitter:description" content="iOS&amp;#x5E38;&amp;#x89C1;warning&amp;#x68B3;&amp;#x7406;&amp;#x5E38;&amp;#x89C1;warning&amp;#x7C7B;&amp;#x578B;
-
-
-warning&amp;#x7C7B;&amp;#x578B;
-&amp;#x5F71;&amp;#x54CD;
-&amp;#x4FEE;&amp;#x590D;&amp;#x65B9;&amp;#x5F0F;
-&amp;#x4E25;&amp;#x91CD;&amp;#x7B49;&amp;#x7EA7;
-
-
-
-
-&amp;#x65">
+<meta name="twitter:description" content="iOS常见warning梳理常见warning类型   warning类型 影响 修复方式 严重等级     方法有定义无实现 crash 补齐或删除方法 P0   调用不存在的方法 crash 调用正确方法 P0   调用系统DEPRECATED方法/属性 crash、bug 分系统进行调用 P0   方法调用中参数类型错误 crash、bug 转化对象类型 P0   赋值类型不一致 crash">
 
 
 
@@ -317,213 +286,213 @@ warning&amp;#x7C7B;&amp;#x578B;
       
 
       
-        <h1 id="iOS&#x5E38;&#x89C1;warning&#x68B3;&#x7406;"><a href="#iOS&#x5E38;&#x89C1;warning&#x68B3;&#x7406;" class="headerlink" title="iOS&#x5E38;&#x89C1;warning&#x68B3;&#x7406;"></a>iOS&#x5E38;&#x89C1;warning&#x68B3;&#x7406;</h1><h2 id="&#x5E38;&#x89C1;warning&#x7C7B;&#x578B;"><a href="#&#x5E38;&#x89C1;warning&#x7C7B;&#x578B;" class="headerlink" title="&#x5E38;&#x89C1;warning&#x7C7B;&#x578B;"></a>&#x5E38;&#x89C1;warning&#x7C7B;&#x578B;</h2><table>
+        <h1 id="iOS常见warning梳理"><a href="#iOS常见warning梳理" class="headerlink" title="iOS常见warning梳理"></a>iOS常见warning梳理</h1><h2 id="常见warning类型"><a href="#常见warning类型" class="headerlink" title="常见warning类型"></a>常见warning类型</h2><table>
 <thead>
 <tr>
-<th>warning&#x7C7B;&#x578B;</th>
-<th>&#x5F71;&#x54CD;</th>
-<th>&#x4FEE;&#x590D;&#x65B9;&#x5F0F;</th>
-<th>&#x4E25;&#x91CD;&#x7B49;&#x7EA7;</th>
+<th>warning类型</th>
+<th>影响</th>
+<th>修复方式</th>
+<th>严重等级</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>&#x65B9;&#x6CD5;&#x6709;&#x5B9A;&#x4E49;&#x65E0;&#x5B9E;&#x73B0;</td>
+<td>方法有定义无实现</td>
 <td>crash</td>
-<td>&#x8865;&#x9F50;&#x6216;&#x5220;&#x9664;&#x65B9;&#x6CD5;</td>
+<td>补齐或删除方法</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x8C03;&#x7528;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x65B9;&#x6CD5;</td>
+<td>调用不存在的方法</td>
 <td>crash</td>
-<td>&#x8C03;&#x7528;&#x6B63;&#x786E;&#x65B9;&#x6CD5;</td>
+<td>调用正确方法</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x8C03;&#x7528;&#x7CFB;&#x7EDF;DEPRECATED&#x65B9;&#x6CD5;/&#x5C5E;&#x6027;</td>
-<td>crash&#x3001;bug</td>
-<td>&#x5206;&#x7CFB;&#x7EDF;&#x8FDB;&#x884C;&#x8C03;&#x7528;</td>
+<td>调用系统DEPRECATED方法/属性</td>
+<td>crash、bug</td>
+<td>分系统进行调用</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x4E2D;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x9519;&#x8BEF;</td>
-<td>crash&#x3001;bug</td>
-<td>&#x8F6C;&#x5316;&#x5BF9;&#x8C61;&#x7C7B;&#x578B;</td>
+<td>方法调用中参数类型错误</td>
+<td>crash、bug</td>
+<td>转化对象类型</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x8D4B;&#x503C;&#x7C7B;&#x578B;&#x4E0D;&#x4E00;&#x81F4;</td>
-<td>crash&#x3001;bug</td>
-<td>&#x8F6C;&#x5316;&#x5BF9;&#x8C61;&#x7C7B;&#x578B;</td>
+<td>赋值类型不一致</td>
+<td>crash、bug</td>
+<td>转化对象类型</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x672A;&#x8C03;&#x7528;super&#x65B9;&#x6CD5;</td>
-<td>&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3001;bug</td>
-<td>&#x8C03;&#x7528;super</td>
+<td>未调用super方法</td>
+<td>内存泄漏、bug</td>
+<td>调用super</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x5FAA;&#x73AF;&#x5F15;&#x7528;</td>
-<td>&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</td>
+<td>循环引用</td>
+<td>内存泄漏</td>
 <td>weak strong dance</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x91CD;&#x540D;&#x4EE3;&#x7406;</td>
+<td>重名代理</td>
 <td>bug</td>
-<td>&#x6539;&#x540D;</td>
+<td>改名</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x91CD;&#x540D;&#x5B8F;</td>
+<td>重名宏</td>
 <td>bug</td>
-<td>&#x6539;&#x540D;</td>
+<td>改名</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x5B50;&#x7C7B;&#x4E0E;&#x7236;&#x7C7B;&#x6709;&#x91CD;&#x540D;&#x540C;&#x7C7B;&#x578B;&#x5C5E;&#x6027;</td>
+<td>子类与父类有重名同类型属性</td>
 <td>bug</td>
-<td>&#x5220;&#x9664;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;</td>
+<td>删除其中一个</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x5B50;&#x7C7B;&#x4E0E;&#x7236;&#x7C7B;&#x6709;&#x91CD;&#x540D;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x5C5E;&#x6027;</td>
+<td>子类与父类有重名不同类型属性</td>
 <td>bug</td>
-<td>&#x5B50;&#x7C7B;&#x6DFB;&#x52A0;&#x5FFD;&#x7565;&#x8B66;&#x544A;&#x6807;&#x8BB0;&#xFF0C;@dynamic&#x52A8;&#x6001;&#x5408;&#x6210;&#x5C5E;&#x6027;</td>
+<td>子类添加忽略警告标记，@dynamic动态合成属性</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x683C;&#x5F0F;&#x5316;&#x8F93;&#x51FA;&#x7C7B;&#x578B;&#x4E0D;&#x4E00;&#x81F4;</td>
+<td>格式化输出类型不一致</td>
 <td>bug</td>
-<td>&#x5F3A;&#x5236;&#x8F6C;&#x6362;&#x7C7B;&#x578B;</td>
+<td>强制转换类型</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>@required&#x4EE3;&#x7406;&#x672A;&#x5B9E;&#x73B0;</td>
+<td>@required代理未实现</td>
 <td>bug</td>
-<td>&#x8865;&#x9F50;&#x4EE3;&#x7406;&#x65B9;&#x6CD5;</td>
+<td>补齐代理方法</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x5DE5;&#x7A0B;&#x672A;&#x6309;&#x63A8;&#x8350;&#x65B9;&#x5F0F;&#x914D;&#x7F6E;</td>
-<td>warning&#x63D0;&#x793A;&#x7B49;&#x7EA7;&#x3001;&#x7F16;&#x8BD1;&#x9009;&#x9879;&#x7B49;&#x5B58;&#x5728;&#x98CE;&#x9669;</td>
-<td>&#x66F4;&#x65B0;&#x5230;recommend settings</td>
+<td>工程未按推荐方式配置</td>
+<td>warning提示等级、编译选项等存在风险</td>
+<td>更新到recommend settings</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>MRC&#x6587;&#x4EF6;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x8B66;&#x544A;</td>
-<td>&#x6027;&#x80FD;&#x6D6A;&#x8D39;</td>
-<td>&#x4FEE;&#x590D;&#x4EE3;&#x7801;&#x6216;&#x6DFB;&#x52A0;ARC&#x6807;&#x8BB0;</td>
+<td>MRC文件内存泄漏警告</td>
+<td>性能浪费</td>
+<td>修复代码或添加ARC标记</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x4E34;&#x65F6;&#x53D8;&#x91CF;&#x65E0;&#x521D;&#x59CB;&#x503C;</td>
+<td>临时变量无初始值</td>
 <td>bug</td>
-<td>&#x8D4B;&#x521D;&#x59CB;&#x503C;</td>
+<td>赋初始值</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x679A;&#x4E3E;&#x8D4B;&#x503C;&#x7C7B;&#x578B;&#x4E0D;&#x4E00;&#x81F4;</td>
+<td>枚举赋值类型不一致</td>
 <td>bug</td>
-<td>&#x4FEE;&#x6539;&#x4EE3;&#x7801;</td>
+<td>修改代码</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x975E;&#x5BF9;&#x8C61;&#x5C5E;&#x6027;&#x52A0;&#x4E86;*</td>
+<td>非对象属性加了*</td>
 <td>bug</td>
-<td>&#x5220;&#x9664;*</td>
+<td>删除*</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x4EE3;&#x7801;&#x4E2D;&#x5305;&#x542B;&#x975E;&#x6CD5;&#x5B57;&#x7B26;</td>
-<td>&#x7F16;&#x8BD1;&#x5668;&#x65E0;&#x6CD5;&#x8BC6;&#x522B;</td>
-<td>&#x5220;&#x9664;&#x975E;&#x6CD5;&#x5B57;&#x7B26;</td>
+<td>代码中包含非法字符</td>
+<td>编译器无法识别</td>
+<td>删除非法字符</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>Nullable/NonNull&#x6807;&#x8BB0;&#x4E0D;&#x5168;</td>
-<td>&#x4EA7;&#x751F;&#x5927;&#x91CF;warning</td>
-<td>&#x5220;&#x9664;&#x6216;&#x8865;&#x5168;&#x8BE5;&#x6587;&#x4EF6;&#x5185;&#x7684;&#x6807;&#x8BB0;</td>
+<td>Nullable/NonNull标记不全</td>
+<td>产生大量warning</td>
+<td>删除或补全该文件内的标记</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>&#x672A;&#x4F7F;&#x7528;&#x7684;&#x4E34;&#x65F6;&#x53D8;&#x91CF;</td>
-<td>&#x6027;&#x80FD;&#x6D6A;&#x8D39;</td>
-<td>&#x5220;&#x9664;&#x65E0;&#x7528;&#x53D8;&#x91CF;</td>
+<td>未使用的临时变量</td>
+<td>性能浪费</td>
+<td>删除无用变量</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>&#x672A;&#x4F7F;&#x7528;&#x7684;static&#x53D8;&#x91CF;</td>
-<td>&#x6027;&#x80FD;&#x6D6A;&#x8D39;</td>
-<td>&#x5220;&#x9664;&#x65E0;&#x7528;&#x53D8;&#x91CF;</td>
+<td>未使用的static变量</td>
+<td>性能浪费</td>
+<td>删除无用变量</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>&#x4EE3;&#x7406;&#x7C7B;&#x672A;&#x6DFB;&#x52A0;&#x4EE3;&#x7406;&#x6807;&#x8BB0;</td>
-<td>&#x7C7B;&#x578B;&#x68C0;&#x67E5;&#x8B66;&#x544A;</td>
-<td>&#x6DFB;&#x52A0;&#x4EE3;&#x7406;</td>
+<td>代理类未添加代理标记</td>
+<td>类型检查警告</td>
+<td>添加代理</td>
 <td>P2</td>
 </tr>
 <tr>
 <td>performSelector</td>
-<td>&#x4E0D;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x65B9;&#x5F0F;</td>
-<td>&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x65B9;&#x6CD5;</td>
+<td>不推荐使用的方法调用方式</td>
+<td>直接调用方法</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>&#x7B2C;&#x4E09;&#x65B9;&#x5E93;&#x6700;&#x4F4E;&#x7248;&#x672C;&#x4E0E;&#x4E3B;&#x5DE5;&#x7A0B;&#x4E0D;&#x4E00;&#x81F4;</td>
-<td>&#x7F16;&#x8BD1;&#x8B66;&#x544A;</td>
-<td>&#x6DFB;&#x52A0;-w linker&#x6807;&#x8BB0;</td>
+<td>第三方库最低版本与主工程不一致</td>
+<td>编译警告</td>
+<td>添加-w linker标记</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>.c&#x6587;&#x4EF6;&#x7684;64/32&#x4F4D;&#x8B66;&#x544A;</td>
-<td>&#x7F16;&#x8BD1;&#x8B66;&#x544A;</td>
-<td>&#x6DFB;&#x52A0;-Wno-shorten-64-to-32&#x6587;&#x4EF6;&#x6807;&#x8BB0;</td>
+<td>.c文件的64/32位警告</td>
+<td>编译警告</td>
+<td>添加-Wno-shorten-64-to-32文件标记</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>import&#x6587;&#x4EF6;&#x540D;&#x5927;&#x5C0F;&#x5199;&#x9519;&#x8BEF;</td>
-<td>&#x65E0;</td>
-<td>&#x4FEE;&#x590D;&#x6587;&#x4EF6;&#x540D;</td>
+<td>import文件名大小写错误</td>
+<td>无</td>
+<td>修复文件名</td>
 <td>P3</td>
 </tr>
 <tr>
-<td>&#x975E;&#x6CD5;&#x6CE8;&#x91CA;</td>
-<td>&#x6CE8;&#x91CA;&#x683C;&#x5F0F;&#x4E0D;&#x89C4;&#x8303;&#xFF0C;&#x65E0;&#x6CD5;&#x5FEB;&#x6377;&#x67E5;&#x770B;&#x5B9A;&#x4E49;</td>
-<td>&#x4F7F;&#x7528;&#x7CFB;&#x7EDF;&#x5FEB;&#x6377;&#x6CE8;&#x91CA;</td>
+<td>非法注释</td>
+<td>注释格式不规范，无法快捷查看定义</td>
+<td>使用系统快捷注释</td>
 <td>P3</td>
 </tr>
 <tr>
-<td>block&#x5B9A;&#x4E49;&#x4E0D;&#x89C4;&#x8303;</td>
-<td>&#x7C7B;&#x578B;&#x68C0;&#x67E5;&#x8B66;&#x544A;</td>
-<td>&#x8865;&#x9F50;void</td>
+<td>block定义不规范</td>
+<td>类型检查警告</td>
+<td>补齐void</td>
 <td>P3</td>
 </tr>
 <tr>
-<td>&#x5DE5;&#x7A0B;&#x6709;&#x6587;&#x4EF6;&#x5F15;&#x7528;&#x4F46;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;</td>
-<td>&#x6587;&#x4EF6;&#x7D22;&#x5F15;&#x5931;&#x8D25;</td>
+<td>工程有文件引用但文件不存在</td>
+<td>文件索引失败</td>
 <td>bug</td>
 <td>P3</td>
 </tr>
 <tr>
-<td>asset&#x6709;&#x7D22;&#x5F15;&#x65E0;&#x6587;&#x4EF6;</td>
+<td>asset有索引无文件</td>
 <td>bug</td>
-<td>&#x5220;&#x9664;&#x7D22;&#x5F15;</td>
+<td>删除索引</td>
 <td>P3</td>
 </tr>
 <tr>
-<td>search path&#x5B58;&#x5728;&#xFF0C;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;</td>
-<td>&#x627E;&#x4E0D;&#x5230;&#x7D22;&#x5F15;</td>
-<td>&#x5220;&#x9664;search path</td>
+<td>search path存在，文件不存在</td>
+<td>找不到索引</td>
+<td>删除search path</td>
 <td>P3</td>
 </tr>
 </tbody>
 </table>
-<h2 id="&#x4FEE;&#x590D;warning&#x7684;&#x65B9;&#x5F0F;"><a href="#&#x4FEE;&#x590D;warning&#x7684;&#x65B9;&#x5F0F;" class="headerlink" title="&#x4FEE;&#x590D;warning&#x7684;&#x65B9;&#x5F0F;"></a>&#x4FEE;&#x590D;warning&#x7684;&#x65B9;&#x5F0F;</h2><ol>
-<li>&#x6839;&#x636E;&#x7F16;&#x8BD1;&#x5668;&#x63D0;&#x793A;&#x4FEE;&#x590D;&#x3002;</li>
-<li>&#x5BF9;&#x4E8E;&#x6682;&#x4E0D;&#x4FEE;&#x590D;&#x7684;warning&#x6709;&#x4E09;&#x79CD;&#x5FFD;&#x7565;&#x65B9;&#x5F0F;&#x3002;<br>2.1. &#x9009;&#x4E2D;warning&#xFF0C;&#x53F3;&#x952E;&#x9009;&#x62E9;Reveal in Log&#xFF0C;&#x590D;&#x5236;warning&#x7C7B;&#x578B;&#xFF0C;&#x5728;&#x4EE3;&#x7801;&#x4E2D;&#x6DFB;&#x52A0;ignored&#x6807;&#x8BB0;&#x3002;<br>2.2. &#x5BF9;&#x4E8E;&#x67D0;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x5FFD;&#x7565;&#x67D0;&#x79CD;&#x7C7B;&#x578B;&#x7684;warning&#xFF0C;&#x4E0E;&#x6253;ARC&#x6807;&#x8BB0;&#x76F8;&#x540C;&#xFF0C;&#x6DFB;&#x52A0;&#x5BF9;&#x5E94;&#x7C7B;&#x578B;&#x7684;&#x7F16;&#x8BD1;&#x6807;&#x8BB0;&#x3002;<br>2.3. &#x5168;&#x5C40;&#x5FFD;&#x7565;&#x67D0;&#x4E00;&#x7C7B;&#x578B;warning&#xFF0C;&#x5728;&#x5DE5;&#x7A0B;&#x914D;&#x7F6E;&#x4E2D;&#x6DFB;&#x52A0;&#x7F16;&#x8BD1;&#x9009;&#x9879;&#x3002;</li>
+<h2 id="修复warning的方式"><a href="#修复warning的方式" class="headerlink" title="修复warning的方式"></a>修复warning的方式</h2><ol>
+<li>根据编译器提示修复。</li>
+<li>对于暂不修复的warning有三种忽略方式。<br>2.1. 选中warning，右键选择Reveal in Log，复制warning类型，在代码中添加ignored标记。<br>2.2. 对于某个文件，忽略某种类型的warning，与打ARC标记相同，添加对应类型的编译标记。<br>2.3. 全局忽略某一类型warning，在工程配置中添加编译选项。</li>
 </ol>
 
       

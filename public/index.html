@@ -58,12 +58,13 @@
 
 <meta name="description" content="人生有时">
 <meta property="og:type" content="website">
-<meta property="og:title" content="LeeOuf's Blog">
+<meta property="og:title" content="LeeOuf&#39;s Blog">
 <meta property="og:url" content="https://LeeOuf.github.io/index.html">
-<meta property="og:site_name" content="LeeOuf's Blog">
+<meta property="og:site_name" content="LeeOuf&#39;s Blog">
 <meta property="og:description" content="人生有时">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeeOuf's Blog">
+<meta name="twitter:title" content="LeeOuf&#39;s Blog">
 <meta name="twitter:description" content="人生有时">
 
 
@@ -290,213 +291,213 @@
       
         
           
-            <h1 id="iOS&#x5E38;&#x89C1;warning&#x68B3;&#x7406;"><a href="#iOS&#x5E38;&#x89C1;warning&#x68B3;&#x7406;" class="headerlink" title="iOS&#x5E38;&#x89C1;warning&#x68B3;&#x7406;"></a>iOS&#x5E38;&#x89C1;warning&#x68B3;&#x7406;</h1><h2 id="&#x5E38;&#x89C1;warning&#x7C7B;&#x578B;"><a href="#&#x5E38;&#x89C1;warning&#x7C7B;&#x578B;" class="headerlink" title="&#x5E38;&#x89C1;warning&#x7C7B;&#x578B;"></a>&#x5E38;&#x89C1;warning&#x7C7B;&#x578B;</h2><table>
+            <h1 id="iOS常见warning梳理"><a href="#iOS常见warning梳理" class="headerlink" title="iOS常见warning梳理"></a>iOS常见warning梳理</h1><h2 id="常见warning类型"><a href="#常见warning类型" class="headerlink" title="常见warning类型"></a>常见warning类型</h2><table>
 <thead>
 <tr>
-<th>warning&#x7C7B;&#x578B;</th>
-<th>&#x5F71;&#x54CD;</th>
-<th>&#x4FEE;&#x590D;&#x65B9;&#x5F0F;</th>
-<th>&#x4E25;&#x91CD;&#x7B49;&#x7EA7;</th>
+<th>warning类型</th>
+<th>影响</th>
+<th>修复方式</th>
+<th>严重等级</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>&#x65B9;&#x6CD5;&#x6709;&#x5B9A;&#x4E49;&#x65E0;&#x5B9E;&#x73B0;</td>
+<td>方法有定义无实现</td>
 <td>crash</td>
-<td>&#x8865;&#x9F50;&#x6216;&#x5220;&#x9664;&#x65B9;&#x6CD5;</td>
+<td>补齐或删除方法</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x8C03;&#x7528;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x65B9;&#x6CD5;</td>
+<td>调用不存在的方法</td>
 <td>crash</td>
-<td>&#x8C03;&#x7528;&#x6B63;&#x786E;&#x65B9;&#x6CD5;</td>
+<td>调用正确方法</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x8C03;&#x7528;&#x7CFB;&#x7EDF;DEPRECATED&#x65B9;&#x6CD5;/&#x5C5E;&#x6027;</td>
-<td>crash&#x3001;bug</td>
-<td>&#x5206;&#x7CFB;&#x7EDF;&#x8FDB;&#x884C;&#x8C03;&#x7528;</td>
+<td>调用系统DEPRECATED方法/属性</td>
+<td>crash、bug</td>
+<td>分系统进行调用</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x4E2D;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x9519;&#x8BEF;</td>
-<td>crash&#x3001;bug</td>
-<td>&#x8F6C;&#x5316;&#x5BF9;&#x8C61;&#x7C7B;&#x578B;</td>
+<td>方法调用中参数类型错误</td>
+<td>crash、bug</td>
+<td>转化对象类型</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x8D4B;&#x503C;&#x7C7B;&#x578B;&#x4E0D;&#x4E00;&#x81F4;</td>
-<td>crash&#x3001;bug</td>
-<td>&#x8F6C;&#x5316;&#x5BF9;&#x8C61;&#x7C7B;&#x578B;</td>
+<td>赋值类型不一致</td>
+<td>crash、bug</td>
+<td>转化对象类型</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x672A;&#x8C03;&#x7528;super&#x65B9;&#x6CD5;</td>
-<td>&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3001;bug</td>
-<td>&#x8C03;&#x7528;super</td>
+<td>未调用super方法</td>
+<td>内存泄漏、bug</td>
+<td>调用super</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x5FAA;&#x73AF;&#x5F15;&#x7528;</td>
-<td>&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</td>
+<td>循环引用</td>
+<td>内存泄漏</td>
 <td>weak strong dance</td>
 <td>P0</td>
 </tr>
 <tr>
-<td>&#x91CD;&#x540D;&#x4EE3;&#x7406;</td>
+<td>重名代理</td>
 <td>bug</td>
-<td>&#x6539;&#x540D;</td>
+<td>改名</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x91CD;&#x540D;&#x5B8F;</td>
+<td>重名宏</td>
 <td>bug</td>
-<td>&#x6539;&#x540D;</td>
+<td>改名</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x5B50;&#x7C7B;&#x4E0E;&#x7236;&#x7C7B;&#x6709;&#x91CD;&#x540D;&#x540C;&#x7C7B;&#x578B;&#x5C5E;&#x6027;</td>
+<td>子类与父类有重名同类型属性</td>
 <td>bug</td>
-<td>&#x5220;&#x9664;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;</td>
+<td>删除其中一个</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x5B50;&#x7C7B;&#x4E0E;&#x7236;&#x7C7B;&#x6709;&#x91CD;&#x540D;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x5C5E;&#x6027;</td>
+<td>子类与父类有重名不同类型属性</td>
 <td>bug</td>
-<td>&#x5B50;&#x7C7B;&#x6DFB;&#x52A0;&#x5FFD;&#x7565;&#x8B66;&#x544A;&#x6807;&#x8BB0;&#xFF0C;@dynamic&#x52A8;&#x6001;&#x5408;&#x6210;&#x5C5E;&#x6027;</td>
+<td>子类添加忽略警告标记，@dynamic动态合成属性</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x683C;&#x5F0F;&#x5316;&#x8F93;&#x51FA;&#x7C7B;&#x578B;&#x4E0D;&#x4E00;&#x81F4;</td>
+<td>格式化输出类型不一致</td>
 <td>bug</td>
-<td>&#x5F3A;&#x5236;&#x8F6C;&#x6362;&#x7C7B;&#x578B;</td>
+<td>强制转换类型</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>@required&#x4EE3;&#x7406;&#x672A;&#x5B9E;&#x73B0;</td>
+<td>@required代理未实现</td>
 <td>bug</td>
-<td>&#x8865;&#x9F50;&#x4EE3;&#x7406;&#x65B9;&#x6CD5;</td>
+<td>补齐代理方法</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x5DE5;&#x7A0B;&#x672A;&#x6309;&#x63A8;&#x8350;&#x65B9;&#x5F0F;&#x914D;&#x7F6E;</td>
-<td>warning&#x63D0;&#x793A;&#x7B49;&#x7EA7;&#x3001;&#x7F16;&#x8BD1;&#x9009;&#x9879;&#x7B49;&#x5B58;&#x5728;&#x98CE;&#x9669;</td>
-<td>&#x66F4;&#x65B0;&#x5230;recommend settings</td>
+<td>工程未按推荐方式配置</td>
+<td>warning提示等级、编译选项等存在风险</td>
+<td>更新到recommend settings</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>MRC&#x6587;&#x4EF6;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x8B66;&#x544A;</td>
-<td>&#x6027;&#x80FD;&#x6D6A;&#x8D39;</td>
-<td>&#x4FEE;&#x590D;&#x4EE3;&#x7801;&#x6216;&#x6DFB;&#x52A0;ARC&#x6807;&#x8BB0;</td>
+<td>MRC文件内存泄漏警告</td>
+<td>性能浪费</td>
+<td>修复代码或添加ARC标记</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x4E34;&#x65F6;&#x53D8;&#x91CF;&#x65E0;&#x521D;&#x59CB;&#x503C;</td>
+<td>临时变量无初始值</td>
 <td>bug</td>
-<td>&#x8D4B;&#x521D;&#x59CB;&#x503C;</td>
+<td>赋初始值</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x679A;&#x4E3E;&#x8D4B;&#x503C;&#x7C7B;&#x578B;&#x4E0D;&#x4E00;&#x81F4;</td>
+<td>枚举赋值类型不一致</td>
 <td>bug</td>
-<td>&#x4FEE;&#x6539;&#x4EE3;&#x7801;</td>
+<td>修改代码</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x975E;&#x5BF9;&#x8C61;&#x5C5E;&#x6027;&#x52A0;&#x4E86;*</td>
+<td>非对象属性加了*</td>
 <td>bug</td>
-<td>&#x5220;&#x9664;*</td>
+<td>删除*</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>&#x4EE3;&#x7801;&#x4E2D;&#x5305;&#x542B;&#x975E;&#x6CD5;&#x5B57;&#x7B26;</td>
-<td>&#x7F16;&#x8BD1;&#x5668;&#x65E0;&#x6CD5;&#x8BC6;&#x522B;</td>
-<td>&#x5220;&#x9664;&#x975E;&#x6CD5;&#x5B57;&#x7B26;</td>
+<td>代码中包含非法字符</td>
+<td>编译器无法识别</td>
+<td>删除非法字符</td>
 <td>P1</td>
 </tr>
 <tr>
-<td>Nullable/NonNull&#x6807;&#x8BB0;&#x4E0D;&#x5168;</td>
-<td>&#x4EA7;&#x751F;&#x5927;&#x91CF;warning</td>
-<td>&#x5220;&#x9664;&#x6216;&#x8865;&#x5168;&#x8BE5;&#x6587;&#x4EF6;&#x5185;&#x7684;&#x6807;&#x8BB0;</td>
+<td>Nullable/NonNull标记不全</td>
+<td>产生大量warning</td>
+<td>删除或补全该文件内的标记</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>&#x672A;&#x4F7F;&#x7528;&#x7684;&#x4E34;&#x65F6;&#x53D8;&#x91CF;</td>
-<td>&#x6027;&#x80FD;&#x6D6A;&#x8D39;</td>
-<td>&#x5220;&#x9664;&#x65E0;&#x7528;&#x53D8;&#x91CF;</td>
+<td>未使用的临时变量</td>
+<td>性能浪费</td>
+<td>删除无用变量</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>&#x672A;&#x4F7F;&#x7528;&#x7684;static&#x53D8;&#x91CF;</td>
-<td>&#x6027;&#x80FD;&#x6D6A;&#x8D39;</td>
-<td>&#x5220;&#x9664;&#x65E0;&#x7528;&#x53D8;&#x91CF;</td>
+<td>未使用的static变量</td>
+<td>性能浪费</td>
+<td>删除无用变量</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>&#x4EE3;&#x7406;&#x7C7B;&#x672A;&#x6DFB;&#x52A0;&#x4EE3;&#x7406;&#x6807;&#x8BB0;</td>
-<td>&#x7C7B;&#x578B;&#x68C0;&#x67E5;&#x8B66;&#x544A;</td>
-<td>&#x6DFB;&#x52A0;&#x4EE3;&#x7406;</td>
+<td>代理类未添加代理标记</td>
+<td>类型检查警告</td>
+<td>添加代理</td>
 <td>P2</td>
 </tr>
 <tr>
 <td>performSelector</td>
-<td>&#x4E0D;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x65B9;&#x5F0F;</td>
-<td>&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x65B9;&#x6CD5;</td>
+<td>不推荐使用的方法调用方式</td>
+<td>直接调用方法</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>&#x7B2C;&#x4E09;&#x65B9;&#x5E93;&#x6700;&#x4F4E;&#x7248;&#x672C;&#x4E0E;&#x4E3B;&#x5DE5;&#x7A0B;&#x4E0D;&#x4E00;&#x81F4;</td>
-<td>&#x7F16;&#x8BD1;&#x8B66;&#x544A;</td>
-<td>&#x6DFB;&#x52A0;-w linker&#x6807;&#x8BB0;</td>
+<td>第三方库最低版本与主工程不一致</td>
+<td>编译警告</td>
+<td>添加-w linker标记</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>.c&#x6587;&#x4EF6;&#x7684;64/32&#x4F4D;&#x8B66;&#x544A;</td>
-<td>&#x7F16;&#x8BD1;&#x8B66;&#x544A;</td>
-<td>&#x6DFB;&#x52A0;-Wno-shorten-64-to-32&#x6587;&#x4EF6;&#x6807;&#x8BB0;</td>
+<td>.c文件的64/32位警告</td>
+<td>编译警告</td>
+<td>添加-Wno-shorten-64-to-32文件标记</td>
 <td>P2</td>
 </tr>
 <tr>
-<td>import&#x6587;&#x4EF6;&#x540D;&#x5927;&#x5C0F;&#x5199;&#x9519;&#x8BEF;</td>
-<td>&#x65E0;</td>
-<td>&#x4FEE;&#x590D;&#x6587;&#x4EF6;&#x540D;</td>
+<td>import文件名大小写错误</td>
+<td>无</td>
+<td>修复文件名</td>
 <td>P3</td>
 </tr>
 <tr>
-<td>&#x975E;&#x6CD5;&#x6CE8;&#x91CA;</td>
-<td>&#x6CE8;&#x91CA;&#x683C;&#x5F0F;&#x4E0D;&#x89C4;&#x8303;&#xFF0C;&#x65E0;&#x6CD5;&#x5FEB;&#x6377;&#x67E5;&#x770B;&#x5B9A;&#x4E49;</td>
-<td>&#x4F7F;&#x7528;&#x7CFB;&#x7EDF;&#x5FEB;&#x6377;&#x6CE8;&#x91CA;</td>
+<td>非法注释</td>
+<td>注释格式不规范，无法快捷查看定义</td>
+<td>使用系统快捷注释</td>
 <td>P3</td>
 </tr>
 <tr>
-<td>block&#x5B9A;&#x4E49;&#x4E0D;&#x89C4;&#x8303;</td>
-<td>&#x7C7B;&#x578B;&#x68C0;&#x67E5;&#x8B66;&#x544A;</td>
-<td>&#x8865;&#x9F50;void</td>
+<td>block定义不规范</td>
+<td>类型检查警告</td>
+<td>补齐void</td>
 <td>P3</td>
 </tr>
 <tr>
-<td>&#x5DE5;&#x7A0B;&#x6709;&#x6587;&#x4EF6;&#x5F15;&#x7528;&#x4F46;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;</td>
-<td>&#x6587;&#x4EF6;&#x7D22;&#x5F15;&#x5931;&#x8D25;</td>
+<td>工程有文件引用但文件不存在</td>
+<td>文件索引失败</td>
 <td>bug</td>
 <td>P3</td>
 </tr>
 <tr>
-<td>asset&#x6709;&#x7D22;&#x5F15;&#x65E0;&#x6587;&#x4EF6;</td>
+<td>asset有索引无文件</td>
 <td>bug</td>
-<td>&#x5220;&#x9664;&#x7D22;&#x5F15;</td>
+<td>删除索引</td>
 <td>P3</td>
 </tr>
 <tr>
-<td>search path&#x5B58;&#x5728;&#xFF0C;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;</td>
-<td>&#x627E;&#x4E0D;&#x5230;&#x7D22;&#x5F15;</td>
-<td>&#x5220;&#x9664;search path</td>
+<td>search path存在，文件不存在</td>
+<td>找不到索引</td>
+<td>删除search path</td>
 <td>P3</td>
 </tr>
 </tbody>
 </table>
-<h2 id="&#x4FEE;&#x590D;warning&#x7684;&#x65B9;&#x5F0F;"><a href="#&#x4FEE;&#x590D;warning&#x7684;&#x65B9;&#x5F0F;" class="headerlink" title="&#x4FEE;&#x590D;warning&#x7684;&#x65B9;&#x5F0F;"></a>&#x4FEE;&#x590D;warning&#x7684;&#x65B9;&#x5F0F;</h2><ol>
-<li>&#x6839;&#x636E;&#x7F16;&#x8BD1;&#x5668;&#x63D0;&#x793A;&#x4FEE;&#x590D;&#x3002;</li>
-<li>&#x5BF9;&#x4E8E;&#x6682;&#x4E0D;&#x4FEE;&#x590D;&#x7684;warning&#x6709;&#x4E09;&#x79CD;&#x5FFD;&#x7565;&#x65B9;&#x5F0F;&#x3002;<br>2.1. &#x9009;&#x4E2D;warning&#xFF0C;&#x53F3;&#x952E;&#x9009;&#x62E9;Reveal in Log&#xFF0C;&#x590D;&#x5236;warning&#x7C7B;&#x578B;&#xFF0C;&#x5728;&#x4EE3;&#x7801;&#x4E2D;&#x6DFB;&#x52A0;ignored&#x6807;&#x8BB0;&#x3002;<br>2.2. &#x5BF9;&#x4E8E;&#x67D0;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x5FFD;&#x7565;&#x67D0;&#x79CD;&#x7C7B;&#x578B;&#x7684;warning&#xFF0C;&#x4E0E;&#x6253;ARC&#x6807;&#x8BB0;&#x76F8;&#x540C;&#xFF0C;&#x6DFB;&#x52A0;&#x5BF9;&#x5E94;&#x7C7B;&#x578B;&#x7684;&#x7F16;&#x8BD1;&#x6807;&#x8BB0;&#x3002;<br>2.3. &#x5168;&#x5C40;&#x5FFD;&#x7565;&#x67D0;&#x4E00;&#x7C7B;&#x578B;warning&#xFF0C;&#x5728;&#x5DE5;&#x7A0B;&#x914D;&#x7F6E;&#x4E2D;&#x6DFB;&#x52A0;&#x7F16;&#x8BD1;&#x9009;&#x9879;&#x3002;</li>
+<h2 id="修复warning的方式"><a href="#修复warning的方式" class="headerlink" title="修复warning的方式"></a>修复warning的方式</h2><ol>
+<li>根据编译器提示修复。</li>
+<li>对于暂不修复的warning有三种忽略方式。<br>2.1. 选中warning，右键选择Reveal in Log，复制warning类型，在代码中添加ignored标记。<br>2.2. 对于某个文件，忽略某种类型的warning，与打ARC标记相同，添加对应类型的编译标记。<br>2.3. 全局忽略某一类型warning，在工程配置中添加编译选项。</li>
 </ol>
 
           
@@ -591,9 +592,9 @@
       
         
           
-            <p>&#x76F4;&#x63A5;&#x4E0A;&#x4EE3;&#x7801;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">@interface TestViewController () {</div><div class="line">@private</div><div class="line">    NSString *name1;</div><div class="line">}</div><div class="line"></div><div class="line">@property (nonatomic, copy) NSString *name;</div><div class="line">@property (nonatomic, strong) TestObject *testObj;</div><div class="line"></div><div class="line">@property (nonatomic, strong) TestObject *testObj1;</div><div class="line"></div><div class="line">@property (nonatomic, copy) NSString *name2;</div><div class="line">@property (nonatomic, strong) TestObject *testObj2;</div><div class="line">@end</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">// &#x65E0;&#x6CC4;&#x6F0F;</div><div class="line">- (void)testBlock {</div><div class="line">    __weak typeof(self) weakSelf = self;</div><div class="line">    [self.testObj requestData:^(NSString *str) {</div><div class="line">        weakSelf.name = str;</div><div class="line">    }];</div><div class="line">}</div><div class="line"></div><div class="line">// &#x6CC4;&#x6F0F;</div><div class="line">- (void)testBlock1 {</div><div class="line">    [self.testObj1 requestData:^(NSString *str) {</div><div class="line">        name1 = str;</div><div class="line">    }];</div><div class="line">}</div><div class="line"></div><div class="line">// &#x6CC4;&#x6F0F;</div><div class="line">- (void)testBlock1_2 {</div><div class="line">    [self.testObj1 requestData:^(NSString *str) {</div><div class="line">        self-&gt;name1 = str;</div><div class="line">    }];</div><div class="line">}</div><div class="line"></div><div class="line">// &#x65E0;&#x6CC4;&#x6F0F;</div><div class="line">- (void)testBlock1_3 {</div><div class="line">    __weak typeof(self) weakSelf = self;</div><div class="line">    [self.testObj1 requestData:^(NSString *str) {</div><div class="line">        __strong typeof(weakSelf) strongSelf = weakSelf;</div><div class="line">        strongSelf-&gt;name1 = str;</div><div class="line">    }];</div><div class="line">}</div><div class="line"></div><div class="line">// &#x6CC4;&#x6F0F;</div><div class="line">- (void)testBlock2 {</div><div class="line">    [self.testObj2 requestData:^(NSString *str) {</div><div class="line">        _name2 = str;</div><div class="line">    }];</div><div class="line">}</div></pre></td></tr></table></figure>
-<p>&#x5C5E;&#x6027;&#x53D8;&#x91CF;&#x4E0E;&#x5B9E;&#x4F8B;&#x53D8;&#x91CF;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x975E;&#x5E38;&#x5E38;&#x89C1;&#xFF0C;&#x9700;&#x8981;&#x5173;&#x6CE8;&#x7684;&#x662F;&#x6210;&#x5458;&#x53D8;&#x91CF;name1&#xFF0C;&#x901A;&#x8FC7;name1&#x548C;self-&gt;name1&#x5747;&#x4F1A;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF0C;&#x5E94;&#x4E0E;&#x5C5E;&#x6027;&#x53D8;&#x91CF;&#x4E00;&#x6837;&#x4F7F;&#x7528;weak strong dance&#x3002;</p>
+            <p>直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@interface TestViewController () &#123;</span><br><span class="line">@private</span><br><span class="line">    NSString *name1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) NSString *name;</span><br><span class="line">@property (nonatomic, strong) TestObject *testObj;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, strong) TestObject *testObj1;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) NSString *name2;</span><br><span class="line">@property (nonatomic, strong) TestObject *testObj2;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">// 无泄漏</span><br><span class="line">- (void)testBlock &#123;</span><br><span class="line">    __weak typeof(self) weakSelf = self;</span><br><span class="line">    [self.testObj requestData:^(NSString *str) &#123;</span><br><span class="line">        weakSelf.name = str;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 泄漏</span><br><span class="line">- (void)testBlock1 &#123;</span><br><span class="line">    [self.testObj1 requestData:^(NSString *str) &#123;</span><br><span class="line">        name1 = str;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 泄漏</span><br><span class="line">- (void)testBlock1_2 &#123;</span><br><span class="line">    [self.testObj1 requestData:^(NSString *str) &#123;</span><br><span class="line">        self-&gt;name1 = str;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 无泄漏</span><br><span class="line">- (void)testBlock1_3 &#123;</span><br><span class="line">    __weak typeof(self) weakSelf = self;</span><br><span class="line">    [self.testObj1 requestData:^(NSString *str) &#123;</span><br><span class="line">        __strong typeof(weakSelf) strongSelf = weakSelf;</span><br><span class="line">        strongSelf-&gt;name1 = str;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 泄漏</span><br><span class="line">- (void)testBlock2 &#123;</span><br><span class="line">    [self.testObj2 requestData:^(NSString *str) &#123;</span><br><span class="line">        _name2 = str;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>属性变量与实例变量的内存泄漏非常常见，需要关注的是成员变量name1，通过name1和self-&gt;name1均会造成内存泄漏，应与属性变量一样使用weak strong dance。</p>
 
           
         
@@ -706,8 +707,8 @@
       
         
           
-            <h2 id="&#x7EBF;&#x7A0B;&#x95EE;&#x9898;"><a href="#&#x7EBF;&#x7A0B;&#x95EE;&#x9898;" class="headerlink" title="&#x7EBF;&#x7A0B;&#x95EE;&#x9898;"></a>&#x7EBF;&#x7A0B;&#x95EE;&#x9898;</h2><p>&#x65E5;&#x5E38;&#x5F00;&#x53D1;&#x4E2D;&#x4F1A;&#x9047;&#x5230;&#x4E00;&#x4E9B;&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;&#x4FEE;&#x6539;UI&#x7684;crash&#xFF0C;&#x5F88;&#x96BE;&#x8FFD;&#x67E5;&#xFF0C;&#x5176;&#x4E2D;&#x6709;&#x4E00;&#x5927;&#x90E8;&#x5206;&#x53EF;&#x80FD;&#x6765;&#x6E90;&#x4E8E;&#x5BF9;&#x901A;&#x77E5;&#x7684;&#x9519;&#x8BEF;&#x4F7F;&#x7528;&#x3002;<br>NSNotificationCenter&#x662F;iOS&#x5F00;&#x53D1;&#x4E2D;&#x5F88;&#x5E38;&#x89C1;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#xFF0C;&#x5206;&#x4E3A;post&#x548C;observer&#xFF0C;&#x5176;&#x4E2D;&#x6D89;&#x53CA;&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x539F;&#x5219;&#x5176;&#x5B9E;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x901A;&#x77E5;&#x5728;&#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#x53D1;&#x51FA;&#xFF0C;observer&#x5C31;&#x4F1A;&#x5728;&#x54EA;&#x4E2A;&#x7EBF;&#x7A0B;&#x5904;&#x7406;&#x3002;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad</div><div class="line">{</div><div class="line">    [super viewDidLoad];</div><div class="line">    </div><div class="line">    UIButton *test = [[UIButton alloc] initWithFrame:CGRectMake(50, 50, 100, 40)];</div><div class="line">    test.backgroundColor = [UIColor blueColor];</div><div class="line">    [test addTarget:self action:@selector(syncPost) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    [self.view addSubview:test];</div><div class="line">    </div><div class="line">    dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">    dispatch_async(queue, ^{</div><div class="line">        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lisetner) name:@&quot;asycObserverNotification&quot; object:nil];</div><div class="line">    });</div><div class="line">    </div><div class="line">    UIButton *test1 = [[UIButton alloc] initWithFrame:CGRectMake(50, 150, 100, 40)];</div><div class="line">    test1.backgroundColor = [UIColor blueColor];</div><div class="line">    [test1 addTarget:self action:@selector(asyncPost) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    [self.view addSubview:test1];</div><div class="line">    </div><div class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lisetner1) name:@&quot;asycPostNotification&quot; object:nil];</div><div class="line">}</div><div class="line"></div><div class="line">// &#x4E3B;&#x7EBF;&#x7A0B;&#x53D1;</div><div class="line">- (void)syncPost</div><div class="line">{</div><div class="line">    [[NSNotificationCenter defaultCenter] postNotificationName:@&quot;asycObserverNotification&quot; object:nil];</div><div class="line">}</div><div class="line"></div><div class="line">// &#x5B50;&#x7EBF;&#x7A0B;&#x6536;</div><div class="line">- (void)lisetner</div><div class="line">{</div><div class="line">    NSLog(@&quot;Async Observer! - %@&quot;, [NSThread currentThread]);</div><div class="line">}</div><div class="line"></div><div class="line">// &#x5B50;&#x7EBF;&#x7A0B;&#x53D1;</div><div class="line">- (void)asyncPost</div><div class="line">{</div><div class="line">    dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">    dispatch_async(queue, ^{</div><div class="line">        [[NSNotificationCenter defaultCenter] postNotificationName:@&quot;asycPostNotification&quot; object:nil];</div><div class="line">    });</div><div class="line">}</div><div class="line"></div><div class="line">// &#x4E3B;&#x7EBF;&#x7A0B;&#x6536;</div><div class="line">- (void)lisetner1</div><div class="line">{</div><div class="line">    NSLog(@&quot;Async Post! - %@&quot;, [NSThread currentThread]);</div><div class="line">    self.view.backgroundColor = [UIColor grayColor];</div><div class="line">    [self.view layoutIfNeeded];</div><div class="line">}</div></pre></td></tr></table></figure></p>
-<p>&#x6267;&#x884C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">2018-01-02 14:57:56.048000+0800 LKTestApp[5192:2351336] Async Observer! - &lt;NSThread: 0x1c407d4c0&gt;{number = 1, name = main}</div><div class="line"></div><div class="line">2018-01-02 14:58:09.066149+0800 LKTestApp[5192:2353929] Async Post! - &lt;NSThread: 0x1c027dc40&gt;{number = 5, name = (null)}</div></pre></td></tr></table></figure></p>
+            <h2 id="线程问题"><a href="#线程问题" class="headerlink" title="线程问题"></a>线程问题</h2><p>日常开发中会遇到一些异步线程修改UI的crash，很难追查，其中有一大部分可能来源于对通知的错误使用。<br>NSNotificationCenter是iOS开发中很常见的观察者模式，分为post和observer，其中涉及多线程的原则其实很简单，通知在哪个线程发出，observer就会在哪个线程处理。测试代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    UIButton *test = [[UIButton alloc] initWithFrame:CGRectMake(50, 50, 100, 40)];</span><br><span class="line">    test.backgroundColor = [UIColor blueColor];</span><br><span class="line">    [test addTarget:self action:@selector(syncPost) forControlEvents:UIControlEventTouchUpInside];</span><br><span class="line">    [self.view addSubview:test];</span><br><span class="line">    </span><br><span class="line">    dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lisetner) name:@&quot;asycObserverNotification&quot; object:nil];</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    UIButton *test1 = [[UIButton alloc] initWithFrame:CGRectMake(50, 150, 100, 40)];</span><br><span class="line">    test1.backgroundColor = [UIColor blueColor];</span><br><span class="line">    [test1 addTarget:self action:@selector(asyncPost) forControlEvents:UIControlEventTouchUpInside];</span><br><span class="line">    [self.view addSubview:test1];</span><br><span class="line">    </span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lisetner1) name:@&quot;asycPostNotification&quot; object:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 主线程发</span><br><span class="line">- (void)syncPost</span><br><span class="line">&#123;</span><br><span class="line">    [[NSNotificationCenter defaultCenter] postNotificationName:@&quot;asycObserverNotification&quot; object:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 子线程收</span><br><span class="line">- (void)lisetner</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;Async Observer! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 子线程发</span><br><span class="line">- (void)asyncPost</span><br><span class="line">&#123;</span><br><span class="line">    dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        [[NSNotificationCenter defaultCenter] postNotificationName:@&quot;asycPostNotification&quot; object:nil];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 主线程收</span><br><span class="line">- (void)lisetner1</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;Async Post! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">    self.view.backgroundColor = [UIColor grayColor];</span><br><span class="line">    [self.view layoutIfNeeded];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2018-01-02 14:57:56.048000+0800 LKTestApp[5192:2351336] Async Observer! - &lt;NSThread: 0x1c407d4c0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line"></span><br><span class="line">2018-01-02 14:58:09.066149+0800 LKTestApp[5192:2353929] Async Post! - &lt;NSThread: 0x1c027dc40&gt;&#123;number = 5, name = (null)&#125;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -819,12 +820,12 @@
 
       
         
-          <p>YYKit&#xFF0C;&#x4F5C;&#x8005;ibireme&#xFF0C;<a href="http://blog.ibireme.com">Blog</a>&#xFF0C;<a href="https://github.com/ibireme/YYKit">YYKitDemo</a>&#x3002;</p>
-<h1 id="YYModel"><a href="#YYModel" class="headerlink" title="YYModel"></a>YYModel</h1><p>YYModel&#x4F5C;&#x4E3A;NSObject&#x7684;Category&#xFF0C;&#x5177;&#x6709;JSON&#x5B57;&#x7B26;&#x4E32;&#x4E0E;Model&#x76F8;&#x4E92;&#x8F6C;&#x5316;&#x7684;&#x529F;&#x80FD;&#x3002;<br>JSON&#x89E3;&#x6790;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+          <p>YYKit，作者ibireme，<a href="http://blog.ibireme.com" target="_blank" rel="noopener">Blog</a>，<a href="https://github.com/ibireme/YYKit" target="_blank" rel="noopener">YYKitDemo</a>。</p>
+<h1 id="YYModel"><a href="#YYModel" class="headerlink" title="YYModel"></a>YYModel</h1><p>YYModel作为NSObject的Category，具有JSON字符串与Model相互转化的功能。<br>JSON解析过程如下：</p>
 <ol>
-<li>&#x5224;&#x7A7A;&#xFF0C;&#x83B7;&#x53D6;class&#x3002;</li>
-<li>&#x82E5;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;class&#xFF0C;&#x5219;&#x6839;&#x636E;&#x5143;&#x7C7B;YYModelMeta&#x83B7;&#x53D6;class&#xFF08;&#x5982;&#x6839;&#x636E;&#x5B57;&#x6BB5;&#x5C06;&#x7C7B;&#x5206;&#x4E3A;&#x5706;&#x3001;&#x6B63;&#x65B9;&#x5F62;&#x7B49;&#xFF09;&#x3002;</li>
-<li>&#x6839;&#x636E;JSON&#x8F6C;&#x5316;Model&#x3002;<br>&#x81EA;&#x5B9A;&#x4E49;class&#x5C5E;&#x4E8E;&#x6269;&#x5C55;&#x529F;&#x80FD;&#xFF0C;&#x5148;&#x5206;&#x6790;JSON&#x8F6C;&#x5316;Model&#x8FD9;&#x4E00;&#x4E3B;&#x8981;&#x529F;&#x80FD;&#x3002;</li></ol>
+<li>判空，获取class。</li>
+<li>若用户自定义class，则根据元类YYModelMeta获取class（如根据字段将类分为圆、正方形等）。</li>
+<li>根据JSON转化Model。<br>自定义class属于扩展功能，先分析JSON转化Model这一主要功能。
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/03/13/开源库阅读笔记：YYKit-YYModel/#more" rel="contents">
               阅读全文 &raquo;
@@ -939,7 +940,7 @@
 
       
         
-          <h1 id="UIViewController&#x751F;&#x547D;&#x5468;&#x671F;"><a href="#UIViewController&#x751F;&#x547D;&#x5468;&#x671F;" class="headerlink" title="UIViewController&#x751F;&#x547D;&#x5468;&#x671F;"></a>UIViewController&#x751F;&#x547D;&#x5468;&#x671F;</h1><ol>
+          <h1 id="UIViewController生命周期"><a href="#UIViewController生命周期" class="headerlink" title="UIViewController生命周期"></a>UIViewController生命周期</h1><ol>
 <li>init</li>
 <li>loadView</li>
 <li>viewDidLoad</li>
@@ -949,7 +950,7 @@
 <li>viewDidAppear</li>
 <li>viewWillDisappear</li>
 <li>viewDidDisappear</li>
-<li>dealloc</li></ol>
+<li>dealloc
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/01/04/iOS基础：UIViewController生命周期/#more" rel="contents">
               阅读全文 &raquo;
@@ -1066,26 +1067,26 @@
         
           
             <ol>
-<li>NSNumber&#x7C7B;&#x578B;&#x5224;&#x65AD;&#x662F;&#x5426;&#x4E3A;0&#x4E0D;&#x80FD;&#x4F7F;&#x7528;<code>aIntegerNum == 0</code>&#xFF0C;&#x800C;&#x5E94;&#x4F7F;&#x7528;<code>[aIntegerNum isEqualToNumber:@0]</code>&#xFF0C;&#x524D;&#x8005;&#x6BD4;&#x8F83;&#x5730;&#x5740;&#xFF0C;&#x540E;&#x8005;&#x6BD4;&#x8F83;&#x503C;&#x3002;</li>
-<li>UITableView&#x65E0;&#x6570;&#x636E;&#x6E90;&#x65F6;&#xFF0C;numberOfSections&#x662F;1&#xFF0C;&#x4F46;[tableView numberOfRowsInSection:0]&#x662F;0&#x3002;</li>
-<li>&#x65F6;&#x95F4;&#x6233;&#x8F6C;&#x6362;&#x65F6;&#x95F4;&#x65F6;&#x4F1A;&#x76F8;&#x5DEE;8&#x5C0F;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x8BA1;&#x7B97;&#x65F6;&#x533A;&#x3002;</li>
-<li>iOS10&#x4E2D;UISwitch&#x7684;&#x7279;&#x5F02;&#x6027;</li>
-<li>&#x5FEB;&#x901F;&#x4FBF;&#x5229;Array\Set&#x65F6;&#xFF0C;&#x5BF9;&#x5143;&#x7D20;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#x5FC5;&#x6302;</li>
-<li>&#x5728;block&#x4E2D;&#x4F7F;&#x7528;&#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x5FAA;&#x73AF;&#x5F15;&#x7528;</li>
-<li>iOS10&#x4EE5;&#x4E0B;&#x5BFC;&#x822A;&#x680F;&#x95EE;&#x9898;<a href="&#x5BFC;&#x822A;&#x680F;&#x9690;&#x85CF; &amp;&amp; &#x5BFC;&#x822A;&#x680F;&#x9519;&#x4E71;">http://www.jianshu.com/p/e4448c24d900</a> <a href="iOS &#x9690;&#x85CF;&#x5BFC;&#x822A;&#x680F;&#x5BFC;&#x81F4;&#x5BFC;&#x822A;&#x680F;&#x9519;&#x4E71;&#x7684;&#x90A3;&#x4E9B;&#x5751;">http://www.jianshu.com/p/4b8af425a7d0</a></li>
-<li><p>__block&#x76F8;&#x5F53;&#x4E8E;unsafe_unretain&#xFF0C;&#x5728;&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;crash</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">self.string1 = @&quot;String 1&quot;;   </div><div class="line">self.string2 = self.string1;   // unsafe_unretain</div><div class="line">self.string1 = nil;  </div><div class="line">NSLog(@&quot;String 2 = %@&quot;, self.string2);</div></pre></td></tr></table></figure>
+<li>NSNumber类型判断是否为0不能使用<code>aIntegerNum == 0</code>，而应使用<code>[aIntegerNum isEqualToNumber:@0]</code>，前者比较地址，后者比较值。</li>
+<li>UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。</li>
+<li>时间戳转换时间时会相差8小时，需要计算时区。</li>
+<li>iOS10中UISwitch的特异性</li>
+<li>快速便利Array\Set时，对元素进行操作必挂</li>
+<li>在block中使用成员变量，会导致循环引用</li>
+<li>iOS10以下导航栏问题<a href="导航栏隐藏 &amp;&amp; 导航栏错乱">http://www.jianshu.com/p/e4448c24d900</a> <a href="iOS 隐藏导航栏导致导航栏错乱的那些坑">http://www.jianshu.com/p/4b8af425a7d0</a></li>
+<li><p>__block相当于unsafe_unretain，在某些情况下，会导致crash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.string1 = @&quot;String 1&quot;;   </span><br><span class="line">self.string2 = self.string1;   // unsafe_unretain</span><br><span class="line">self.string1 = nil;  </span><br><span class="line">NSLog(@&quot;String 2 = %@&quot;, self.string2);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>MRC goto&#x8BED;&#x6CD5;&#xFF0C;&#x76EE;&#x6807;&#x8BED;&#x53E5;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x4E0E;switch&#x4E2D;&#x7684;finally&#x7C7B;&#x4F3C;&#xFF0C;&#x6B63;&#x5E38;&#x6267;&#x884C;&#x3002;</p>
+<li><p>MRC goto语法，目标语句中的代码，与switch中的finally类似，正常执行。</p>
 </li>
-<li>A&#x9875;&#x9762;&#x8DF3;B&#x9875;&#x9762;&#xFF0C;iOS11&#x5148;&#x8D70;B&#x9875;&#x9762;&#x7684;viewDidLoad&#x518D;&#x8D70;A&#x9875;&#x9762;&#x7684;viewWillDisappear&#xFF0C;iOS10&#x5148;&#x8D70;A&#x9875;&#x9762;&#x7684;viewWillDisappear&#x518D;&#x8D70;B&#x9875;&#x9762;&#x7684;viewDidLoad&#x3002;</li>
-<li>iOS10&#x53CA;&#x4EE5;&#x4E0B;&#x7CFB;&#x7EDF;&#xFF0C;&#x5728;viewDidLoad&#x4E2D;&#x8BBE;&#x7F6E;&#x5BFC;&#x822A;&#x680F;&#x6807;&#x9898;&#x7684;&#x900F;&#x660E;&#x5EA6;&#x662F;&#x65E0;&#x6548;&#x7684;&#xFF0C;&#x4F1A;&#x88AB;&#x7CFB;&#x7EDF;&#x91CD;&#x8BBE;&#xFF1B;&#x800C;&#x5728;iOS11&#x4E2D;&#x662F;&#x751F;&#x6548;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#xFF0C;&#x5728;&#x6ED1;&#x52A8;&#x8FD4;&#x56DE;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;alpha&#x4F1A;&#x88AB;&#x91CD;&#x8BBE;&#x4E3A;1&#x3002;</li>
-<li>Notification&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x4E2D;&#x662F;&#x540C;&#x6B65;&#x6267;&#x884C;&#x7684;&#x3002;</li>
-<li>&#x82E5;&#x7ED9;UIButton&#x9AD8;&#x4EAE;&#x72B6;&#x6001;&#x8BBE;&#x7F6E;&#x4E86;backgroundImage&#xFF0C;&#x5219;&#x9700;&#x8981;&#x76F8;&#x5E94;&#x5730;&#x8BBE;&#x7F6E;&#x9AD8;&#x4EAE;&#x72B6;&#x6001;icon&#x53CA;&#x5B57;&#x8272;&#x3002;</li>
-<li>iOS8&#x4EE5;&#x4E0A;&#x7CFB;&#x7EDF;&#x52A0;&#x5728;Window&#x4E0A;&#x7684;UIViewController&#x4F1A;&#x81EA;&#x52A8;&#x8C03;&#x6574;frame&#xFF0C;&#x800C;iOS8&#x4E0D;&#x4F1A;&#x3002;</li>
-<li>&#x867D;&#x7136;GCD&#x548C;UIViewAnimation&#x4E0D;&#x4F1A;&#x9020;&#x6210;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#xFF0C;&#x4F46;&#x662F;dispatch_after&#x4F1A;&#x6301;&#x6709;&#x5BF9;&#x8C61;&#x4F7F;&#x5176;&#x65E0;&#x6CD5;&#x91CA;&#x653E;&#x3002;</li>
-<li>&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x4E2D;&#x6709;&#x591A;&#x4E2A;UIScrollView&#x65F6;&#xFF0C;scrollsToTop&#x9700;&#x4EC5;&#x5F00;&#x542F;&#x4E00;&#x4E2A;&#xFF0C;&#x5426;&#x5219;&#x72B6;&#x6001;&#x680F;&#x8FD4;&#x56DE;&#x9876;&#x90E8;&#x529F;&#x80FD;&#x5931;&#x6548;&#x3002;</li>
-<li>UIButton&#x7684;&#x70B9;&#x51FB;&#x6001;&#x6709;UIControlStateHighlighted&#x548C;UIControlStateSelected | UIControlStateHighlighted&#xFF0C;&#x53C2;&#x7167;<a href="UIButton&#x9009;&#x4E2D;&#x72B6;&#x6001;&#x4E0B;&#x7684;&#x70B9;&#x51FB;">https://www.jianshu.com/p/57b2c41448bf</a>&#x3002;</li>
+<li>A页面跳B页面，iOS11先走B页面的viewDidLoad再走A页面的viewWillDisappear，iOS10先走A页面的viewWillDisappear再走B页面的viewDidLoad。</li>
+<li>iOS10及以下系统，在viewDidLoad中设置导航栏标题的透明度是无效的，会被系统重设；而在iOS11中是生效的，但是，在滑动返回过程中，alpha会被重设为1。</li>
+<li>Notification在主线程中是同步执行的。</li>
+<li>若给UIButton高亮状态设置了backgroundImage，则需要相应地设置高亮状态icon及字色。</li>
+<li>iOS8以上系统加在Window上的UIViewController会自动调整frame，而iOS8不会。</li>
+<li>虽然GCD和UIViewAnimation不会造成循环引用，但是dispatch_after会持有对象使其无法释放。</li>
+<li>一个页面中有多个UIScrollView时，scrollsToTop需仅开启一个，否则状态栏返回顶部功能失效。</li>
+<li>UIButton的点击态有UIControlStateHighlighted和UIControlStateSelected | UIControlStateHighlighted，参照<a href="UIButton选中状态下的点击">https://www.jianshu.com/p/57b2c41448bf</a>。</li>
 </ol>
 
           
@@ -1198,9 +1199,9 @@
 
       
         
-          <p>&#x4EE5;UIButton&#x4E3A;&#x4F8B;&#xFF0C;&#x6211;&#x4EEC;&#x4E3A;button&#x7684;UIControlStateSelected&#x72B6;&#x6001;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x5B9E;&#x5FC3;&#x4E94;&#x89D2;&#x661F;&#xFF0C;&#x4E3A;UIControlStateNormal&#x72B6;&#x6001;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x7A7A;&#x5FC3;&#x4E94;&#x89D2;&#x661F;&#xFF0C;&#x6700;&#x540E;&#x4E3A;&#x5176;&#x8BBE;&#x7F6E;UIControlEventTouchUpInside&#x4E8B;&#x4EF6;&#x7684;action&#x3002;</p>
-<p>&#x5728;&#x4E00;&#x4E9B;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E3A;&#x5176;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x70B9;&#x51FB;&#x6001;&#xFF08;&#x6309;&#x4E0B;&#x4F46;&#x6CA1;&#x6709;&#x677E;&#x5F00;&#x624B;&#x6307;&#xFF09;&#x65F6;&#x7684;&#x6837;&#x5F0F;&#xFF0C;&#x8BE5;&#x5982;&#x4F55;&#x505A;&#x5462;&#xFF1F;</p>
-<p>&#x770B;&#x4E00;&#x4E0B;UIControlState&#x7684;&#x5B9A;&#x4E49;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">typedef NS_OPTIONS(NSUInteger, UIControlState) {</div><div class="line">    UIControlStateNormal       = 0,</div><div class="line">    UIControlStateHighlighted  = 1 &lt;&lt; 0,                  // used when UIControl isHighlighted is set</div><div class="line">    UIControlStateDisabled     = 1 &lt;&lt; 1,</div><div class="line">    UIControlStateSelected     = 1 &lt;&lt; 2,                  // flag usable by app (see below)</div><div class="line">    UIControlStateFocused NS_ENUM_AVAILABLE_IOS(9_0) = 1 &lt;&lt; 3, // Applicable only when the screen supports focus</div><div class="line">    UIControlStateApplication  = 0x00FF0000,              // additional flags available for application use</div><div class="line">    UIControlStateReserved     = 0xFF000000               // flags reserved for internal framework use</div><div class="line">};</div></pre></td></tr></table></figure></p>
+          <p>以UIButton为例，我们为button的UIControlStateSelected状态设置一个实心五角星，为UIControlStateNormal状态设置一个空心五角星，最后为其设置UIControlEventTouchUpInside事件的action。</p>
+<p>在一些业务场景中，我们需要为其设置一个点击态（按下但没有松开手指）时的样式，该如何做呢？</p>
+<p>看一下UIControlState的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef NS_OPTIONS(NSUInteger, UIControlState) &#123;</span><br><span class="line">    UIControlStateNormal       = 0,</span><br><span class="line">    UIControlStateHighlighted  = 1 &lt;&lt; 0,                  // used when UIControl isHighlighted is set</span><br><span class="line">    UIControlStateDisabled     = 1 &lt;&lt; 1,</span><br><span class="line">    UIControlStateSelected     = 1 &lt;&lt; 2,                  // flag usable by app (see below)</span><br><span class="line">    UIControlStateFocused NS_ENUM_AVAILABLE_IOS(9_0) = 1 &lt;&lt; 3, // Applicable only when the screen supports focus</span><br><span class="line">    UIControlStateApplication  = 0x00FF0000,              // additional flags available for application use</span><br><span class="line">    UIControlStateReserved     = 0xFF000000               // flags reserved for internal framework use</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/10/08/iOS基础：UIControlState/#more" rel="contents">
               阅读全文 &raquo;
@@ -1315,8 +1316,8 @@
 
       
         
-          <h1 id="UISwitch"><a href="#UISwitch" class="headerlink" title="UISwitch"></a>UISwitch</h1><p>UISwitch&#x662F;UIControl&#x7684;&#x5B50;&#x7C7B;&#xFF0C;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line">#import &lt;CoreGraphics/CoreGraphics.h&gt;</div><div class="line">#import &lt;UIKit/UIControl.h&gt;</div><div class="line">#import &lt;UIKit/UIKitDefines.h&gt;</div><div class="line"></div><div class="line">NS_ASSUME_NONNULL_BEGIN</div><div class="line"></div><div class="line">NS_CLASS_AVAILABLE_IOS(2_0) __TVOS_PROHIBITED @interface UISwitch : UIControl &lt;NSCoding&gt;</div><div class="line"></div><div class="line">@property(nullable, nonatomic, strong) UIColor *onTintColor NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;</div><div class="line">@property(null_resettable, nonatomic, strong) UIColor *tintColor NS_AVAILABLE_IOS(6_0);</div><div class="line">@property(nullable, nonatomic, strong) UIColor *thumbTintColor NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</div><div class="line"></div><div class="line">@property(nullable, nonatomic, strong) UIImage *onImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</div><div class="line">@property(nullable, nonatomic, strong) UIImage *offImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</div><div class="line"></div><div class="line">@property(nonatomic,getter=isOn) BOOL on;</div><div class="line"></div><div class="line">- (instancetype)initWithFrame:(CGRect)frame NS_DESIGNATED_INITIALIZER;      // This class enforces a size appropriate for the control, and so the frame size is ignored.</div><div class="line">- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;</div><div class="line"></div><div class="line">- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">NS_ASSUME_NONNULL_END</div></pre></td></tr></table></figure></p>
-<p>&#x65B9;&#x6CD5;&#x5B9A;&#x4E49;&#x4E2D;&#x6709;&#x4E00;&#x4E2A;<code>- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action</code>&#xFF0C;&#x5982;&#x6CE8;&#x91CA;&#x6240;&#x8BF4;&#x4E0D;&#x53D1;&#x9001;action&#x3002;<br></p>
+          <h1 id="UISwitch"><a href="#UISwitch" class="headerlink" title="UISwitch"></a>UISwitch</h1><p>UISwitch是UIControl的子类，定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#import &lt;CoreGraphics/CoreGraphics.h&gt;</span><br><span class="line">#import &lt;UIKit/UIControl.h&gt;</span><br><span class="line">#import &lt;UIKit/UIKitDefines.h&gt;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">NS_CLASS_AVAILABLE_IOS(2_0) __TVOS_PROHIBITED @interface UISwitch : UIControl &lt;NSCoding&gt;</span><br><span class="line"></span><br><span class="line">@property(nullable, nonatomic, strong) UIColor *onTintColor NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line">@property(null_resettable, nonatomic, strong) UIColor *tintColor NS_AVAILABLE_IOS(6_0);</span><br><span class="line">@property(nullable, nonatomic, strong) UIColor *thumbTintColor NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line"></span><br><span class="line">@property(nullable, nonatomic, strong) UIImage *onImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line">@property(nullable, nonatomic, strong) UIImage *offImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line"></span><br><span class="line">@property(nonatomic,getter=isOn) BOOL on;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithFrame:(CGRect)frame NS_DESIGNATED_INITIALIZER;      // This class enforces a size appropriate for the control, and so the frame size is ignored.</span><br><span class="line">- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;</span><br><span class="line"></span><br><span class="line">- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure></p>
+<p>方法定义中有一个<code>- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action</code>，如注释所说不发送action。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/29/UISwitch在iOS 10中的BUG/#more" rel="contents">
               阅读全文 &raquo;
@@ -1431,7 +1432,7 @@
 
       
         
-          <h1 id="&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;"><a href="#&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;" class="headerlink" title="&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;"></a>&#x5FEB;&#x6377;&#x952E;&#xFF08;Eclipse&#x98CE;&#x683C;&#xFF09;</h1><p>Sublime Text -&gt; Preferences -&gt; Key Bindings - User<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    /**</div><div class="line">     * &#x4EE3;&#x7801;&#x683C;&#x5F0F;&#x5316;</div><div class="line">     */</div><div class="line">    { &quot;keys&quot;: [&quot;command+r&quot;], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: { &quot;target&quot;: &quot;browser&quot;} },</div><div class="line">    {</div><div class="line">        &quot;keys&quot;: [&quot;alt+shift+f&quot;],</div><div class="line">        &quot;command&quot;: &quot;reindent&quot;</div><div class="line">    },</div><div class="line">    /**</div><div class="line">     * json&#x683C;&#x5F0F;&#x5316;</div><div class="line">     */</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;tidy_xml&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+j&quot;], &quot;command&quot;: &quot;pretty_json&quot; }, </div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+m&quot;], &quot;command&quot;: &quot;un_pretty_json&quot; },</div><div class="line">    /**</div><div class="line">     * &#x9002;&#x914D;eclipse&#x5FEB;&#x6377;&#x952E;</div><div class="line">     */</div><div class="line">    { &quot;keys&quot;: [&quot;alt+/&quot;], &quot;command&quot;: &quot;auto_complete&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+i&quot;], &quot;command&quot;: &quot;reindent&quot; },</div><div class="line">    // &#x5F53;&#x524D;&#x884C;&#x548C;&#x4E0B;&#x9762;&#x4E00;&#x884C;&#x4EA4;&#x4E92;&#x4F4D;&#x7F6E;</div><div class="line">    { &quot;keys&quot;: [&quot;alt+up&quot;], &quot;command&quot;: &quot;swap_line_up&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;alt+down&quot;], &quot;command&quot;: &quot;swap_line_down&quot; },</div><div class="line">    // &#x590D;&#x5236;&#x5F53;&#x524D;&#x884C;&#x5230;&#x4E0A;&#x4E00;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+alt+up&quot;], &quot;command&quot;: &quot;duplicate_line&quot; },</div><div class="line">    // &#x590D;&#x5236;&#x5F53;&#x524D;&#x884C;&#x5230;&#x4E0B;&#x4E00;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+alt+down&quot;], &quot;command&quot;: &quot;duplicate_line&quot; },</div><div class="line">    // &#x5220;&#x9664;&#x6574;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+d&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: {&quot;file&quot;: &quot;Packages/Default/Delete Line.sublime-macro&quot;} },</div><div class="line">    // &#x5149;&#x6807;&#x79FB;&#x52A8;&#x5230;&#x6307;&#x5B9A;&#x884C;</div><div class="line">    { &quot;keys&quot;: [&quot;command+l&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;:&quot;} },</div><div class="line">    // &#x5FEB;&#x901F;&#x5B9A;&#x4F4D;&#x5230;&#x9009;&#x4E2D;&#x7684;&#x6587;&#x5B57;</div><div class="line">    { &quot;keys&quot;: [&quot;command+k&quot;], &quot;command&quot;: &quot;find_under_expand_skip&quot; },</div><div class="line">    // { &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;swap_case&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;upper_case&quot; },</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+y&quot;], &quot;command&quot;: &quot;lower_case&quot; },</div><div class="line">    // &#x5728;&#x5F53;&#x524D;&#x884C;&#x7684;&#x4E0B;&#x4E00;&#x884C;&#x63D2;&#x5165;&#x7A7A;&#x884C;(&#x8FD9;&#x65F6;&#x9F20;&#x6807;&#x53EF;&#x4EE5;&#x5728;&#x5F53;&#x524D;&#x884C;&#x7684;&#x4EFB;&#x4E00;&#x4F4D;&#x7F6E;, &#x4E0D;&#x4E00;&#x5B9A;&#x662F;&#x6700;&#x540E;)</div><div class="line">    { &quot;keys&quot;: [&quot;shift+enter&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: {&quot;file&quot;: &quot;Packages/Default/Add Line.sublime-macro&quot;} },</div><div class="line">    // &#x5B9A;&#x4F4D;&#x5230;&#x5BF9;&#x4E8E;&#x7684;&#x5339;&#x914D;&#x7B26;(&#x8B6C;&#x5982;{})(&#x4ECE;&#x524D;&#x9762;&#x5B9A;&#x4F4D;&#x540E;&#x9762;&#x65F6;,&#x5149;&#x6807;&#x8981;&#x5728;&#x5339;&#x914D;&#x7B26;&#x91CC;&#x9762;,&#x540E;&#x9762;&#x5230;&#x524D;&#x9762;,&#x5219;&#x53CD;&#x4E4B;)</div><div class="line">    { &quot;keys&quot;: [&quot;command+p&quot;], &quot;command&quot;: &quot;move_to&quot;, &quot;args&quot;: {&quot;to&quot;: &quot;brackets&quot;} },</div><div class="line">    // outline</div><div class="line">    { &quot;keys&quot;: [&quot;command+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;@&quot;} },</div><div class="line">    // &#x5F53;&#x524D;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5173;&#x952E;&#x5B57;(&#x65B9;&#x4FBF;&#x5FEB;&#x901F;&#x67E5;&#x627E;&#x5185;&#x5BB9;)</div><div class="line">    { &quot;keys&quot;: [&quot;command+alt+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;#&quot;} },</div><div class="line">    // open resource</div><div class="line">    { &quot;keys&quot;: [&quot;command+shift+r&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: {&quot;overlay&quot;: &quot;goto&quot;, &quot;show_files&quot;: true} },</div><div class="line">    // &#x6587;&#x4EF6;&#x5185;&#x67E5;&#x627E;/&#x66FF;&#x6362;</div><div class="line">    { &quot;keys&quot;: [&quot;command+f&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: {&quot;panel&quot;: &quot;replace&quot;} },</div><div class="line">    // &#x5168;&#x5C40;&#x67E5;&#x627E;/&#x66FF;&#x6362;, &#x5728;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x4E2D;&#x53CC;&#x51FB;&#x8DF3;&#x8F6C;&#x5230;&#x5339;&#x914D;&#x4F4D;&#x7F6E;</div><div class="line">    {&quot;keys&quot;: [&quot;command+h&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: {&quot;panel&quot;: &quot;find_in_files&quot;} },</div><div class="line"> </div><div class="line">    // plugin&#x914D;&#x7F6E;</div><div class="line">    { &quot;keys&quot;: [&quot;alt+a&quot;], &quot;command&quot;: &quot;alignment&quot; },</div><div class="line">    {&quot;keys&quot;: [&quot;command+shift+f&quot;], &quot;command&quot;: &quot;js_format&quot;}</div><div class="line">]</div></pre></td></tr></table></figure></p>
+          <h1 id="快捷键（Eclipse风格）"><a href="#快捷键（Eclipse风格）" class="headerlink" title="快捷键（Eclipse风格）"></a>快捷键（Eclipse风格）</h1><p>Sublime Text -&gt; Preferences -&gt; Key Bindings - User<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    /**</span><br><span class="line">     * 代码格式化</span><br><span class="line">     */</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+r&quot;], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: &#123; &quot;target&quot;: &quot;browser&quot;&#125; &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;keys&quot;: [&quot;alt+shift+f&quot;],</span><br><span class="line">        &quot;command&quot;: &quot;reindent&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    /**</span><br><span class="line">     * json格式化</span><br><span class="line">     */</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;tidy_xml&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+j&quot;], &quot;command&quot;: &quot;pretty_json&quot; &#125;, </span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+m&quot;], &quot;command&quot;: &quot;un_pretty_json&quot; &#125;,</span><br><span class="line">    /**</span><br><span class="line">     * 适配eclipse快捷键</span><br><span class="line">     */</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+/&quot;], &quot;command&quot;: &quot;auto_complete&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+i&quot;], &quot;command&quot;: &quot;reindent&quot; &#125;,</span><br><span class="line">    // 当前行和下面一行交互位置</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+up&quot;], &quot;command&quot;: &quot;swap_line_up&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+down&quot;], &quot;command&quot;: &quot;swap_line_down&quot; &#125;,</span><br><span class="line">    // 复制当前行到上一行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+alt+up&quot;], &quot;command&quot;: &quot;duplicate_line&quot; &#125;,</span><br><span class="line">    // 复制当前行到下一行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+alt+down&quot;], &quot;command&quot;: &quot;duplicate_line&quot; &#125;,</span><br><span class="line">    // 删除整行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+d&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: &#123;&quot;file&quot;: &quot;Packages/Default/Delete Line.sublime-macro&quot;&#125; &#125;,</span><br><span class="line">    // 光标移动到指定行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+l&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;:&quot;&#125; &#125;,</span><br><span class="line">    // 快速定位到选中的文字</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+k&quot;], &quot;command&quot;: &quot;find_under_expand_skip&quot; &#125;,</span><br><span class="line">    // &#123; &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;swap_case&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;upper_case&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+y&quot;], &quot;command&quot;: &quot;lower_case&quot; &#125;,</span><br><span class="line">    // 在当前行的下一行插入空行(这时鼠标可以在当前行的任一位置, 不一定是最后)</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;shift+enter&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: &#123;&quot;file&quot;: &quot;Packages/Default/Add Line.sublime-macro&quot;&#125; &#125;,</span><br><span class="line">    // 定位到对于的匹配符(譬如&#123;&#125;)(从前面定位后面时,光标要在匹配符里面,后面到前面,则反之)</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+p&quot;], &quot;command&quot;: &quot;move_to&quot;, &quot;args&quot;: &#123;&quot;to&quot;: &quot;brackets&quot;&#125; &#125;,</span><br><span class="line">    // outline</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;@&quot;&#125; &#125;,</span><br><span class="line">    // 当前文件中的关键字(方便快速查找内容)</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+alt+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;#&quot;&#125; &#125;,</span><br><span class="line">    // open resource</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+r&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;show_files&quot;: true&#125; &#125;,</span><br><span class="line">    // 文件内查找/替换</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+f&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: &#123;&quot;panel&quot;: &quot;replace&quot;&#125; &#125;,</span><br><span class="line">    // 全局查找/替换, 在查询结果中双击跳转到匹配位置</span><br><span class="line">    &#123;&quot;keys&quot;: [&quot;command+h&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: &#123;&quot;panel&quot;: &quot;find_in_files&quot;&#125; &#125;,</span><br><span class="line"> </span><br><span class="line">    // plugin配置</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+a&quot;], &quot;command&quot;: &quot;alignment&quot; &#125;,</span><br><span class="line">    &#123;&quot;keys&quot;: [&quot;command+shift+f&quot;], &quot;command&quot;: &quot;js_format&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/21/配置：Sublime-Text3/#more" rel="contents">
               阅读全文 &raquo;
@@ -1546,9 +1547,9 @@
 
       
         
-          <h1 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h1><p><code>vim /etc/profile</code>&#xFF0C;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># base</div><div class="line">alias ll=&quot;ls -la&quot;</div></pre></td></tr></table></figure></p>
-<h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><p><code>vim /etc/profile</code>&#xFF0C;&#x6DFB;&#x52A0;<code>export TERM=xterm</code>&#x3002;</p>
-<h2 id="&#x6837;&#x5F0F;"><a href="#&#x6837;&#x5F0F;" class="headerlink" title="&#x6837;&#x5F0F;"></a>&#x6837;&#x5F0F;</h2><p><code>vim ~/.vimrc</code>&#xFF0C;&#x914D;&#x7F6E;&#x5982;&#x4E0B;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">syntax on</div><div class="line">set tabstop=4</div><div class="line">set softtabstop=4</div><div class="line">set shiftwidth=4</div><div class="line">set autoindent</div><div class="line">set cindent</div><div class="line">set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,&gt;1s,=1s,:1s</div><div class="line"></div><div class="line">if &amp;term==&quot;xterm&quot;</div><div class="line">set t_Co=8</div><div class="line">set t_Sb=^[[4%dm</div><div class="line">set t_Sf=^[[3%dm</div><div class="line">endif</div></pre></td></tr></table></figure></p>
+          <h1 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h1><p><code>vim /etc/profile</code>，添加如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># base</span><br><span class="line">alias ll=&quot;ls -la&quot;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><p><code>vim /etc/profile</code>，添加<code>export TERM=xterm</code>。</p>
+<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><p><code>vim ~/.vimrc</code>，配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">syntax on</span><br><span class="line">set tabstop=4</span><br><span class="line">set softtabstop=4</span><br><span class="line">set shiftwidth=4</span><br><span class="line">set autoindent</span><br><span class="line">set cindent</span><br><span class="line">set cinoptions=&#123;0,1s,t0,n-2,p2s,(03s,=.5s,&gt;1s,=1s,:1s</span><br><span class="line"></span><br><span class="line">if &amp;term==&quot;xterm&quot;</span><br><span class="line">set t_Co=8</span><br><span class="line">set t_Sb=^[[4%dm</span><br><span class="line">set t_Sf=^[[3%dm</span><br><span class="line">endif</span><br></pre></td></tr></table></figure></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/21/配置：Vim-Git-SVN/#more" rel="contents">
               阅读全文 &raquo;
