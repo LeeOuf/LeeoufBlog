@@ -1,7 +1,7 @@
 ---
 title: Objective-C基础知识小结
 date: 2016-09-17 20:29:17
-categories: iOS
+categories: iOS基础知识
 tags:
     - Objective-C
 ---

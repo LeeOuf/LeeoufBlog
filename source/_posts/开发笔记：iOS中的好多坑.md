@@ -1,5 +1,5 @@
 ---
-title: iOS开发过程中遇到的诸多问题
+title: 开发笔记：iOS中的好多坑
 date: 2016-12-19 15:48:43
 categories: 笔记
 tags: 

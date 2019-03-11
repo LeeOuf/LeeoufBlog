@@ -1,7 +1,7 @@
 ---
 title: iOS基础：类、对象和方法.md
 date: 2016-08-14 16:15:39
-categories: iOS
+categories: iOS基础知识
 tags:
     - iOS
     - 程序设计基础

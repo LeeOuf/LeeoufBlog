@@ -1,7 +1,7 @@
 ---
 title: iOS基础：UIControlState
 date: 2016-10-08 19:40:13
-categories: iOS
+categories: iOS基础知识
 tags:
     - iOS
     - UIControl

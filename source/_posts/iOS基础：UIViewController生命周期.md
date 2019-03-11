@@ -1,7 +1,7 @@
 ---
 title: iOS基础：UIViewController生命周期
 date: 2017-01-04 11:44:02
-categories: iOS
+categories: iOS基础知识
 tags: 
     - iOS
     - UIViewController

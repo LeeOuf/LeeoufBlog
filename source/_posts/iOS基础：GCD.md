@@ -1,7 +1,7 @@
 ---
 title: iOS基础：GCD
 date: 2016-08-11 20:34:23
-categories: iOS
+categories: iOS基础知识
 tags: 
     - iOS
     - 多线程

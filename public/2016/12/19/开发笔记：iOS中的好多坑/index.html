@@ -1,0 +1,650 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,笔记," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。 UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。 时间戳转换时间时会相差8小时，需要计算时区。 iOS10中UISwit">
+<meta name="keywords" content="iOS,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发笔记：iOS中的好多坑">
+<meta property="og:url" content="https://LeeOuf.github.io/2016/12/19/开发笔记：iOS中的好多坑/index.html">
+<meta property="og:site_name" content="LeeOuf&#39;s Blog">
+<meta property="og:description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。 UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。 时间戳转换时间时会相差8小时，需要计算时区。 iOS10中UISwit">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-11T09:29:42.822Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开发笔记：iOS中的好多坑">
+<meta name="twitter:description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。 UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。 时间戳转换时间时会相差8小时，需要计算时区。 iOS10中UISwit">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <title> 开发笔记：iOS中的好多坑 | LeeOuf's Blog </title>
+  <!-- <script type="text/javascript">
+    (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+    })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+    
+    _st('install','fJ4RztWwYeg1bSWfz3x1','2.0.0');
+  </script> -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd5f13bbcbc196ab6b286b6774bf922a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeeOuf's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Coding time.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hourglass-half"></i> <br />
+            
+            时间
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-essay">
+          <a href="/categories/essay" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tint"></i> <br />
+            
+            雨滴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ios">
+          <a href="/categories/ios" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-apple"></i> <br />
+            
+            iOS
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                开发笔记：iOS中的好多坑
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-19T15:48:43+08:00" content="2016-12-19">
+              2016-12-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li>NSNumber类型判断是否为0不能使用<code>aIntegerNum == 0</code>，而应使用<code>[aIntegerNum isEqualToNumber:@0]</code>，前者比较地址，后者比较值。</li>
+<li>UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。</li>
+<li>时间戳转换时间时会相差8小时，需要计算时区。</li>
+<li>iOS10中UISwitch的特异性</li>
+<li>快速便利Array\Set时，对元素进行操作必挂</li>
+<li>在block中使用成员变量，会导致循环引用</li>
+<li>iOS10以下导航栏问题<a href="导航栏隐藏 &amp;&amp; 导航栏错乱">http://www.jianshu.com/p/e4448c24d900</a> <a href="iOS 隐藏导航栏导致导航栏错乱的那些坑">http://www.jianshu.com/p/4b8af425a7d0</a></li>
+<li><p>__block相当于unsafe_unretain，在某些情况下，会导致crash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.string1 = @&quot;String 1&quot;;   </span><br><span class="line">self.string2 = self.string1;   // unsafe_unretain</span><br><span class="line">self.string1 = nil;  </span><br><span class="line">NSLog(@&quot;String 2 = %@&quot;, self.string2);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MRC goto语法，目标语句中的代码，与switch中的finally类似，正常执行。</p>
+</li>
+<li>A页面跳B页面，iOS11先走B页面的viewDidLoad再走A页面的viewWillDisappear，iOS10先走A页面的viewWillDisappear再走B页面的viewDidLoad。</li>
+<li>iOS10及以下系统，在viewDidLoad中设置导航栏标题的透明度是无效的，会被系统重设；而在iOS11中是生效的，但是，在滑动返回过程中，alpha会被重设为1。</li>
+<li>Notification在主线程中是同步执行的。</li>
+<li>若给UIButton高亮状态设置了backgroundImage，则需要相应地设置高亮状态icon及字色。</li>
+<li>iOS8以上系统加在Window上的UIViewController会自动调整frame，而iOS8不会。</li>
+<li>虽然GCD和UIViewAnimation不会造成循环引用，但是dispatch_after会持有对象使其无法释放。</li>
+<li>一个页面中有多个UIScrollView时，scrollsToTop需仅开启一个，否则状态栏返回顶部功能失效。</li>
+<li>UIButton的点击态有UIControlStateHighlighted和UIControlStateSelected | UIControlStateHighlighted，参照<a href="UIButton选中状态下的点击">https://www.jianshu.com/p/57b2c41448bf</a>。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/笔记/" rel="tag">#笔记</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/08/iOS基础：UIControlState/" rel="next" title="iOS基础：UIControlState">
+                <i class="fa fa-chevron-left"></i> iOS基础：UIControlState
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/04/iOS基础：UIViewController生命周期/" rel="prev" title="iOS基础：UIViewController生命周期">
+                iOS基础：UIViewController生命周期 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="LeeOuf" />
+          <p class="site-author-name" itemprop="name">LeeOuf</p>
+          <p class="site-description motion-element" itemprop="description">人生有时</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3216090377/profile" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/LeeOuf" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/6712857/leeouf?tab=profile" target="_blank" title="Stack Overflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  Stack Overflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeOuf</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

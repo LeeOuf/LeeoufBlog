@@ -1,7 +1,7 @@
 ---
 title: NSNotificationCenter小结
 date: 2018-01-02 14:51:20
-categories: iOS
+categories: iOS基础知识
 tags:
     - Objective-C
     - NSNotificationCenter

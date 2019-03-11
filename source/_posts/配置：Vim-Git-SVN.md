@@ -1,7 +1,7 @@
 ---
 title: 配置：Vim-Git-SVN
 date: 2016-09-21 10:57:19
-categories: 笔记
+categories: 开发配置
 tags:
     - 开发环境配置
     - bash
@@ -49,18 +49,29 @@ vim ~/.gitconfig
 ```
 [alias]
     co = checkout
-    ad = add 
+    ad = add
     aa = add -A
     au = add -u
     ci = commit
     ca = commit -a
     st = status
     pl = pull
+    pr = pull --rebase
     ps = push
     dt = difftool
     l = log --stat
     cp = cherry-pick
     b = branch
+    lg = log --stat
+    lgp = log --stat -p
+    lgg = log --graph
+    lgga = log --graph --decorate --all
+    lgm = log --graph --max-count=10
+    lo = log --oneline --decorate
+    lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lola = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+    log = log --oneline --decorate --graph
+    loga = log --oneline --decorate --graph --all
 ```
 
 p.s.

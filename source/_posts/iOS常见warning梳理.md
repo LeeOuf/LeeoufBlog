@@ -1,7 +1,7 @@
 ---
 title: iOS常见warning梳理
 date: 2018-07-26 17:57:20
-categories:
+categories: 笔记
 tags:
     - iOS
     - warning

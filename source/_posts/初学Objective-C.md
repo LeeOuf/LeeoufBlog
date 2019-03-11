@@ -1,7 +1,7 @@
 ---
 title: 初学Objective-C
 date: 2016-08-16 15:36:56
-categories: iOS
+categories: iOS基础知识
 tags:
     - Objective-C
     - 类
