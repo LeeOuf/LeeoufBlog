@@ -7,7 +7,7 @@ title: LeeOuf's Blog
 subtitle: Coding time.
 description: 人生有时
 author: LeeOuf
-email: like_atwork@outlook.com
+email: like_atwork@163.com
 language: zh-Hans
 timezone: Asia/Shanghai
 
@@ -50,7 +50,7 @@ default_category: iOS
 category_map: 
   分类: categories
   标签: tags
-  雨滴: essay
+  日常: essay
   iOS: ios
 tag_map: 
 

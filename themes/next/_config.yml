@@ -32,8 +32,8 @@ menu:
   archives: /archives
   categories: /categories
   tags: /tags
-  essay: /categories/essay
-  ios: /categories/ios
+  #essay: /categories/essay
+  #ios: /categories/ios
   #about: /about
   #commonweal: /404.html
 
