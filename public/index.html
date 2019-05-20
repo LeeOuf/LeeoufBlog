@@ -227,8 +227,8 @@
             
               
                 
-                <a class="post-title-link" href="/2019/04/10/开发笔记：flutter中的好多坑/" itemprop="url">
-                  开发笔记：flutter中的好多坑
+                <a class="post-title-link" href="/2019/04/10/开发笔记：flutter中踩过的坑/" itemprop="url">
+                  开发笔记：flutter中踩过的坑
                 </a>
               
             
@@ -445,7 +445,7 @@
             <p>Flutter官方实例Gallery代码的阅读笔记。<br>Flutter选择的dart语言方法名使用的是全小写下划线的规则，而类名命名则是驼峰。<br>(dart命名规范)[<a href="https://www.dartlang.org/guides/language/effective-dart/style]" target="_blank" rel="noopener">https://www.dartlang.org/guides/language/effective-dart/style]</a></p>
 <h1 id="main-dart"><a href="#main-dart" class="headerlink" title="main.dart"></a>main.dart</h1><p>app入口，fullter的runApp方法如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void runApp(Widget app) &#123;</span><br><span class="line">  WidgetsFlutterBinding.ensureInitialized()</span><br><span class="line">    ..attachRootWidget(app)</span><br><span class="line">    ..scheduleWarmUpFrame();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><code>..</code>是dart中的级联操作符，表示连续调用方法，WidgetsFlutterBinding继承于BindingBase，ensureInitialized方法很简单，创建了一个自身的实例。<br>接下来attachRootWidget方法，flutter中有一个很重要的Widget概念，从app到一个按钮全都是Widget，而这些Widget与H5中的doom一样，构成了一个Widget树，attachRootWidget方法就获得了最顶层的根节点。<br>最后的scheduleWarmUpFrame方法，里面有两个Timer，根据方法名看在做一些绘制的工作。</p>
-<p>#app.dart<br>GalleryApp中有不少属性，除了几个bool类型的外，updateUrlFetcher用于App更新提醒（可以借鉴一下用于灰度testFlight），onSendFeedback用于反馈。<br>_GalleryAppState中的GalleryOptions存放夜间模式、文字方向、字体大小等全局定义（这部分在自己开发时可以做成本地缓存或server下发，拉到数据之后映射到options）。AppStateModel其实很类似，用于购物车业务。<br>在build方法中初始化GalleryHome，返回了一个ScopedModel StatelessWidget，指定home。</p>
+<h1 id="app-dart"><a href="#app-dart" class="headerlink" title="app.dart"></a>app.dart</h1><p>GalleryApp中有不少属性，除了几个bool类型的外，updateUrlFetcher用于App更新提醒（可以借鉴一下用于灰度testFlight），onSendFeedback用于反馈。<br>_GalleryAppState中的GalleryOptions存放夜间模式、文字方向、字体大小等全局定义（这部分在自己开发时可以做成本地缓存或server下发，拉到数据之后映射到options）。AppStateModel其实很类似，用于购物车业务。<br>在build方法中初始化GalleryHome，返回了一个ScopedModel StatelessWidget，指定home。</p>
 
           
         
@@ -1289,8 +1289,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/12/19/开发笔记：iOS中的好多坑/" itemprop="url">
-                  开发笔记：iOS中的好多坑
+                <a class="post-title-link" href="/2016/12/19/开发笔记：iOS中踩过的坑/" itemprop="url">
+                  开发笔记：iOS中踩过的坑
                 </a>
               
             

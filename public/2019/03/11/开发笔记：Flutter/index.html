@@ -40,7 +40,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS,Flutter," />
+  <meta name="keywords" content="笔记,Flutter," />
 
 
 
@@ -57,14 +57,14 @@
 
 
 <meta name="description" content="Flutter官方实例Gallery代码的阅读笔记。Flutter选择的dart语言方法名使用的是全小写下划线的规则，而类名命名则是驼峰。(dart命名规范)[https://www.dartlang.org/guides/language/effective-dart/style] main.dartapp入口，fullter的runApp方法如下12345void runApp(Widget">
-<meta name="keywords" content="iOS,Flutter">
+<meta name="keywords" content="笔记,Flutter">
 <meta property="og:type" content="article">
 <meta property="og:title" content="开发笔记：Flutter">
 <meta property="og:url" content="https://LeeOuf.github.io/2019/03/11/开发笔记：Flutter/index.html">
 <meta property="og:site_name" content="LeeOuf&#39;s Blog">
 <meta property="og:description" content="Flutter官方实例Gallery代码的阅读笔记。Flutter选择的dart语言方法名使用的是全小写下划线的规则，而类名命名则是驼峰。(dart命名规范)[https://www.dartlang.org/guides/language/effective-dart/style] main.dartapp入口，fullter的runApp方法如下12345void runApp(Widget">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-15T08:19:51.585Z">
+<meta property="og:updated_time" content="2019-04-10T07:04:54.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发笔记：Flutter">
 <meta name="twitter:description" content="Flutter官方实例Gallery代码的阅读笔记。Flutter选择的dart语言方法名使用的是全小写下划线的规则，而类名命名则是驼峰。(dart命名规范)[https://www.dartlang.org/guides/language/effective-dart/style] main.dartapp入口，fullter的runApp方法如下12345void runApp(Widget">
@@ -288,7 +288,7 @@
         <p>Flutter官方实例Gallery代码的阅读笔记。<br>Flutter选择的dart语言方法名使用的是全小写下划线的规则，而类名命名则是驼峰。<br>(dart命名规范)[<a href="https://www.dartlang.org/guides/language/effective-dart/style]" target="_blank" rel="noopener">https://www.dartlang.org/guides/language/effective-dart/style]</a></p>
 <h1 id="main-dart"><a href="#main-dart" class="headerlink" title="main.dart"></a>main.dart</h1><p>app入口，fullter的runApp方法如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void runApp(Widget app) &#123;</span><br><span class="line">  WidgetsFlutterBinding.ensureInitialized()</span><br><span class="line">    ..attachRootWidget(app)</span><br><span class="line">    ..scheduleWarmUpFrame();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><code>..</code>是dart中的级联操作符，表示连续调用方法，WidgetsFlutterBinding继承于BindingBase，ensureInitialized方法很简单，创建了一个自身的实例。<br>接下来attachRootWidget方法，flutter中有一个很重要的Widget概念，从app到一个按钮全都是Widget，而这些Widget与H5中的doom一样，构成了一个Widget树，attachRootWidget方法就获得了最顶层的根节点。<br>最后的scheduleWarmUpFrame方法，里面有两个Timer，根据方法名看在做一些绘制的工作。</p>
-<p>#app.dart<br>GalleryApp中有不少属性，除了几个bool类型的外，updateUrlFetcher用于App更新提醒（可以借鉴一下用于灰度testFlight），onSendFeedback用于反馈。<br>_GalleryAppState中的GalleryOptions存放夜间模式、文字方向、字体大小等全局定义（这部分在自己开发时可以做成本地缓存或server下发，拉到数据之后映射到options）。AppStateModel其实很类似，用于购物车业务。<br>在build方法中初始化GalleryHome，返回了一个ScopedModel StatelessWidget，指定home。</p>
+<h1 id="app-dart"><a href="#app-dart" class="headerlink" title="app.dart"></a>app.dart</h1><p>GalleryApp中有不少属性，除了几个bool类型的外，updateUrlFetcher用于App更新提醒（可以借鉴一下用于灰度testFlight），onSendFeedback用于反馈。<br>_GalleryAppState中的GalleryOptions存放夜间模式、文字方向、字体大小等全局定义（这部分在自己开发时可以做成本地缓存或server下发，拉到数据之后映射到options）。AppStateModel其实很类似，用于购物车业务。<br>在build方法中初始化GalleryHome，返回了一个ScopedModel StatelessWidget，指定home。</p>
 
       
     </div>
@@ -311,7 +311,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
+            <a href="/tags/笔记/" rel="tag">#笔记</a>
           
             <a href="/tags/Flutter/" rel="tag">#Flutter</a>
           
@@ -330,8 +330,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/10/开发笔记：flutter中的好多坑/" rel="prev" title="开发笔记：flutter中的好多坑">
-                开发笔记：flutter中的好多坑 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/10/开发笔记：flutter中踩过的坑/" rel="prev" title="开发笔记：flutter中踩过的坑">
+                开发笔记：flutter中踩过的坑 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -475,7 +475,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#main-dart"><span class="nav-number">1.</span> <span class="nav-text">main.dart</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#main-dart"><span class="nav-number">1.</span> <span class="nav-text">main.dart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#app-dart"><span class="nav-number">2.</span> <span class="nav-text">app.dart</span></a></li></ol></div>
             
           </div>
         </section>
