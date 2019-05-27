@@ -4,15 +4,15 @@
 
 
 <html class="theme-next mist">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +27,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -35,21 +35,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="leeouf, Leeouf, LeeOuf, iOS, Blog" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="leeouf, Leeouf, LeeOuf, iOS, Blog">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
 
 
 
@@ -135,7 +135,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">LeeOuf's Blog</span>
       <span class="logo-line-after"><i></i></span>
@@ -162,7 +162,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-hourglass-half"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-hourglass-half"></i> <br>
             
             时间
           </a>
@@ -172,7 +172,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -182,7 +182,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -227,6 +227,122 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/29/UISwitch在iOS 10中的BUG/" itemprop="url">
+                  UISwitch在iOS 10中的BUG
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-29T13:31:22+08:00" content="2016-09-29">
+              2016-09-29
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="UISwitch"><a href="#UISwitch" class="headerlink" title="UISwitch"></a>UISwitch</h1><p>UISwitch是UIControl的子类，定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#import &lt;CoreGraphics/CoreGraphics.h&gt;</span><br><span class="line">#import &lt;UIKit/UIControl.h&gt;</span><br><span class="line">#import &lt;UIKit/UIKitDefines.h&gt;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">NS_CLASS_AVAILABLE_IOS(2_0) __TVOS_PROHIBITED @interface UISwitch : UIControl &lt;NSCoding&gt;</span><br><span class="line"></span><br><span class="line">@property(nullable, nonatomic, strong) UIColor *onTintColor NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line">@property(null_resettable, nonatomic, strong) UIColor *tintColor NS_AVAILABLE_IOS(6_0);</span><br><span class="line">@property(nullable, nonatomic, strong) UIColor *thumbTintColor NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line"></span><br><span class="line">@property(nullable, nonatomic, strong) UIImage *onImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line">@property(nullable, nonatomic, strong) UIImage *offImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line"></span><br><span class="line">@property(nonatomic,getter=isOn) BOOL on;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithFrame:(CGRect)frame NS_DESIGNATED_INITIALIZER;      // This class enforces a size appropriate for the control, and so the frame size is ignored.</span><br><span class="line">- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;</span><br><span class="line"></span><br><span class="line">- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure></p>
+<p>方法定义中有一个<code>- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action</code>，如注释所说不发送action。<br></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/29/UISwitch在iOS 10中的BUG/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/21/配置：Sublime-Text3/" itemprop="url">
                   配置：Sublime-Text3
                 </a>
@@ -247,7 +363,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -362,7 +478,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -479,7 +595,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -522,7 +638,7 @@
       
         
           <p>部分内容来自：<a href="http://www.jianshu.com/p/2ed2c7ac6d53?nomobile=yes" target="_blank" rel="noopener">简书：为Xcode添加删除当前行、复制当前行快捷键</a> 感谢作者的分享。<br>本文仅为记录个人的开发配置。</p>
-<p>Xcode8以后，不再支持plugins，因此之前用来设置快捷键的boost等插件都已失效。<br>有一些eclipse带过来的快捷键习惯该如何设置呢？<br>
+<p>Xcode8以后，不再支持plugins，因此之前用来设置快捷键的boost等插件都已失效。<br>有一些eclipse带过来的快捷键习惯该如何设置呢？<br></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/21/配置：Xcode快捷键配置/#more" rel="contents">
               阅读全文 &raquo;
@@ -595,7 +711,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -638,7 +754,7 @@
       
         
           <h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h2 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h2><p><strong>栈区（stack）</strong><br>由编译器自动分配释放 ，当一个函数被调用,一个stack frame(栈帧)就会被压到stack里，包含函数的参数、局部变量、返回地址等。当函数返回后,这个栈帧就会被销毁。</p>
-<p><strong>堆区(heap)</strong><br>heap的空间需要手动分配。heap与动态内存分配相关,内存可以随时在堆中分配和销毁。我们需要明确请求内存分配与内存销毁。<br>
+<p><strong>堆区(heap)</strong><br>heap的空间需要手动分配。heap与动态内存分配相关,内存可以随时在堆中分配和销毁。我们需要明确请求内存分配与内存销毁。<br></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/17/Objective-C基础知识小结/#more" rel="contents">
               阅读全文 &raquo;
@@ -711,7 +827,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -758,7 +874,7 @@
 <li>下载nodejs，<a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js官网</a></li>
 <li>安装hexo，<code>sudo npm install -g hexo</code></li>
 <li>保留原有deploy配置，执行<code>sudo npm install hexo-deployer-git --save</code></li>
-<li>安装server，<code>sudo npm install hexo-server</code>
+<li>安装server，<code>sudo npm install hexo-server</code></li></ul>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/03/配置：迁移hexo/#more" rel="contents">
               阅读全文 &raquo;
@@ -831,7 +947,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -873,7 +989,7 @@
 
       
         
-          <p>我们知道iOS中的frame由x, y, width, height决定的一个个矩形。<br>接下来尝试用一个矩形类来探究如何使用类中的属性和方法。<br>
+          <p>我们知道iOS中的frame由x, y, width, height决定的一个个矩形。<br>接下来尝试用一个矩形类来探究如何使用类中的属性和方法。<br></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/16/初学Objective-C/#more" rel="contents">
               阅读全文 &raquo;
@@ -946,7 +1062,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -990,7 +1106,7 @@
         
           <p>本文是在阅读<code>Objective-C程序设计  第6版</code>一书过程中写的学习笔记，文中出现的大部分代码基本与书中相同。</p>
 <h1 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h1><p>我们知道，OC是在C的基础上设计的<code>面向对象</code>的程序设计语言，而C则是<code>过程性语言</code>。<br>以我的理解，所谓的过程性语言，是为了实现某种功能所设计的，比如我想要将两个整数累加，返回它们的和，这是我的目的，所以C语言中完成这种目的一段代码称为函数，这个函数的功能是累加两个整数。<br>而所谓的面相对象，这个函数则被看作一个真实存在的物件，这里我们叫它计算器，当我们想要累加两个整数时，创建了一个计算器对象，然后再调用它本身的功能（方法）来实现我们的目的。</p>
-<p>我认为可以这样理解，过程性语言中，“我”是主体，当“我”想要做什么时，创建了“我”需要的函数然后去使用它；而面向对象，每个对象都是独立存在的主体，它们可以为“我”服务。<br>
+<p>我认为可以这样理解，过程性语言中，“我”是主体，当“我”想要做什么时，创建了“我”需要的函数然后去使用它；而面向对象，每个对象都是独立存在的主体，它们可以为“我”服务。<br></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/14/iOS基础：类、对象和方法/#more" rel="contents">
               阅读全文 &raquo;
@@ -1063,7 +1179,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -1113,7 +1229,7 @@
 <li><code>串行队列</code>：任务<code>不能同时进行</code>，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。</li>
 <li><code>并发队列</code>：任务<code>可以同时进行</code>，这意味着只要0…n个任务开始执行，那么第n+1个任务也可以开始。</li>
 <li><code>void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务（也就是block）放到队列中，同步执行，也就是说在<code>当前线程</code>中执行任务，<code>阻塞当前线程</code>。</li>
-<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务放到队列中，异步执行，也就是说在<code>其他线程</code>中执行任务，<code>不阻塞当前线程</code>。（在下文的推演中，发现其并不总是在<code>其他线程</code>中执行）<br>（p.s. 在实际推演和API中，发现6、7两条中对于线程的描述均是错误的，block在哪个线程中运行取决于queue）
+<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务放到队列中，异步执行，也就是说在<code>其他线程</code>中执行任务，<code>不阻塞当前线程</code>。（在下文的推演中，发现其并不总是在<code>其他线程</code>中执行）<br>（p.s. 在实际推演和API中，发现6、7两条中对于线程的描述均是错误的，block在哪个线程中运行取决于queue）</li></ol>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/11/iOS基础：GCD/#more" rel="contents">
               阅读全文 &raquo;
@@ -1181,16 +1297,14 @@
 
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="LeeOuf" />
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="LeeOuf">
           <p class="site-author-name" itemprop="name">LeeOuf</p>
           <p class="site-description motion-element" itemprop="description">人生有时</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1270,7 +1384,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy;  2016 - 
   <span itemprop="copyrightYear">2019</span>
