@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="LeeOuf&#39;s Blog">
 <meta property="og:description" content="Blog托管在github，拉取代码后。  下载nodejs，Node.js官网 安装hexo，sudo npm install -g hexo 保留原有deploy配置，执行sudo npm install hexo-deployer-git --save 安装server，sudo npm install hexo-server">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-11T09:32:37.065Z">
+<meta property="og:updated_time" content="2019-05-27T09:17:57.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="配置：迁移hexo">
 <meta name="twitter:description" content="Blog托管在github，拉取代码后。  下载nodejs，Node.js官网 安装hexo，sudo npm install -g hexo 保留原有deploy配置，执行sudo npm install hexo-deployer-git --save 安装server，sudo npm install hexo-server">
@@ -297,7 +297,7 @@
 <p>theme中配置<code>_config.yml</code>文件，将被墙资源改为cdn资源。<br>另外，360前端cdn资源已经不再提供服务，Google资源服务器已经回到北京，不再需要通过镜像或反向代理等方法获取fonts和jQuery。<br>目前可以达到秒开博客的效果，Google回归中国似乎指日可待啊。</p>
 <p>记录NEXT theme中一个bug：<br>post_details.js中的方法会导致点击右侧文章目录后，整个目录收起并锚点到某个不可预知的位置，而不是锚点到指定的目录位置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 旧方法存在bug，无法选中指定toc</span><br><span class="line">// $(&apos;.post-toc a&apos;).on(&apos;click&apos;, function (e) &#123;</span><br><span class="line">//   e.preventDefault();</span><br><span class="line">//   var targetSelector = NexT.utils.escapeSelector(this.getAttribute(&apos;href&apos;));</span><br><span class="line">//   var offset = $(targetSelector).offset().top;</span><br><span class="line"></span><br><span class="line">//   hasVelocity ?</span><br><span class="line">//     html.velocity(&apos;stop&apos;).velocity(&apos;scroll&apos;, &#123;</span><br><span class="line">//       offset: offset  + &apos;px&apos;,</span><br><span class="line">//       mobileHA: false</span><br><span class="line">//     &#125;) :</span><br><span class="line">//     $(&apos;html, body&apos;).stop().animate(&#123;</span><br><span class="line">//       scrollTop: offset</span><br><span class="line">//     &#125;, 500);</span><br><span class="line">// &#125;);</span><br></pre></td></tr></table></figure></p>
 <p>修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;.post-toc a&apos;).on(&apos;click&apos;, function (e) &#123;</span><br><span class="line">  e.preventDefault();</span><br><span class="line">  $(&apos;html, body&apos;).animate(&#123;</span><br><span class="line">      scrollTop: $( $.attr(this, &apos;href&apos;) ).offset().top</span><br><span class="line">  &#125;, 500);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>入职百度第一周，充实且兴奋。保持良好工作效率的同时，希望能保持更新博客的习惯。</p>
+<h2 id="如遇到hexo-g无法生成source的情况，npm-ls-depth-0列出缺失包，npm-install-xxx-save逐个下载"><a href="#如遇到hexo-g无法生成source的情况，npm-ls-depth-0列出缺失包，npm-install-xxx-save逐个下载" class="headerlink" title="如遇到hexo g无法生成source的情况，npm ls --depth 0列出缺失包，npm install xxx --save逐个下载"></a>如遇到hexo g无法生成source的情况，<code>npm ls --depth 0</code>列出缺失包，<code>npm install xxx --save</code>逐个下载</h2><p>入职百度第一周，充实且兴奋。保持良好工作效率的同时，希望能保持更新博客的习惯。</p>
 
       
     </div>
@@ -422,7 +422,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -480,7 +480,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如遇到hexo-g无法生成source的情况，npm-ls-depth-0列出缺失包，npm-install-xxx-save逐个下载"><span class="nav-number">1.</span> <span class="nav-text">如遇到hexo g无法生成source的情况，npm ls --depth 0列出缺失包，npm install xxx --save逐个下载</span></a></li></ol></div>
             
           </div>
         </section>

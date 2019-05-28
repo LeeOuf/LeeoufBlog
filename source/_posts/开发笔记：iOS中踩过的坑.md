@@ -22,7 +22,7 @@ self.string1 = nil;
 NSLog(@"String 2 = %@", self.string2);  
 ```
 9. MRC goto语法，目标语句中的代码，与switch中的finally类似，正常执行。
-10. A页面跳B页面，iOS11先走B页面的viewDidLoad再走A页面的viewWillDisappear，iOS10先走A页面的viewWillDisappear再走B页面的viewDidLoad。
+10. A页面跳B页面，iOS11先走B页面的viewDidLoad再走A页面的viewWillDisappear，iOS10先走A页面的viewWillDisappear再走B页面的viewDidLoad，拓展：[viewDidAppear和viewDidDisappear的执行顺序](https://www.jianshu.com/p/2ca25b1ebe5a)[iOS--viewDidAppear和viewDidDisappear调用顺序](https://www.jianshu.com/p/9391b8043445)。
 11. iOS10及以下系统，在viewDidLoad中设置导航栏标题的透明度是无效的，会被系统重设；而在iOS11中是生效的，但是，在滑动返回过程中，alpha会被重设为1。
 12. Notification在主线程中是同步执行的。
 13. 若给UIButton高亮状态设置了backgroundImage，则需要相应地设置高亮状态icon及字色。

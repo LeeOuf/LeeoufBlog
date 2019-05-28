@@ -4,7 +4,6 @@ date: 2016-08-14 16:15:39
 categories: iOS基础知识
 tags:
     - iOS
-    - 程序设计基础
     - 类
     - 对象
     - 方法

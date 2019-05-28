@@ -86,7 +86,7 @@ if (![dic isKindOfClass:[NSDictionary class]]) return NO;
 _YYModelMeta *modelMeta = [_YYModelMeta metaWithClass:object_getClass(self)];
 ```
 要想理解这部分思想，首先需要理解Objective-C对象和runtime的概念。
-> ![对象模型图](/对象模型图.png)
+> {% asset_img 对象模型图.png 对象模型图 %}
 > 可参考：[Objective-C中的类和对象](http://blog.ibireme.com/2013/11/25/objc-object/)
 > [object_getClass(obj)与[obj class]的区别](http://www.jianshu.com/p/ae5c32708bc6)
 > 测试代码如下：

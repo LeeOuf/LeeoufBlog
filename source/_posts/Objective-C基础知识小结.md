@@ -24,8 +24,7 @@ heap的空间需要手动分配。heap与动态内存分配相关,内存可以�
 
 **程序代码区**
 存放函数体的二进制代码。
-
-![内存空间](/内存空间.png)
+{% asset_img 内存空间.png 内存空间 %}
 
 ## 引用计数
 
@@ -233,9 +232,9 @@ GCD(Grand Central Dispatch)是异步执行任务的技术之一。允许开发�
 - dispatch_queue_create()
 
 ## 方法列表
-![queue.h](/GCD01.png)
-![group.h](/GCD02.png)
-![once.h](/GCD02.png)
+{% asset_img queue.png queue.h %}
+{% asset_img GCD02.png group.h %}
+{% asset_img GCD03.png once.h %}
 
 # 补充
 1. MRC不能使用weak，使用什么替代？
@@ -268,8 +267,9 @@ static void _Block_byref_assign_copy(void *dest, const void *arg, const int flag
 5. ARC中可以新建一个__weak修饰符修饰的指针（如__weak typeof(self) weakSelf=self;），防止两个对象互相持有；MRC可以用__block修饰（如__block typeof(self) weakSelf = self;）。
 6. 
 (1) Product->Profile，查看Leaks，如：
-![Leaks](/调试01.png)
-![Leaks结果](/调试02.png)
+{% asset_img 调试01.png Leaks %}
+{% asset_img 调试02.png Leaks结果 %}
+
 (2) lldb直接print，查看对象是否为nil。
 7&9. 优点：不使用继承而为现有类添加新方法。
 Category用常规方法添加property即使实现了get set方法，在调用时也会报错，但是可以通过objc_getAssociatedObject和objc_setAssociatedObject这两个函数或@dynamic在运行时添加property。

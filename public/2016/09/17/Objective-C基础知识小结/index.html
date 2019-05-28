@@ -64,17 +64,16 @@
 <meta property="og:site_name" content="LeeOuf&#39;s Blog">
 <meta property="og:description" content="内存堆栈栈区（stack）由编译器自动分配释放 ，当一个函数被调用,一个stack frame(栈帧)就会被压到stack里，包含函数的参数、局部变量、返回地址等。当函数返回后,这个栈帧就会被销毁。 堆区(heap)heap的空间需要手动分配。heap与动态内存分配相关,内存可以随时在堆中分配和销毁。我们需要明确请求内存分配与内存销毁。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://leeouf.github.io/内存空间.png">
-<meta property="og:image" content="https://leeouf.github.io/GCD01.png">
-<meta property="og:image" content="https://leeouf.github.io/GCD02.png">
-<meta property="og:image" content="https://leeouf.github.io/GCD02.png">
-<meta property="og:image" content="https://leeouf.github.io/调试01.png">
-<meta property="og:image" content="https://leeouf.github.io/调试02.png">
-<meta property="og:updated_time" content="2019-05-27T08:56:40.560Z">
+<meta property="og:image" content="https://leeouf.github.io/2016/09/17/Objective-C基础知识小结/内存空间.png">
+<meta property="og:image" content="https://leeouf.github.io/2016/09/17/Objective-C基础知识小结/GCD02.png">
+<meta property="og:image" content="https://leeouf.github.io/2016/09/17/Objective-C基础知识小结/GCD03.png">
+<meta property="og:image" content="https://leeouf.github.io/2016/09/17/Objective-C基础知识小结/调试01.png">
+<meta property="og:image" content="https://leeouf.github.io/2016/09/17/Objective-C基础知识小结/调试02.png">
+<meta property="og:updated_time" content="2019-05-28T06:27:12.984Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C基础知识小结">
 <meta name="twitter:description" content="内存堆栈栈区（stack）由编译器自动分配释放 ，当一个函数被调用,一个stack frame(栈帧)就会被压到stack里，包含函数的参数、局部变量、返回地址等。当函数返回后,这个栈帧就会被销毁。 堆区(heap)heap的空间需要手动分配。heap与动态内存分配相关,内存可以随时在堆中分配和销毁。我们需要明确请求内存分配与内存销毁。">
-<meta name="twitter:image" content="https://leeouf.github.io/内存空间.png">
+<meta name="twitter:image" content="https://leeouf.github.io/2016/09/17/Objective-C基础知识小结/内存空间.png">
 
 
 
@@ -296,8 +295,7 @@
 <p><strong>堆区(heap)</strong><br>heap的空间需要手动分配。heap与动态内存分配相关,内存可以随时在堆中分配和销毁。我们需要明确请求内存分配与内存销毁。<br><a id="more"></a></p>
 <p><strong>全局区（static）</strong><br>全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域， 未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。程序结束后由系统释放 。</p>
 <p><strong>文字常量区</strong><br>常量字符串就是放在这里的。 程序结束后由系统释放。</p>
-<p><strong>程序代码区</strong><br>存放函数体的二进制代码。</p>
-<p><img src="/内存空间.png" alt="内存空间"></p>
+<p><strong>程序代码区</strong><br>存放函数体的二进制代码。<br><img src="/2016/09/17/Objective-C基础知识小结/内存空间.png" title="内存空间"></p>
 <h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="4个原则"><a href="#4个原则" class="headerlink" title="4个原则"></a>4个原则</h3><ul>
 <li>自己生成的对象，自己持有。</li>
 <li>非自己生成的对象，自己也能持有。</li>
@@ -381,7 +379,9 @@
 <li>dispatch_get_global_queue()</li>
 <li>dispatch_queue_create()</li>
 </ul>
-<h2 id="方法列表"><a href="#方法列表" class="headerlink" title="方法列表"></a>方法列表</h2><p><img src="/GCD01.png" alt="queue.h"><br><img src="/GCD02.png" alt="group.h"><br><img src="/GCD02.png" alt="once.h"></p>
+<h2 id="方法列表"><a href="#方法列表" class="headerlink" title="方法列表"></a>方法列表</h2>
+<img src="/2016/09/17/Objective-C基础知识小结/GCD02.png" title="group.h">
+<img src="/2016/09/17/Objective-C基础知识小结/GCD03.png" title="once.h">
 <h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ol>
 <li>MRC不能使用weak，使用什么替代？</li>
 <li>NSString为什么要使用copy?</li>
@@ -401,8 +401,11 @@
 <li><code>__Block_byref_val_0</code>结构体实例有一个成员变量<code>__forwarding</code>持有只想该实例自身的指针。<br>static void _Block_byref_assign_copy(void <em>dest, const void </em>arg, const int flags) {<br> struct Block_byref <strong>destp = (struct Block_byref </strong>)dest;<br> struct Block_byref <em>src = (struct Block_byref </em>)arg;<br> // src points to stack<br> struct Block_byref <em>copy = (struct Block_byref </em>)_Block_allocator(src-&gt;size, false, isWeak);<br> copy-&gt;forwarding = copy; // patch heap copy to point to itself (skip write-barrier)<br> src-&gt;forwarding = copy;  // patch stack to point to heap copy<br> copy-&gt;size = src-&gt;size;<br> // assign byref data block pointer into new Block<br> _Block_assign(src-&gt;forwarding, (void **)destp);<br>}<br>根据以上代码可看到，该函数在堆上新建了一个对象copy，将堆上copy对象的forwarding和栈上原始对象的forwarding都指向copy对象。以保证无论是在堆上还是在栈上，我们通过forwarding访问到的都是同一个对象。</li>
 <li>UI部分。</li>
 <li>ARC中可以新建一个<strong>weak修饰符修饰的指针（如</strong>weak typeof(self) weakSelf=self;），防止两个对象互相持有；MRC可以用<strong>block修饰（如</strong>block typeof(self) weakSelf = self;）。</li>
-<li>(1) Product-&gt;Profile，查看Leaks，如：<br><img src="/调试01.png" alt="Leaks"><br><img src="/调试02.png" alt="Leaks结果"><br>(2) lldb直接print，查看对象是否为nil。<br>7&amp;9. 优点：不使用继承而为现有类添加新方法。<br>Category用常规方法添加property即使实现了get set方法，在调用时也会报错，但是可以通过objc_getAssociatedObject和objc_setAssociatedObject这两个函数或@dynamic在运行时添加property。<br>8&amp;10. （1）类别：类别中无法添加新的实例变量；类别中的方法与现有方法的命名冲突时，类别中的方法将会取代初始方法；类别主要用于将类的实现分散到不同的文件中、创建对私有方法的前向引用、向对象添加非正式协议。<br>（2）扩展：一种匿名的类别；私有的属性和方法可以通过扩展的方式声明；扩展中定义的方法必须在@implementaion中实现。</li>
+<li>(1) Product-&gt;Profile，查看Leaks，如：<img src="/2016/09/17/Objective-C基础知识小结/调试01.png" title="Leaks">
+<img src="/2016/09/17/Objective-C基础知识小结/调试02.png" title="Leaks结果">
+</li>
 </ol>
+<p>(2) lldb直接print，查看对象是否为nil。<br>7&amp;9. 优点：不使用继承而为现有类添加新方法。<br>Category用常规方法添加property即使实现了get set方法，在调用时也会报错，但是可以通过objc_getAssociatedObject和objc_setAssociatedObject这两个函数或@dynamic在运行时添加property。<br>8&amp;10. （1）类别：类别中无法添加新的实例变量；类别中的方法与现有方法的命名冲突时，类别中的方法将会取代初始方法；类别主要用于将类的实现分散到不同的文件中、创建对私有方法的前向引用、向对象添加非正式协议。<br>（2）扩展：一种匿名的类别；私有的属性和方法可以通过扩展的方式声明；扩展中定义的方法必须在@implementaion中实现。</p>
 
       
     </div>
@@ -527,7 +530,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
