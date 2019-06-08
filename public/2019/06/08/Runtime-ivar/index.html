@@ -40,7 +40,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Objective-C,内存泄漏,">
+  <meta name="keywords" content="ivar,">
 
 
 
@@ -56,18 +56,18 @@
 
 
 
-<meta name="description" content="直接上代码12345678910111213@interface TestViewController () &amp;#123;@private    NSString *name1;&amp;#125;@property (nonatomic, copy) NSString *name;@property (nonatomic, strong) TestObject *testObj;@property (n">
-<meta name="keywords" content="Objective-C,内存泄漏">
+<meta name="description" content="ivar本质12345678910111213141516171819202122232425262728293031323334struct objc_class &amp;#123;    Class isa  OBJC_ISA_AVAILABILITY;#if !__OBJC2__    Class super_class">
+<meta name="keywords" content="ivar">
 <meta property="og:type" content="article">
-<meta property="og:title" content="属性变量、实例变量、成员变量的内存泄漏测试">
-<meta property="og:url" content="https://LeeOuf.github.io/2018/07/18/属性变量、实例变量、成员变量的内存泄漏测试/index.html">
+<meta property="og:title" content="Runtime-ivar">
+<meta property="og:url" content="https://LeeOuf.github.io/2019/06/08/Runtime-ivar/index.html">
 <meta property="og:site_name" content="LeeOuf&#39;s Blog">
-<meta property="og:description" content="直接上代码12345678910111213@interface TestViewController () &amp;#123;@private    NSString *name1;&amp;#125;@property (nonatomic, copy) NSString *name;@property (nonatomic, strong) TestObject *testObj;@property (n">
+<meta property="og:description" content="ivar本质12345678910111213141516171819202122232425262728293031323334struct objc_class &amp;#123;    Class isa  OBJC_ISA_AVAILABILITY;#if !__OBJC2__    Class super_class">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-11T09:32:17.413Z">
+<meta property="og:updated_time" content="2019-06-08T09:19:13.032Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="属性变量、实例变量、成员变量的内存泄漏测试">
-<meta name="twitter:description" content="直接上代码12345678910111213@interface TestViewController () &amp;#123;@private    NSString *name1;&amp;#125;@property (nonatomic, copy) NSString *name;@property (nonatomic, strong) TestObject *testObj;@property (n">
+<meta name="twitter:title" content="Runtime-ivar">
+<meta name="twitter:description" content="ivar本质12345678910111213141516171819202122232425262728293031323334struct objc_class &amp;#123;    Class isa  OBJC_ISA_AVAILABILITY;#if !__OBJC2__    Class super_class">
 
 
 
@@ -88,7 +88,7 @@
 
 
 
-  <title> 属性变量、实例变量、成员变量的内存泄漏测试 | LeeOuf's Blog </title>
+  <title> Runtime-ivar | LeeOuf's Blog </title>
   <!-- <script type="text/javascript">
     (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
     (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
@@ -226,7 +226,7 @@
             
             
               
-                属性变量、实例变量、成员变量的内存泄漏测试
+                Runtime-ivar
               
             
           </h1>
@@ -238,8 +238,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-07-18T11:33:56+08:00" content="2018-07-18">
-              2018-07-18
+            <time itemprop="dateCreated" datetime="2019-06-08T16:51:05+08:00" content="2019-06-08">
+              2019-06-08
             </time>
           </span>
 
@@ -252,8 +252,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS基础知识/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS基础知识</span>
+                  <a href="/categories/Runtime/" itemprop="url" rel="index">
+                    <span itemprop="name">Runtime</span>
                   </a>
                 </span>
 
@@ -285,9 +285,14 @@
       
 
       
-        <p>直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@interface TestViewController () &#123;</span><br><span class="line">@private</span><br><span class="line">    NSString *name1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) NSString *name;</span><br><span class="line">@property (nonatomic, strong) TestObject *testObj;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, strong) TestObject *testObj1;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) NSString *name2;</span><br><span class="line">@property (nonatomic, strong) TestObject *testObj2;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">// 无泄漏</span><br><span class="line">- (void)testBlock &#123;</span><br><span class="line">    __weak typeof(self) weakSelf = self;</span><br><span class="line">    [self.testObj requestData:^(NSString *str) &#123;</span><br><span class="line">        weakSelf.name = str;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 泄漏</span><br><span class="line">- (void)testBlock1 &#123;</span><br><span class="line">    [self.testObj1 requestData:^(NSString *str) &#123;</span><br><span class="line">        name1 = str;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 泄漏</span><br><span class="line">- (void)testBlock1_2 &#123;</span><br><span class="line">    [self.testObj1 requestData:^(NSString *str) &#123;</span><br><span class="line">        self-&gt;name1 = str;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 无泄漏</span><br><span class="line">- (void)testBlock1_3 &#123;</span><br><span class="line">    __weak typeof(self) weakSelf = self;</span><br><span class="line">    [self.testObj1 requestData:^(NSString *str) &#123;</span><br><span class="line">        __strong typeof(weakSelf) strongSelf = weakSelf;</span><br><span class="line">        strongSelf-&gt;name1 = str;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 泄漏</span><br><span class="line">- (void)testBlock2 &#123;</span><br><span class="line">    [self.testObj2 requestData:^(NSString *str) &#123;</span><br><span class="line">        _name2 = str;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>属性变量与实例变量的内存泄漏非常常见，需要关注的是成员变量name1，通过name1和self-&gt;name1均会造成内存泄漏，应与属性变量一样使用weak strong dance。</p>
+        <h1 id="ivar本质"><a href="#ivar本质" class="headerlink" title="ivar本质"></a>ivar本质</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class &#123;</span><br><span class="line">    Class isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line"></span><br><span class="line">#if !__OBJC2__</span><br><span class="line">    Class super_class                                        OBJC2_UNAVAILABLE;</span><br><span class="line">    const char *name                                         OBJC2_UNAVAILABLE;</span><br><span class="line">    long version                                             OBJC2_UNAVAILABLE;</span><br><span class="line">    long info                                                OBJC2_UNAVAILABLE;</span><br><span class="line">    long instance_size                                       OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_ivar_list *ivars                             OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_method_list **methodLists                    OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_cache *cache                                 OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_protocol_list *protocols                     OBJC2_UNAVAILABLE;</span><br><span class="line">#endif</span><br><span class="line">&#125; OBJC2_UNAVAILABLE;</span><br><span class="line">/* Use `Class` instead of `struct objc_class *` */</span><br><span class="line"></span><br><span class="line">struct objc_ivar_list &#123;</span><br><span class="line">    int ivar_count                                           OBJC2_UNAVAILABLE;</span><br><span class="line">#ifdef __LP64__</span><br><span class="line">    int space                                                OBJC2_UNAVAILABLE;</span><br><span class="line">#endif</span><br><span class="line">    /* variable length structure */</span><br><span class="line">    struct objc_ivar ivar_list[1]                            OBJC2_UNAVAILABLE;</span><br><span class="line">&#125;                                                            OBJC2_UNAVAILABLE;</span><br><span class="line"></span><br><span class="line">struct objc_ivar &#123;</span><br><span class="line">    char *ivar_name                                          OBJC2_UNAVAILABLE;</span><br><span class="line">    char *ivar_type                                          OBJC2_UNAVAILABLE;</span><br><span class="line">    int ivar_offset                                          OBJC2_UNAVAILABLE;</span><br><span class="line">#ifdef __LP64__</span><br><span class="line">    int space                                                OBJC2_UNAVAILABLE;</span><br><span class="line">#endif</span><br><span class="line">&#125;                                                            OBJC2_UNAVAILABLE;</span><br></pre></td></tr></table></figure>
+<p><code>objc_class</code>中包含一个<code>objc_ivar_list</code>类型的<code>ivars</code>，管理了一个class中所有的成员变量，<code>objc_ivar_list</code>中包含<code>ivar_count</code>(ivar数量)、<code>space</code>(占用内存空间)、<code>ivar_list</code>(变长结构体)。<br><code>objc_ivar</code>中包含着<code>ivar_name</code>(ivar名)、<code>ivar_type</code>(ivar类型)、<code>ivar_offset</code>(基地址偏移字节)、<code>space</code>(占用内存空间)。</p>
+<h1 id="变长结构体"><a href="#变长结构体" class="headerlink" title="变长结构体"></a>变长结构体</h1><p>要理解<code>ivar_list</code>要首先理解C语言中变长结构体的概念。<br>变长结构体最后一个元素是一个没有元素的数组，因此我们可以动态开辟一个比结构体更大的空间，让数组指针指向这块空间。<br>需要注意的是<code>ivar_list</code>与整个数据结构的内存地址是连续的，若是链表则是不连续的内存地址，连续内存有助于减少内存的碎片化，简化内存管理。</p>
+<h1 id="怎么添加ivar"><a href="#怎么添加ivar" class="headerlink" title="怎么添加ivar"></a>怎么添加ivar</h1><p>我们常说OC是一门运行时语言，它有一部分东西是runtime时才决定的，但我们在常规开发中，很少去动态添加ivar。动态添加ivar主要有两种方式：</p>
+<ol>
+<li>runtime动态关联对象。</li>
+<li><code>class_addIvar</code>，但是它只能在<code>objc_allocateClassPair</code>和<code>objc_allocateClassPair</code>两个函数之间调用，因此只有在runtime中动态创建class时才能动态添加ivar。<h2 id="关联对象原理"><a href="#关联对象原理" class="headerlink" title="关联对象原理"></a>关联对象原理</h2>其实关联对象的原理与我们在分类中添加一个全局变量的get\set方法类似，关联对象并没有直接加在class中，而是添加在<code>AssociationsManager</code>的hash map里与class关联了起来。<br>可以参考<a href="https://blog.csdn.net/olsq93038o99s/article/details/80878983" target="_blank" rel="noopener">iOS底层原理总结 - 关联对象实现原理</a></li>
+</ol>
 
       
     </div>
@@ -310,9 +315,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
-          
-            <a href="/tags/内存泄漏/" rel="tag">#内存泄漏</a>
+            <a href="/tags/ivar/" rel="tag">#ivar</a>
           
         </div>
       
@@ -321,17 +324,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/02/NSNotificationCenter小结/" rel="next" title="NSNotificationCenter小结">
-                <i class="fa fa-chevron-left"></i> NSNotificationCenter小结
+              <a href="/2019/06/08/Runtime-OC对象创建和销毁过程/" rel="next" title="Runtime-OC对象创建和销毁过程">
+                <i class="fa fa-chevron-left"></i> Runtime-OC对象创建和销毁过程
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/26/iOS常见warning梳理/" rel="prev" title="iOS常见warning梳理">
-                iOS常见warning梳理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -397,7 +396,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -405,7 +404,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -414,7 +413,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -472,7 +471,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ivar本质"><span class="nav-number">1.</span> <span class="nav-text">ivar本质</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变长结构体"><span class="nav-number">2.</span> <span class="nav-text">变长结构体</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么添加ivar"><span class="nav-number">3.</span> <span class="nav-text">怎么添加ivar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关联对象原理"><span class="nav-number">3.1.</span> <span class="nav-text">关联对象原理</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

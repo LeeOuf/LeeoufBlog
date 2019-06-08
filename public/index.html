@@ -227,6 +227,494 @@
             
               
                 
+                <a class="post-title-link" href="/2019/06/08/Runtime-ivar/" itemprop="url">
+                  Runtime-ivar
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-06-08T16:51:05+08:00" content="2019-06-08">
+              2019-06-08
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Runtime/" itemprop="url" rel="index">
+                    <span itemprop="name">Runtime</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="ivar本质"><a href="#ivar本质" class="headerlink" title="ivar本质"></a>ivar本质</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class &#123;</span><br><span class="line">    Class isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line"></span><br><span class="line">#if !__OBJC2__</span><br><span class="line">    Class super_class                                        OBJC2_UNAVAILABLE;</span><br><span class="line">    const char *name                                         OBJC2_UNAVAILABLE;</span><br><span class="line">    long version                                             OBJC2_UNAVAILABLE;</span><br><span class="line">    long info                                                OBJC2_UNAVAILABLE;</span><br><span class="line">    long instance_size                                       OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_ivar_list *ivars                             OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_method_list **methodLists                    OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_cache *cache                                 OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_protocol_list *protocols                     OBJC2_UNAVAILABLE;</span><br><span class="line">#endif</span><br><span class="line">&#125; OBJC2_UNAVAILABLE;</span><br><span class="line">/* Use `Class` instead of `struct objc_class *` */</span><br><span class="line"></span><br><span class="line">struct objc_ivar_list &#123;</span><br><span class="line">    int ivar_count                                           OBJC2_UNAVAILABLE;</span><br><span class="line">#ifdef __LP64__</span><br><span class="line">    int space                                                OBJC2_UNAVAILABLE;</span><br><span class="line">#endif</span><br><span class="line">    /* variable length structure */</span><br><span class="line">    struct objc_ivar ivar_list[1]                            OBJC2_UNAVAILABLE;</span><br><span class="line">&#125;                                                            OBJC2_UNAVAILABLE;</span><br><span class="line"></span><br><span class="line">struct objc_ivar &#123;</span><br><span class="line">    char *ivar_name                                          OBJC2_UNAVAILABLE;</span><br><span class="line">    char *ivar_type                                          OBJC2_UNAVAILABLE;</span><br><span class="line">    int ivar_offset                                          OBJC2_UNAVAILABLE;</span><br><span class="line">#ifdef __LP64__</span><br><span class="line">    int space                                                OBJC2_UNAVAILABLE;</span><br><span class="line">#endif</span><br><span class="line">&#125;                                                            OBJC2_UNAVAILABLE;</span><br></pre></td></tr></table></figure>
+<p><code>objc_class</code>中包含一个<code>objc_ivar_list</code>类型的<code>ivars</code>，管理了一个class中所有的成员变量，<code>objc_ivar_list</code>中包含<code>ivar_count</code>(ivar数量)、<code>space</code>(占用内存空间)、<code>ivar_list</code>(变长结构体)。<br><code>objc_ivar</code>中包含着<code>ivar_name</code>(ivar名)、<code>ivar_type</code>(ivar类型)、<code>ivar_offset</code>(基地址偏移字节)、<code>space</code>(占用内存空间)。</p>
+<h1 id="变长结构体"><a href="#变长结构体" class="headerlink" title="变长结构体"></a>变长结构体</h1><p>要理解<code>ivar_list</code>要首先理解C语言中变长结构体的概念。<br>变长结构体最后一个元素是一个没有元素的数组，因此我们可以动态开辟一个比结构体更大的空间，让数组指针指向这块空间。<br>需要注意的是<code>ivar_list</code>与整个数据结构的内存地址是连续的，若是链表则是不连续的内存地址，连续内存有助于减少内存的碎片化，简化内存管理。</p>
+<h1 id="怎么添加ivar"><a href="#怎么添加ivar" class="headerlink" title="怎么添加ivar"></a>怎么添加ivar</h1><p>我们常说OC是一门运行时语言，它有一部分东西是runtime时才决定的，但我们在常规开发中，很少去动态添加ivar。动态添加ivar主要有两种方式：</p>
+<ol>
+<li>runtime动态关联对象。</li>
+<li><code>class_addIvar</code>，但是它只能在<code>objc_allocateClassPair</code>和<code>objc_allocateClassPair</code>两个函数之间调用，因此只有在runtime中动态创建class时才能动态添加ivar。<h2 id="关联对象原理"><a href="#关联对象原理" class="headerlink" title="关联对象原理"></a>关联对象原理</h2>其实关联对象的原理与我们在分类中添加一个全局变量的get\set方法类似，关联对象并没有直接加在class中，而是添加在<code>AssociationsManager</code>的hash map里与class关联了起来。<br>可以参考<a href="https://blog.csdn.net/olsq93038o99s/article/details/80878983" target="_blank" rel="noopener">iOS底层原理总结 - 关联对象实现原理</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/06/08/Runtime-OC对象创建和销毁过程/" itemprop="url">
+                  Runtime-OC对象创建和销毁过程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-06-08T15:59:08+08:00" content="2019-06-08">
+              2019-06-08
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Runtime/" itemprop="url" rel="index">
+                    <span itemprop="name">Runtime</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="对象创建"><a href="#对象创建" class="headerlink" title="对象创建"></a>对象创建</h1><p>OC的创建对象，如<code>[[MyClass alloc] init]</code>，从消息发送角度说，就是给MyClass类对象发了两个消息，逐层lookup找到NSObject中的这两个方法，随后根据MyClass所需内存空间大小分配内存，然后把isa指针指向MyClass，最后将这两个方法加入缓存方法列表。<br>那么再往底层看，Runtime具体做了些什么呢，</p>
+<h2 id="id-alloc"><a href="#id-alloc" class="headerlink" title="+ (id)alloc"></a>+ (id)alloc</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">+ (id)alloc &#123;</span><br><span class="line">    return _objc_rootAlloc(self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">id _objc_rootAlloc(Class cls)</span><br><span class="line">&#123;</span><br><span class="line">    return callAlloc(cls, false/*checkNil*/, true/*allocWithZone*/);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Call [cls alloc] or [cls allocWithZone:nil], with appropriate </span><br><span class="line">// shortcutting optimizations.</span><br><span class="line">static ALWAYS_INLINE id callAlloc(Class cls, bool checkNil, bool allocWithZone=false)</span><br><span class="line">&#123;</span><br><span class="line">    // 做类型检查</span><br><span class="line">    if (checkNil &amp;&amp; !cls) return nil;</span><br><span class="line"></span><br><span class="line">#if __OBJC2__</span><br><span class="line">    // 若没有实现allocWithZone方法</span><br><span class="line">    if (! cls-&gt;ISA()-&gt;hasCustomAWZ()) &#123;</span><br><span class="line">        // No alloc/allocWithZone implementation. Go straight to the allocator.</span><br><span class="line">        // fixme store hasCustomAWZ in the non-meta class and </span><br><span class="line">        // add it to canAllocFast&apos;s summary</span><br><span class="line">        // canAllocFast默认返回false，应该是有一些类做了系统优化直接放到bits里了</span><br><span class="line">        if (cls-&gt;canAllocFast()) &#123;</span><br><span class="line">            // No ctors, raw isa, etc. Go straight to the metal.</span><br><span class="line">            bool dtor = cls-&gt;hasCxxDtor();</span><br><span class="line">            id obj = (id)calloc(1, cls-&gt;bits.fastInstanceSize());</span><br><span class="line">            if (!obj) return callBadAllocHandler(cls);</span><br><span class="line">            obj-&gt;initInstanceIsa(cls, dtor);</span><br><span class="line">            return obj;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // Has ctor or raw isa or something. Use the slower path.</span><br><span class="line">            id obj = class_createInstance(cls, 0);</span><br><span class="line">            if (!obj) return callBadAllocHandler(cls);</span><br><span class="line">            return obj;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">    // No shortcuts available.</span><br><span class="line">    if (allocWithZone) return [cls allocWithZone:nil];</span><br><span class="line">    return [cls alloc];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到我们最关心最常用的是<code>class_createInstance</code>方法，接下来看看这里面干了些啥。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">id class_createInstance(Class cls, size_t extraBytes)</span><br><span class="line">&#123;</span><br><span class="line">    return _class_createInstanceFromZone(cls, extraBytes, nil);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static __attribute__((always_inline)) id</span><br><span class="line">_class_createInstanceFromZone(Class cls, size_t extraBytes, void *zone, </span><br><span class="line">                              bool cxxConstruct = true, </span><br><span class="line">                              size_t *outAllocatedSize = nil)</span><br><span class="line">&#123;</span><br><span class="line">    if (!cls) return nil;</span><br><span class="line"></span><br><span class="line">    assert(cls-&gt;isRealized());</span><br><span class="line"></span><br><span class="line">    // Read class&apos;s info bits all at once for performance</span><br><span class="line">    bool hasCxxCtor = cls-&gt;hasCxxCtor();</span><br><span class="line">    bool hasCxxDtor = cls-&gt;hasCxxDtor();</span><br><span class="line">    bool fast = cls-&gt;canAllocIndexed();</span><br><span class="line"></span><br><span class="line">    // 字节对齐，OC对象16字节对齐，一个对象最少16字节，isa 8字节。一个对象的内存地址从其第一个成员开始，也就是从isa指针开始。</span><br><span class="line">    size_t size = cls-&gt;instanceSize(extraBytes);</span><br><span class="line">    if (outAllocatedSize) *outAllocatedSize = size;</span><br><span class="line"></span><br><span class="line">    // 分配内存空间，创建对象</span><br><span class="line">    id obj;</span><br><span class="line">    if (!UseGC  &amp;&amp;  !zone  &amp;&amp;  fast) &#123;</span><br><span class="line">        obj = (id)calloc(1, size);</span><br><span class="line">        if (!obj) return nil;</span><br><span class="line">        obj-&gt;initInstanceIsa(cls, hasCxxDtor);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">#if SUPPORT_GC</span><br><span class="line">        if (UseGC) &#123;</span><br><span class="line">            obj = (id)auto_zone_allocate_object(gc_zone, size,</span><br><span class="line">                                                AUTO_OBJECT_SCANNED, 0, 1);</span><br><span class="line">        &#125; else </span><br><span class="line">#endif</span><br><span class="line">        if (zone) &#123;</span><br><span class="line">            obj = (id)malloc_zone_calloc ((malloc_zone_t *)zone, 1, size);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            obj = (id)calloc(1, size);</span><br><span class="line">        &#125;</span><br><span class="line">        if (!obj) return nil;</span><br><span class="line"></span><br><span class="line">        // Use non-indexed isa on the assumption that they might be </span><br><span class="line">        // doing something weird with the zone or RR.</span><br><span class="line">        obj-&gt;initIsa(cls);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (cxxConstruct &amp;&amp; hasCxxCtor) &#123;</span><br><span class="line">        obj = _objc_constructOrFree(obj, cls);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="id-init"><a href="#id-init" class="headerlink" title="+ (id)init"></a>+ (id)init</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// Replaced by CF (throws an NSException)</span><br><span class="line">+ (id)init &#123;</span><br><span class="line">    return (id)self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)init &#123;</span><br><span class="line">    return _objc_rootInit(self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">id _objc_rootInit(id obj)</span><br><span class="line">&#123;</span><br><span class="line">    // In practice, it will be hard to rely on this function.</span><br><span class="line">    // Many classes do not properly chain -init calls.</span><br><span class="line">    return obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>苹果并没有做什么事情，让人觉得其实只需要写<code>[MyClass alloc]</code>就好了，不过你要是真写出如下代码，是会抛出<code>EXC_BAD_ACCESS (code=1, address=0x0)</code>Crash的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.testView = [UIView alloc];</span><br><span class="line">self.testView.frame = CGRectMake(50, 50, 100, 100);</span><br><span class="line">self.testView.backgroundColor = [UIColor blueColor];</span><br><span class="line">[self.view addSubview:self.testView];</span><br></pre></td></tr></table></figure></p>
+<h1 id="对象销毁"><a href="#对象销毁" class="headerlink" title="对象销毁"></a>对象销毁</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// Replaced by NSZombies</span><br><span class="line">// 应该是与debug时的僵尸对象有关，苹果可能是通过类似方法交换的黑魔法对dealloc做了一些事情。</span><br><span class="line">- (void)dealloc &#123;</span><br><span class="line">    _objc_rootDealloc(self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void _objc_rootDealloc(id obj) &#123;</span><br><span class="line">    assert(obj);</span><br><span class="line"></span><br><span class="line">    obj-&gt;rootDealloc();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline void objc_object::rootDealloc() &#123;</span><br><span class="line">    assert(!UseGC);</span><br><span class="line">    if (isTaggedPointer()) return;</span><br><span class="line"></span><br><span class="line">    // 如果没有weak引用 &amp;&amp; 没有关联对象 &amp;&amp; 没有c++析构 &amp;&amp; 没有side table借位</span><br><span class="line">    // 释放内存空间</span><br><span class="line">    if (isa.indexed  &amp;&amp;  </span><br><span class="line">        !isa.weakly_referenced  &amp;&amp;  </span><br><span class="line">        !isa.has_assoc  &amp;&amp;  </span><br><span class="line">        !isa.has_cxx_dtor  &amp;&amp;  </span><br><span class="line">        !isa.has_sidetable_rc) &#123;</span><br><span class="line">        assert(!sidetable_present());</span><br><span class="line">        free(this);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        object_dispose((id)this);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再继续看object_dispose方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">id object_dispose(id obj) &#123;</span><br><span class="line">    if (!obj) return nil;</span><br><span class="line"></span><br><span class="line">    objc_destructInstance(obj);</span><br><span class="line">    </span><br><span class="line">#if SUPPORT_GC</span><br><span class="line">    if (UseGC) &#123;</span><br><span class="line">        auto_zone_retain(gc_zone, obj); // gc free expects rc==1</span><br><span class="line">    &#125;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">    free(obj);</span><br><span class="line"></span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/***********************************************************************</span><br><span class="line">* objc_destructInstance</span><br><span class="line">* Destroys an instance without freeing memory. </span><br><span class="line">* Calls C++ destructors.</span><br><span class="line">* Calls ARR ivar cleanup.</span><br><span class="line">* Removes associative references.</span><br><span class="line">* Returns `obj`. Does nothing if `obj` is nil.</span><br><span class="line">* Be warned that GC DOES NOT CALL THIS. If you edit this, also edit finalize.</span><br><span class="line">* CoreFoundation and other clients do call this under GC.</span><br><span class="line">**********************************************************************/</span><br><span class="line">void *objc_destructInstance(id obj) &#123;</span><br><span class="line">    if (obj) &#123;</span><br><span class="line">        // Read all of the flags at once for performance.</span><br><span class="line">        bool cxx = obj-&gt;hasCxxDtor();</span><br><span class="line">        bool assoc = !UseGC &amp;&amp; obj-&gt;hasAssociatedObjects();</span><br><span class="line">        bool dealloc = !UseGC;</span><br><span class="line"></span><br><span class="line">        // This order is important.</span><br><span class="line">        // 特别强调了这里的时序很重要</span><br><span class="line">        if (cxx) object_cxxDestruct(obj);               // C++析构函数</span><br><span class="line">        if (assoc) _object_remove_assocations(obj);     // 移除关联对象</span><br><span class="line">        if (dealloc) obj-&gt;clearDeallocating();          // 清理引用</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline void objc_object::clearDeallocating() &#123;</span><br><span class="line">    if (!isa.indexed) &#123;</span><br><span class="line">        // Slow path for raw pointer isa.</span><br><span class="line">        // 清理sideTable中的引用计数表</span><br><span class="line">        sidetable_clearDeallocating();</span><br><span class="line">    &#125; else if (isa.weakly_referenced  ||  isa.has_sidetable_rc) &#123;</span><br><span class="line">        // Slow path for non-pointer isa with weak refs and/or side table data.</span><br><span class="line">        // 清理sideTable中的weak表</span><br><span class="line">        clearDeallocating_slow();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    assert(!sidetable_present());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/06/07/Runtime-引用计数和Weak表/" itemprop="url">
+                  Runtime-引用计数和Weak表
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-06-07T14:52:34+08:00" content="2019-06-07">
+              2019-06-07
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Runtime/" itemprop="url" rel="index">
+                    <span itemprop="name">Runtime</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>retainCount(引用计数)可以说是iOS内存管理的基础，当一个对象的retianCount为0时，没有任何地方引用，该对象的内存就会被释放。iOS进入ARC时代后RD们已经很少看和写<code>retain release</code>这些操作引用计数的代码，那么我们进入Runtime看看底层都做了些什么。</p>
+<h1 id="SideTables"><a href="#SideTables" class="headerlink" title="SideTables"></a>SideTables</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static StripedMap&lt;SideTable&gt;&amp; SideTables() &#123;</span><br><span class="line">    return *reinterpret_cast&lt;StripedMap&lt;SideTable&gt;*&gt;(SideTableBuf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在iOS中StripedMap管理着一个长度64(StripeCount)的数组，其本身是一个<code>void * -&gt; T</code>的map，通过<code>indexForPointer</code>方法找到对应的数组下标，在hash过程中通过取余StripeCount来防止数组越界。<br>StripedMap的作用不仅限于管理SideTable，还可以用来管理spinlock_t(自旋锁)或其他包含着自旋锁的数据结构。</p>
+<h1 id="SideTable"><a href="#SideTable" class="headerlink" title="SideTable"></a>SideTable</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">struct SideTable &#123;</span><br><span class="line">    spinlock_t slock;           // 自旋锁，防止多线程访问冲突。</span><br><span class="line">    RefcountMap refcnts;        // 引用计数Map</span><br><span class="line">    weak_table_t weak_table;    // 弱引用Map</span><br><span class="line"></span><br><span class="line">    SideTable() &#123;</span><br><span class="line">        memset(&amp;weak_table, 0, sizeof(weak_table));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~SideTable() &#123;</span><br><span class="line">        _objc_fatal(&quot;Do not delete SideTable.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void lock() &#123; slock.lock(); &#125;</span><br><span class="line">    void unlock() &#123; slock.unlock(); &#125;</span><br><span class="line">    bool trylock() &#123; return slock.trylock(); &#125;</span><br><span class="line"></span><br><span class="line">    // Address-ordered lock discipline for a pair of side tables.</span><br><span class="line"></span><br><span class="line">    template&lt;bool HaveOld, bool HaveNew&gt;</span><br><span class="line">    static void lockTwo(SideTable *lock1, SideTable *lock2);</span><br><span class="line">    template&lt;bool HaveOld, bool HaveNew&gt;</span><br><span class="line">    static void unlockTwo(SideTable *lock1, SideTable *lock2);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="spinlock-t"><a href="#spinlock-t" class="headerlink" title="spinlock_t"></a>spinlock_t</h2><p>自旋锁，是为了解决多线程资源互斥利用提出的一种机制。是指当一个线程在获取锁的时候，如果锁已经被其它线程获取，那么该线程将循环等待，然后不断的判断锁是否能够被成功获取，直到获取到锁才会退出循环。<br>优点：不会产生线程状态的切换，线程始终active，处于用户态。相对于其他的锁，会频繁在用户态和内核态之间切换，带来极大的性能损耗。</p>
+<h1 id="RefcountMap"><a href="#RefcountMap" class="headerlink" title="RefcountMap"></a>RefcountMap</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// RefcountMap disguises its pointers because we </span><br><span class="line">// don&apos;t want the table to act as a root for `leaks`.</span><br><span class="line">typedef objc::DenseMap&lt;DisguisedPtr&lt;objc_object&gt;,size_t,true&gt; RefcountMap;</span><br></pre></td></tr></table></figure>
+<p>这里的三个入参<code>DisguisedPtr&lt;objc_object&gt;,size_t,true</code>分别表示hash key、value、value==0时是否自动释放hash节点。实际上key就是OC对象，value是引用计数。</p>
+<h1 id="weak-table-t"><a href="#weak-table-t" class="headerlink" title="weak_table_t"></a>weak_table_t</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * The global weak references table. Stores object ids as keys,</span><br><span class="line"> * and weak_entry_t structs as their values.</span><br><span class="line"> */</span><br><span class="line">struct weak_table_t &#123;</span><br><span class="line">    weak_entry_t *weak_entries;         // hash数组</span><br><span class="line">    size_t    num_entries;              // 数组中存放的元素个数</span><br><span class="line">    uintptr_t mask;                     // 数组长度，防止数组越界</span><br><span class="line">    uintptr_t max_hash_displacement;    // hash冲突的最大次数</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="weak-entry-t"><a href="#weak-entry-t" class="headerlink" title="weak_entry_t"></a>weak_entry_t</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#define WEAK_INLINE_COUNT 4</span><br><span class="line">struct weak_entry_t &#123;</span><br><span class="line">    DisguisedPtr&lt;objc_object&gt; referent;     // 被弱引用的对象</span><br><span class="line">    union &#123;</span><br><span class="line">        // 动态数组</span><br><span class="line">        struct &#123;</span><br><span class="line">            weak_referrer_t *referrers;                 // 指向referent内存地址的指针的地址的hash数组</span><br><span class="line">            uintptr_t        out_of_line : 1;           // 是否使用动态hash数组标记为</span><br><span class="line">            uintptr_t        num_refs : PTR_MINUS_1;    // 数组中元素个数</span><br><span class="line">            uintptr_t        mask;                      // 数组长度</span><br><span class="line">            uintptr_t        max_hash_displacement;     // hash冲突的最大次数</span><br><span class="line">        &#125;;</span><br><span class="line">        // 定长数组</span><br><span class="line">        struct &#123;</span><br><span class="line">            // out_of_line=0 is LSB of one of these (don&apos;t care which)</span><br><span class="line">            weak_referrer_t  inline_referrers[WEAK_INLINE_COUNT];</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>注意WEAK_INLINE_COUNT，引用指针数量小于等于WEAK_INLINE_COUNT为定长数组，超过后就始终使用动态数组。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/06/07/Runtime-load和initialize/" itemprop="url">
+                  Runtime-load和initialize
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-06-07T14:02:55+08:00" content="2019-06-07">
+              2019-06-07
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Runtime/" itemprop="url" rel="index">
+                    <span itemprop="name">Runtime</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.jianshu.com/p/bd82ef5ea186" target="_blank" rel="noopener">Load和Initialize往死了问是一种怎样的体验？</a>这篇blog有很好的参考价值，不过有一些细节仍然存在错误。</p>
+<p><code>+ load()</code>方法，顾名思义是类的加载方法，在<code>main()</code>函数之前调用，其官方文档如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Invoked whenever a class or category is added to the Objective-C runtime; implement this method to perform class-specific behavior upon loading.</span><br><span class="line"></span><br><span class="line">当类（Class）或者类别（Category）加入Runtime中时（就是被引用的时候）。</span><br><span class="line">实现该方法，可以在加载时做一些类特有的操作。</span><br><span class="line"></span><br><span class="line">Discussion</span><br><span class="line"></span><br><span class="line">The load message is sent to classes and categories that are both dynamically loaded and statically linked, but only if the newly loaded class or category implements a method that can respond.</span><br><span class="line"></span><br><span class="line">The order of initialization is as follows:</span><br><span class="line"></span><br><span class="line">All initializers in any framework you link to.</span><br><span class="line">调用所有的Framework中的初始化方法</span><br><span class="line"></span><br><span class="line">All +load methods in your image.</span><br><span class="line">调用所有的+load方法</span><br><span class="line"></span><br><span class="line">All C++ static initializers and C/C++ attribute(constructor) functions in your image.</span><br><span class="line">调用C++的静态初始化方及C/C++中的attribute(constructor)函数</span><br><span class="line"></span><br><span class="line">All initializers in frameworks that link to you.</span><br><span class="line">调用所有链接到目标文件的framework中的初始化方法</span><br><span class="line"></span><br><span class="line">In addition:</span><br><span class="line"></span><br><span class="line">A class’s +load method is called after all of its superclasses’ +load methods.</span><br><span class="line">一个类的+load方法在其父类的+load方法后调用</span><br><span class="line"></span><br><span class="line">A category +load method is called after the class’s own +load method.</span><br><span class="line">一个Category的+load方法在被其扩展的类的自有+load方法后调用</span><br><span class="line"></span><br><span class="line">In a custom implementation of load you can therefore safely message other unrelated classes from the same image, but any load methods implemented by those classes may not have run yet.</span><br><span class="line">在+load方法中，可以安全地向同一二进制包中的其它无关的类发送消息，但接收消息的类中的+load方法可能尚未被调用。</span><br></pre></td></tr></table></figure></p>
+<p><code>+ initialize()</code>方法，顾名思义即类的初始化方法，其官方文档如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Initializes the class before it receives its first message.</span><br><span class="line"></span><br><span class="line">在这个类接收第一条消息之前调用。</span><br><span class="line"></span><br><span class="line">Discussion</span><br><span class="line"></span><br><span class="line">The runtime sends initialize to each class in a program exactly one time just before the class, or any class that inherits from it, is sent its first message from within the program. (Thus the method may never be invoked if the class is not used.) The runtime sends the initialize message to classes in a thread-safe manner. Superclasses receive this message before their subclasses.</span><br><span class="line"></span><br><span class="line">Runtime在一个程序中每一个类的一个程序中发送一个初始化一次，或是从它继承的任何类中，都是在程序中发送第一条消息。（因此，当该类不使用时，该方法可能永远不会被调用。）运行时发送一个线程安全的方式初始化消息。父类的调用一定在子类之前。</span><br></pre></td></tr></table></figure></p>
+<p>其基础特征及调用时序可以在文档中有一个大概的了解，然后我们在这个基础上提出问题。<br>前提：A类、B类，均实现其load及initialize方法，B为A的子类，另外C1、C2为A的分类。</p>
+<ol>
+<li>不做任何操作，求时序。</li>
+<li>对A类发消息，求时序。</li>
+<li>对B类发消息，求时序。<br>此后问题删除分类。</li>
+<li>先对A类发消息，再对B类发消息，求时序。</li>
+<li>先对B类发消息，再对A类发消息，求时序。</li>
+<li>删除B类initialize方法，先对A类发消息，再对B类发消息，求时序。</li>
+<li>在A类的load方法中对B类发消息，此外对A类发消息，求时序。</li>
+<li>取消B类和A类的继承关系，改为继承NSObject，条件同问题7，求时序。</li>
+</ol>
+<p>输入如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">问题1：</span><br><span class="line">2019-06-07 14:25:28.996053+0800 LKTestOC[59335:5384227] A: father load</span><br><span class="line">2019-06-07 14:25:28.996694+0800 LKTestOC[59335:5384227] B: son load</span><br><span class="line">2019-06-07 14:25:28.996812+0800 LKTestOC[59335:5384227] C1: category load</span><br><span class="line">2019-06-07 14:25:28.996881+0800 LKTestOC[59335:5384227] C2: category load</span><br><span class="line">结论：load方法时序 父类-&gt;子类-&gt;分类，不会覆盖，且与消息发送无关。</span><br><span class="line"></span><br><span class="line">问题2：</span><br><span class="line">2019-06-07 14:26:33.960364+0800 LKTestOC[59510:5385993] A: father load</span><br><span class="line">2019-06-07 14:26:33.960938+0800 LKTestOC[59510:5385993] B: son load</span><br><span class="line">2019-06-07 14:26:33.961009+0800 LKTestOC[59510:5385993] C1: category load</span><br><span class="line">2019-06-07 14:26:33.961078+0800 LKTestOC[59510:5385993] C2: category load</span><br><span class="line">2019-06-07 14:26:34.069072+0800 LKTestOC[59510:5385993] C2: category initialize</span><br><span class="line">结论：initialize方法在消息发送后调用，会覆盖，分类时序最后，且与主类是否import分类无关。</span><br><span class="line"></span><br><span class="line">问题3：</span><br><span class="line">2019-06-07 14:32:15.164806+0800 LKTestOC[60397:5393459] A: father load</span><br><span class="line">2019-06-07 14:32:15.165367+0800 LKTestOC[60397:5393459] B: son load</span><br><span class="line">2019-06-07 14:32:15.165457+0800 LKTestOC[60397:5393459] C1: category load</span><br><span class="line">2019-06-07 14:32:15.165530+0800 LKTestOC[60397:5393459] C2: category load</span><br><span class="line">2019-06-07 14:32:15.269258+0800 LKTestOC[60397:5393459] C2: category initialize</span><br><span class="line">2019-06-07 14:32:15.269361+0800 LKTestOC[60397:5393459] B: son initialize</span><br><span class="line">结论：initialize方法时序 父类-&gt;分类-&gt;子类。</span><br><span class="line"></span><br><span class="line">问题4、5：</span><br><span class="line">2019-06-07 14:33:54.319935+0800 LKTestOC[60679:5396081] A: father load</span><br><span class="line">2019-06-07 14:33:54.320518+0800 LKTestOC[60679:5396081] B: son load</span><br><span class="line">2019-06-07 14:33:54.466408+0800 LKTestOC[60679:5396081] A: father initialize</span><br><span class="line">2019-06-07 14:33:54.466562+0800 LKTestOC[60679:5396081] B: son initialize</span><br><span class="line">结论：子类的initliaze会自动调用父类方法，且每个类初始化时只会调用一次initliaze。</span><br><span class="line"></span><br><span class="line">问题6：</span><br><span class="line">2019-06-07 14:38:39.735874+0800 LKTestOC[61421:5403318] A: father load</span><br><span class="line">2019-06-07 14:38:39.736519+0800 LKTestOC[61421:5403318] B: son load</span><br><span class="line">2019-06-07 14:38:39.921747+0800 LKTestOC[61421:5403318] A: father initialize</span><br><span class="line">2019-06-07 14:38:39.921889+0800 LKTestOC[61421:5403318] A: father initialize</span><br><span class="line">结论：如官方文档所说，子类未实现intialize时父类会调用多次，此处要重点注意，如果想利用initialize做懒加载，需防止调用多次，可利用(self == [ClassName self])做判断。</span><br><span class="line"></span><br><span class="line">问题7：</span><br><span class="line">2019-06-07 14:43:10.949354+0800 LKTestOC[62160:5409931] A: father initialize</span><br><span class="line">2019-06-07 14:43:10.949928+0800 LKTestOC[62160:5409931] B: son initialize</span><br><span class="line">2019-06-07 14:43:11.008578+0800 LKTestOC[62160:5409931] A: father load</span><br><span class="line">2019-06-07 14:43:11.008811+0800 LKTestOC[62160:5409931] B: son load</span><br><span class="line">结论：initialize方法不一定在main()之后，严格遵循发送消息时调用。</span><br><span class="line"></span><br><span class="line">问题8：</span><br><span class="line">2019-06-07 14:44:12.102702+0800 LKTestOC[62327:5411529] B: son initialize</span><br><span class="line">2019-06-07 14:44:12.105044+0800 LKTestOC[62327:5411529] A: father load</span><br><span class="line">2019-06-07 14:44:12.105306+0800 LKTestOC[62327:5411529] B: son load</span><br><span class="line">结论：符合预期。</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2019/05/27/iOS基础知识面归纳/" itemprop="url">
                   iOS基础知识面归纳
                 </a>
@@ -291,11 +779,8 @@
         
           
             <p>对这几年来开发中遇到的常见基础知识点做一个总结。</p>
-<h1 id="启动优化相关"><a href="#启动优化相关" class="headerlink" title="启动优化相关"></a>启动优化相关</h1><p>参考<a href="https://www.jianshu.com/p/4e79e9a0dd82" target="_blank" rel="noopener">iOS-Block的本质</a><br><a href="https://www.jianshu.com/p/bf3798fe3f49" target="_blank" rel="noopener">关于Block用copy修饰的原因的一点自己的理解</a></p>
-<h2 id="load方法和initialize方法的异同"><a href="#load方法和initialize方法的异同" class="headerlink" title="load方法和initialize方法的异同"></a>load方法和initialize方法的异同</h2><p>load方法官方文档如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Invoked whenever a class or category is added to the Objective-C runtime; implement this method to perform class-specific behavior upon loading.</span><br><span class="line"></span><br><span class="line">当类（Class）或者类别（Category）加入Runtime中时（就是被引用的时候）。</span><br><span class="line">实现该方法，可以在加载时做一些类特有的操作。</span><br><span class="line"></span><br><span class="line">Discussion</span><br><span class="line"></span><br><span class="line">The load message is sent to classes and categories that are both dynamically loaded and statically linked, but only if the newly loaded class or category implements a method that can respond.</span><br><span class="line"></span><br><span class="line">The order of initialization is as follows:</span><br><span class="line"></span><br><span class="line">All initializers in any framework you link to.</span><br><span class="line">调用所有的Framework中的初始化方法</span><br><span class="line"></span><br><span class="line">All +load methods in your image.</span><br><span class="line">调用所有的+load方法</span><br><span class="line"></span><br><span class="line">All C++ static initializers and C/C++ attribute(constructor) functions in your image.</span><br><span class="line">调用C++的静态初始化方及C/C++中的attribute(constructor)函数</span><br><span class="line"></span><br><span class="line">All initializers in frameworks that link to you.</span><br><span class="line">调用所有链接到目标文件的framework中的初始化方法</span><br><span class="line"></span><br><span class="line">In addition:</span><br><span class="line"></span><br><span class="line">A class’s +load method is called after all of its superclasses’ +load methods.</span><br><span class="line">一个类的+load方法在其父类的+load方法后调用</span><br><span class="line"></span><br><span class="line">A category +load method is called after the class’s own +load method.</span><br><span class="line">一个Category的+load方法在被其扩展的类的自有+load方法后调用</span><br><span class="line"></span><br><span class="line">In a custom implementation of load you can therefore safely message other unrelated classes from the same image, but any load methods implemented by those classes may not have run yet.</span><br><span class="line">在+load方法中，可以安全地向同一二进制包中的其它无关的类发送消息，但接收消息的类中的+load方法可能尚未被调用。</span><br></pre></td></tr></table></figure></p>
-<p>initialize官方文档如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Initializes the class before it receives its first message.</span><br><span class="line"></span><br><span class="line">在这个类接收第一条消息之前调用。</span><br><span class="line"></span><br><span class="line">Discussion</span><br><span class="line"></span><br><span class="line">The runtime sends initialize to each class in a program exactly one time just before the class, or any class that inherits from it, is sent its first message from within the program. (Thus the method may never be invoked if the class is not used.) The runtime sends the initialize message to classes in a thread-safe manner. Superclasses receive this message before their subclasses.</span><br><span class="line"></span><br><span class="line">Runtime在一个程序中每一个类的一个程序中发送一个初始化一次，或是从它继承的任何类中，都是在程序中发送第一条消息。（因此，当该类不使用时，该方法可能永远不会被调用。）运行时发送一个线程安全的方式初始化消息。父类的调用一定在子类之前。</span><br></pre></td></tr></table></figure></p>
-<p>可以从官方文档总结出，load方法会在Runtime中（应用启动时）被调用，initialize是在类接收第一条消息时被调用，两者都是先调用本类，再调用类别，两者均自动调用父类，不需要super操作，且自动调用仅一次。</p>
-<h1 id="Block"><a href="#Block" class="headerlink" title="Block"></a>Block</h1><h2 id="Block本质"><a href="#Block本质" class="headerlink" title="Block本质"></a>Block本质</h2><p>Block是一种OC对象，内部有isa指针，它封装了函数调用和函数调用环境的OC对象。它会捕获变量的临时值（遇到过一个BUG，Block初始化时捕获了变量值，后续每一次调用时本应该基于最新的值来做业务），若想要在block内部改变外部值，使用__block。</p>
+<h1 id="Block"><a href="#Block" class="headerlink" title="Block"></a>Block</h1><p>参考<a href="https://www.jianshu.com/p/4e79e9a0dd82" target="_blank" rel="noopener">iOS-Block的本质</a><br><a href="https://www.jianshu.com/p/bf3798fe3f49" target="_blank" rel="noopener">关于Block用copy修饰的原因的一点自己的理解</a></p>
+<h2 id="Block本质"><a href="#Block本质" class="headerlink" title="Block本质"></a>Block本质</h2><p>Block是一种OC对象，内部有isa指针，它封装了函数调用和函数调用环境的OC对象。它会捕获变量的临时值（遇到过一个BUG，Block初始化时捕获了变量值，后续每一次调用时本应该基于最新的值来做业务），若想要在block内部改变外部值，使用__block。</p>
 <h2 id="Block类型"><a href="#Block类型" class="headerlink" title="Block类型"></a>Block类型</h2><ul>
 <li><strong>NSGlobalBlock </strong> （ _NSConcreteGlobalBlock ） 数据区</li>
 <li><strong>NSStackBlock </strong> （ _NSConcreteStackBlock ） 堆区</li>
@@ -319,15 +804,34 @@
 <h2 id="Block的内存泄漏"><a href="#Block的内存泄漏" class="headerlink" title="Block的内存泄漏"></a>Block的内存泄漏</h2><p>Block最典型的循环引用就是self持有block，block持有self，为了避免循环引用，通常使用<strong>weak或</strong>block的弱引用，在此基础上，还衍生出了weak strong dance，来避免block内部引用对象被释放导致的野指针crash或bug。</p>
 <h1 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h1><p>参考<a href="https://www.jianshu.com/p/adf0d566c887" target="_blank" rel="noopener">iOS运行时(Runtime)详解+Demo</a></p>
 <h2 id="Runtime本质"><a href="#Runtime本质" class="headerlink" title="Runtime本质"></a>Runtime本质</h2><p>OC是一门由C和汇编语言写的面向对象的动态语言。关键在于理解Class的数据结构定义。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">typedef struct object_class *Class;</span><br><span class="line">struct object_class&#123;</span><br><span class="line">    Class isa OBJC_ISA_AVAILABILITY;</span><br><span class="line">#if !__OBJC2__</span><br><span class="line">     Class super_class                        OBJC2_UNAVAILABLE;  // 父类</span><br><span class="line">     const char *name                         OBJC2_UNAVAILABLE;  // 类名</span><br><span class="line">     long version                             OBJC2_UNAVAILABLE;  // 类的版本信息，默认为0</span><br><span class="line">     long info                                OBJC2_UNAVAILABLE;  // 类信息，供运行期使用的一些位标识</span><br><span class="line">     long instance_size                       OBJC2_UNAVAILABLE;  // 该类的实例变量大小</span><br><span class="line">     struct objc_ivar_list *ivars             OBJC2_UNAVAILABLE;  // 该类的成员变量链表</span><br><span class="line">     struct objc_method_list *methodLists     OBJC2_UNAVAILABLE;  // 方法定义的链表</span><br><span class="line">     struct objc_cache *cache                 OBJC2_UNAVAILABLE;  // 方法缓存</span><br><span class="line">     struct objc_protocol_list *protocols     OBJC2_UNAVAILABLE;  // 协议链表</span><br><span class="line">#endif</span><br><span class="line">&#125;OBJC2_UNAVAILABLE;</span><br><span class="line"></span><br><span class="line">typedef struct objc_object *id;</span><br><span class="line">struct objc_object&#123;</span><br><span class="line">     Class isa OBJC_ISA_AVAILABILITY;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">typedef struct objc_category *Category</span><br><span class="line">struct objc_category&#123;</span><br><span class="line">     char *category_name                         OBJC2_UNAVAILABLE; // 分类名</span><br><span class="line">     char *class_name                            OBJC2_UNAVAILABLE;  // 分类所属的类名</span><br><span class="line">     struct objc_method_list *instance_methods   OBJC2_UNAVAILABLE;  // 实例方法列表</span><br><span class="line">     struct objc_method_list *class_methods      OBJC2_UNAVAILABLE; // 类方法列表</span><br><span class="line">     struct objc_protocol_list *protocols        OBJC2_UNAVAILABLE; // 分类所实现的协议列表</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="isa"><a href="#isa" class="headerlink" title="isa"></a>isa</h2><p>isa是一个指向Class的指针，实例对象的isa指向它的类，他的类的isa指向其元类，元类的isa指向根元类，根元类的isa指向其自身。<br><img src="/2019/05/27/iOS基础知识面归纳/isa.png" title="isa指针"><br>需要注意NSObject的元类，父类指针指向NSObject，形成一个环。</p>
 <h2 id="SEL和IMP的区别"><a href="#SEL和IMP的区别" class="headerlink" title="SEL和IMP的区别"></a>SEL和IMP的区别</h2><p>SEL的数据结构：<code>typedef struct objc_selector *SEL；</code>，它是指向一个方法的指针；<br>IMP的定义：<code>id (*IMP)(id, SEL,...)</code>，它是一个函数指针，指向方法实现的地址。第一个参数：是指向self的指针(如果是实例方法，则是类实例的内存地址；如果是类方法，则是指向元类的指针)<br>第二个参数：是方法选择器(selector)</p>
 <h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_method *Method</span><br><span class="line">struct objc_method&#123;</span><br><span class="line">    SEL method_name      OBJC2_UNAVAILABLE; // 方法名</span><br><span class="line">    char *method_types   OBJC2_UNAVAILABLE;</span><br><span class="line">    IMP method_imp       OBJC2_UNAVAILABLE; // 方法实现</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Method可以理解为方法名和方法实现的map映射，便于我们通过方法指针找到方法实现。OC的消息转发、方法动态绑定、方法交换都是基于这个机制。</p>
+<h2 id="消息发送-objc-msgSend"><a href="#消息发送-objc-msgSend" class="headerlink" title="消息发送 - objc_msgSend()"></a>消息发送 - objc_msgSend()</h2><p>参考<a href="http://yulingtianxia.com/blog/2016/06/15/Objective-C-Message-Sending-and-Forwarding/" target="_blank" rel="noopener">Objective-C 消息发送与转发机制原理</a></p>
+<ol>
+<li>检测selector、target。</li>
+<li>从这个类的缓存方法列表里找，是否有执行过这个方法。</li>
+<li>找不到就从方法列表里找。</li>
+<li>找不到就从父类的方法列表里找，直到NSObject。</li>
+<li>找不到进入动态方法解析，类对象+ (BOOL)resolveClassMethod:(SEL)sel和元类对象+ (BOOL)resolveInstanceMethod:(SEL)sel</li>
+<li>找不到进入消息转发，- (id)forwardingTargetForSelector:(SEL)aSelector生成NSInvocation，forwardInvocation:转发。</li>
+</ol>
+<h2 id="load方法和initialize方法的异同"><a href="#load方法和initialize方法的异同" class="headerlink" title="load方法和initialize方法的异同"></a>load方法和initialize方法的异同</h2><p><a href="http://blog.leeouf.com/2019/06/07/Runtime-load和initialize/" target="_blank" rel="noopener">Runtime-load和initialize</a></p>
 <h1 id="RunLoop"><a href="#RunLoop" class="headerlink" title="RunLoop"></a>RunLoop</h1><p>参考<a href="https://www.jianshu.com/p/de752066d0ad" target="_blank" rel="noopener">iOS底层原理总结-RunLoop</a></p>
 <h2 id="RunLoop本质"><a href="#RunLoop本质" class="headerlink" title="RunLoop本质"></a>RunLoop本质</h2><p>就是一个while循环……源码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoop &#123;</span><br><span class="line">    CFRuntimeBase _base;</span><br><span class="line">    pthread_mutex_t _lock;          /* locked for accessing mode list */</span><br><span class="line">    __CFPort _wakeUpPort;           // used for CFRunLoopWakeUp </span><br><span class="line">    Boolean _unused;</span><br><span class="line">    volatile _per_run_data *_perRunData;              // reset for runs of the run loop</span><br><span class="line">    pthread_t _pthread;</span><br><span class="line">    uint32_t _winthread;</span><br><span class="line">    CFMutableSetRef _commonModes;</span><br><span class="line">    CFMutableSetRef _commonModeItems;</span><br><span class="line">    CFRunLoopModeRef _currentMode;</span><br><span class="line">    CFMutableSetRef _modes;</span><br><span class="line">    struct _block_item *_blocks_head;</span><br><span class="line">    struct _block_item *_blocks_tail;</span><br><span class="line">    CFAbsoluteTime _runTime;</span><br><span class="line">    CFAbsoluteTime _sleepTime;</span><br><span class="line">    CFTypeRef _counterpart;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">typedef struct __CFRunLoopMode *CFRunLoopModeRef;</span><br><span class="line">struct __CFRunLoopMode &#123;</span><br><span class="line">    CFRuntimeBase _base;</span><br><span class="line">    pthread_mutex_t _lock;  /* must have the run loop locked before locking this */</span><br><span class="line">    CFStringRef _name;</span><br><span class="line">    Boolean _stopped;</span><br><span class="line">    char _padding[3];</span><br><span class="line">    CFMutableSetRef _sources0;</span><br><span class="line">    CFMutableSetRef _sources1;</span><br><span class="line">    CFMutableArrayRef _observers;</span><br><span class="line">    CFMutableArrayRef _timers;</span><br><span class="line">    CFMutableDictionaryRef _portToV1SourceMap;</span><br><span class="line">    __CFPortSet _portSet;</span><br><span class="line">    CFIndex _observerMask;</span><br><span class="line">#if USE_DISPATCH_SOURCE_FOR_TIMERS</span><br><span class="line">    dispatch_source_t _timerSource;</span><br><span class="line">    dispatch_queue_t _queue;</span><br><span class="line">    Boolean _timerFired; // set to true by the source when a timer has fired</span><br><span class="line">    Boolean _dispatchTimerArmed;</span><br><span class="line">#endif</span><br><span class="line">#if USE_MK_TIMER_TOO</span><br><span class="line">    mach_port_t _timerPort;</span><br><span class="line">    Boolean _mkTimerArmed;</span><br><span class="line">#endif</span><br><span class="line">#if DEPLOYMENT_TARGET_WINDOWS</span><br><span class="line">    DWORD _msgQMask;</span><br><span class="line">    void (*_msgPump)(void);</span><br><span class="line">#endif</span><br><span class="line">    uint64_t _timerSoftDeadline; /* TSR */</span><br><span class="line">    uint64_t _timerHardDeadline; /* TSR */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <h2 id="RunLoop作用"><a href="#RunLoop作用" class="headerlink" title="RunLoop作用"></a>RunLoop作用</h2><ul>
 <li>保证主线程不被销毁（写过那么多hello world应该知道main函数顺序执行完就退出了，很好理解）。</li>
 <li>处理用户事件，传感器、通知。</li>
 <li>调度CPU资源，让我们在空闲时能干很多事。</li>
+</ul>
+<h2 id="RunLoop流程"><a href="#RunLoop流程" class="headerlink" title="RunLoop流程"></a>RunLoop流程</h2><img src="/2019/05/27/iOS基础知识面归纳/RunLoop.png" title="RunLoop流程">
+<h2 id="RunLoop-Mode"><a href="#RunLoop-Mode" class="headerlink" title="RunLoop Mode"></a>RunLoop Mode</h2><ul>
+<li>kCFRunLoopDefaultMode：默认模式，主线程是在这个运行模式下运行</li>
+<li>UITrackingRunLoopMode：跟踪用户交互事件（用于 ScrollView 追踪触摸滑动，保证界面滑动时不受其他Mode影响）</li>
+<li>UIInitializationRunLoopMode：在刚启动App时第进入的第一个 Mode，启动完成后就不再使用</li>
+<li>GSEventReceiveRunLoopMode：接受系统内部事件，通常用不到</li>
+<li>kCFRunLoopCommonModes：伪模式，不是一种真正的运行模式，是同步Source/Timer/Observer到多个Mode中的一种解决方案</li>
 </ul>
 <h2 id="RunLoop几种状态"><a href="#RunLoop几种状态" class="headerlink" title="RunLoop几种状态"></a>RunLoop几种状态</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef CF_OPTIONS(CFOptionFlags, CFRunLoopActivity) &#123;</span><br><span class="line">     kCFRunLoopEntry = (1UL &lt;&lt; 0),   //   即将进入RunLoop</span><br><span class="line">     kCFRunLoopBeforeTimers = (1UL &lt;&lt; 1), // 即将处理Timer</span><br><span class="line">     kCFRunLoopBeforeSources = (1UL &lt;&lt; 2), // 即将处理Source</span><br><span class="line">     kCFRunLoopBeforeWaiting = (1UL &lt;&lt; 5), //即将进入休眠</span><br><span class="line">     kCFRunLoopAfterWaiting = (1UL &lt;&lt; 6),// 刚从休眠中唤醒</span><br><span class="line">     kCFRunLoopExit = (1UL &lt;&lt; 7),// 即将退出RunLoop</span><br><span class="line">     kCFRunLoopAllActivities = 0x0FFFFFFFU</span><br><span class="line">     &#125;;</span><br></pre></td></tr></table></figure>
 <h1 id="内存管理相关"><a href="#内存管理相关" class="headerlink" title="内存管理相关"></a>内存管理相关</h1><h2 id="ARC"><a href="#ARC" class="headerlink" title="ARC"></a>ARC</h2><h3 id="ARC的本质"><a href="#ARC的本质" class="headerlink" title="ARC的本质"></a>ARC的本质</h3><p>ARC本质上和MRC没有区别，都是依靠引用计数进行管理，只是编译器帮我们做了内存管理的操作。ARC有4种修饰符<strong>strong,</strong>weak,<strong>autoreleasing,</strong>unsafe_unretained。</p>
@@ -339,8 +843,35 @@
 <li>AutoreleasePool释放是在一个RunLoop事件即将结束之前(pop)。</li>
 <li>AutoreleasePool里的Autorelease对象的加入是在RunLoop事件中，AutoreleasePool里的Autorelease对象的释放是在AutoreleasePool释放时。</li>
 </ul>
-<h3 id="MRC怎么写"><a href="#MRC怎么写" class="headerlink" title="MRC怎么写"></a>MRC怎么写</h3><p>像init，copy这些实例方法，是由对象持有者管理内存的，所以在MRC中要主动release，而stringWithFormat之类的类方法则是由类自身去管理。基础原则即：谁创建谁释放。</p>
-<h1 id="UIKit"><a href="#UIKit" class="headerlink" title="UIKit"></a>UIKit</h1><h2 id="UITableView调优"><a href="#UITableView调优" class="headerlink" title="UITableView调优"></a>UITableView调优</h2><h3 id="系统API"><a href="#系统API" class="headerlink" title="系统API"></a>系统API</h3><ul>
+<h3 id="MRC怎么写"><a href="#MRC怎么写" class="headerlink" title="MRC怎么写"></a>MRC怎么写</h3><p>像init，copy这些实例方法，是由对象持有者管理内存的，所以在MRC中要主动release，而stringWithFormat之类的类方法则是由类自身去管理。</p>
+<h1 id="UIKit"><a href="#UIKit" class="headerlink" title="UIKit"></a>UIKit</h1><h2 id="UIView与CALayer"><a href="#UIView与CALayer" class="headerlink" title="UIView与CALayer"></a>UIView与CALayer</h2><ul>
+<li>UIView基于UIKit，继承于UIResponder，CALayer基于QuartzCore，继承于NSObject。</li>
+<li>UIView是CALayer的delegate，UIView负责处理事件，CALayer负责绘制。</li>
+<li>CALayer不需要处理交互事件，所以更轻量。</li>
+</ul>
+<h2 id="frame与bounds"><a href="#frame与bounds" class="headerlink" title="frame与bounds"></a>frame与bounds</h2><ul>
+<li>frame以父级页面坐标系为基础，bounds是以自身左上角为原点。</li>
+</ul>
+<h2 id="animation"><a href="#animation" class="headerlink" title="animation"></a>animation</h2><p>先看一段代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    self.testView = [[UIView alloc] initWithFrame:CGRectMake(40, 50, 200, 100)];</span><br><span class="line">    [self.view addSubview:self.testView];</span><br><span class="line">    [self printFrame];</span><br><span class="line">    </span><br><span class="line">    [UIView animateWithDuration:5.0f animations:^&#123;</span><br><span class="line">        self.testView.transform = CGAffineTransformMakeScale(2, 2);</span><br><span class="line">    &#125; completion:^(BOOL finished) &#123;</span><br><span class="line">        NSLog(@&quot;animate complete&quot;);</span><br><span class="line">        [self printFrame];</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">//    NSLog(@&quot;before change&quot;);</span><br><span class="line">//    self.testView.frame = CGRectMake(40, 50, 50, 25);</span><br><span class="line">//    [self printFrame];</span><br><span class="line">//    NSLog(@&quot;after change&quot;);</span><br><span class="line">    </span><br><span class="line">    self.timer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(printFrame) userInfo:nil repeats:YES];</span><br><span class="line">    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)printFrame &#123;</span><br><span class="line">    NSLog(@&quot;frame:%@ - bounds:%@&quot;, NSStringFromCGRect(self.testView.frame), NSStringFromCGRect(self.testView.bounds));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此时的输出是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">2019-05-30 13:20:38.968830+0800 LKTestOC[26445:12812774] frame:&#123;&#123;40, 50&#125;, &#123;200, 100&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;200, 100&#125;&#125;</span><br><span class="line">2019-05-30 13:20:39.970986+0800 LKTestOC[26445:12812774] frame:&#123;&#123;-60, 0&#125;, &#123;400, 200&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;200, 100&#125;&#125;</span><br><span class="line">2019-05-30 13:20:40.970806+0800 LKTestOC[26445:12812774] frame:&#123;&#123;-60, 0&#125;, &#123;400, 200&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;200, 100&#125;&#125;</span><br><span class="line">2019-05-30 13:20:41.971040+0800 LKTestOC[26445:12812774] frame:&#123;&#123;-60, 0&#125;, &#123;400, 200&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;200, 100&#125;&#125;</span><br><span class="line">2019-05-30 13:20:42.970473+0800 LKTestOC[26445:12812774] frame:&#123;&#123;-60, 0&#125;, &#123;400, 200&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;200, 100&#125;&#125;</span><br><span class="line">2019-05-30 13:20:43.970007+0800 LKTestOC[26445:12812774] frame:&#123;&#123;-60, 0&#125;, &#123;400, 200&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;200, 100&#125;&#125;</span><br><span class="line">2019-05-30 13:20:43.980835+0800 LKTestOC[26445:12812774] animate complete</span><br><span class="line">2019-05-30 13:20:43.981103+0800 LKTestOC[26445:12812774] frame:&#123;&#123;-60, 0&#125;, &#123;400, 200&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;200, 100&#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>打开注释后的输出是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">2019-05-30 13:21:57.706688+0800 LKTestOC[26631:12816453] frame:&#123;&#123;40, 50&#125;, &#123;200, 100&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;200, 100&#125;&#125;</span><br><span class="line">2019-05-30 13:21:57.707726+0800 LKTestOC[26631:12816453] before change</span><br><span class="line">2019-05-30 13:21:57.707959+0800 LKTestOC[26631:12816453] frame:&#123;&#123;40, 50&#125;, &#123;50, 25&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;25, 12.5&#125;&#125;</span><br><span class="line">2019-05-30 13:21:57.708076+0800 LKTestOC[26631:12816453] after change</span><br><span class="line">2019-05-30 13:21:58.708456+0800 LKTestOC[26631:12816453] frame:&#123;&#123;40, 50&#125;, &#123;50, 25&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;25, 12.5&#125;&#125;</span><br><span class="line">2019-05-30 13:21:59.708621+0800 LKTestOC[26631:12816453] frame:&#123;&#123;40, 50&#125;, &#123;50, 25&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;25, 12.5&#125;&#125;</span><br><span class="line">2019-05-30 13:22:00.708491+0800 LKTestOC[26631:12816453] frame:&#123;&#123;40, 50&#125;, &#123;50, 25&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;25, 12.5&#125;&#125;</span><br><span class="line">2019-05-30 13:22:01.708489+0800 LKTestOC[26631:12816453] frame:&#123;&#123;40, 50&#125;, &#123;50, 25&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;25, 12.5&#125;&#125;</span><br><span class="line">2019-05-30 13:22:02.708597+0800 LKTestOC[26631:12816453] frame:&#123;&#123;40, 50&#125;, &#123;50, 25&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;25, 12.5&#125;&#125;</span><br><span class="line">2019-05-30 13:22:02.719551+0800 LKTestOC[26631:12816453] animate complete</span><br><span class="line">2019-05-30 13:22:02.719705+0800 LKTestOC[26631:12816453] frame:&#123;&#123;40, 50&#125;, &#123;50, 25&#125;&#125; - bounds:&#123;&#123;0, 0&#125;, &#123;25, 12.5&#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看出</p>
+<ul>
+<li>animate后frame是直接变化的，而在屏幕上的绘制是逐渐变化。</li>
+<li>bounds可以看成是view在其自身坐标系上的真实大小，frame应该是bounds与transform等叠加之后在父级坐标系中的值。</li>
+<li>因为frame是直接变化的，因此在动画开始后改frame是基于这个值直接变化。</li>
+<li>涂色后可以看出，在动画开始后改变frame，真实的动画是从(25,12.5)放大到(50,25)的过程。</li>
+</ul>
+<h2 id="事件响应链"><a href="#事件响应链" class="headerlink" title="事件响应链"></a>事件响应链</h2><p>参考<a href="https://blog.csdn.net/qq_18505715/article/details/78411052" target="_blank" rel="noopener">iOS hitTest</a><br>hitTest方法调用步骤如下：</p>
+<ol>
+<li>首先在当前视图的hitTest方法中调用pointInside方法判断触摸点是否在当前视图内</li>
+<li>若pointInside方法返回NO，说明触摸点不在当前视图内，则当前视图的hitTest返回nil，该视图不处理该事件</li>
+<li>若pointInside方法返回YES，说明触摸点在当前视图内，则从最上层的子视图开始（即从subviews数组的末尾向前遍历），遍历当前视图的所有子视图，调用子视图的hitTest方法重复步骤1-3</li>
+<li>直到有子视图的hitTest方法返回非空对象或者全部子视图遍历完毕</li>
+<li>若第一次有子视图的hitTest方法返回非空对象，则当前视图的hitTest方法就返回此对象，处理结束</li>
+<li>若所有子视图的hitTest方法都返回nil，则当前视图的hitTest方法返回当前视图本身，最终由该对象处理触摸事件<br>而事件传递的顺序则与hitTest调用顺序相反，如下：<br>view -&gt; superView …- &gt; UIViewController.view -&gt; UIViewController -&gt; UIWindow -&gt; UIApplication -&gt; 事件丢弃</li>
+</ol>
+<h2 id="UITableView调优"><a href="#UITableView调优" class="headerlink" title="UITableView调优"></a>UITableView调优</h2><h3 id="系统API"><a href="#系统API" class="headerlink" title="系统API"></a>系统API</h3><ul>
 <li>Cell复用池</li>
 <li>预估高度</li>
 </ul>
@@ -385,8 +916,17 @@
 <h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h2><p>TCP有三次握手，可靠传输，UDP是不可靠传输。TCP的滑动窗口是接收方为了流量控制限制的窗口大小，控制发送速度防止自己被淹没。</p>
 <h2 id="Https，SSL"><a href="#Https，SSL" class="headerlink" title="Https，SSL"></a>Https，SSL</h2><p>Http是无状态的，而Https是加入了SSL层，可进行加密传输、身份认证的网络协议。</p>
 <h2 id="cookie和session"><a href="#cookie和session" class="headerlink" title="cookie和session"></a>cookie和session</h2><p>cookie和session的最大区别就是cookie保存在客户端，session保存在服务端。</p>
+<h1 id="JSPatch原理"><a href="#JSPatch原理" class="headerlink" title="JSPatch原理"></a>JSPatch原理</h1><p>参考<a href="https://github.com/bang590/JSPatch/wiki/JSPatch-实现原理详解" target="_blank" rel="noopener">JSPatch-实现原理详解</a><br>通过JSContext来实现JS调用OC方法，通过方法交换替换掉IMP指针。</p>
+<h1 id="热更新"><a href="#热更新" class="headerlink" title="热更新"></a>热更新</h1><h2 id="RN"><a href="#RN" class="headerlink" title="RN"></a>RN</h2><p>基于JSCore的解析引擎，通过bridge调用native方法，UI基于OEM widgets。</p>
+<h2 id="Flutter"><a href="#Flutter" class="headerlink" title="Flutter"></a>Flutter</h2><p>自己实现了渲染框架，底层skia引擎，Widgets Rendering。通过Platform Method Channels与原生代码通信。</p>
+<h1 id="Protobuf"><a href="#Protobuf" class="headerlink" title="Protobuf"></a>Protobuf</h1><p>解析二进制字节流，有效地压缩数据，数据量体积小，使用Tag - Length - Value编码方式，存储紧凑，空间利用率高。</p>
+<h2 id="Varint"><a href="#Varint" class="headerlink" title="Varint"></a>Varint</h2><p>编码方式T-V，值越小的数字，使用越少的字节数表示。</p>
+<h2 id="Zigzag"><a href="#Zigzag" class="headerlink" title="Zigzag"></a>Zigzag</h2><p>将 有符号数 转换成 无符号数，然后再采用Varint编码。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>repeated字段，编码方式Tag - Length - Value -Value -Value。</p>
+<h2 id="optional-amp-required"><a href="#optional-amp-required" class="headerlink" title="optional &amp; required"></a>optional &amp; required</h2><p>optional默认值，可删除。</p>
 <h1 id="散乱知识点"><a href="#散乱知识点" class="headerlink" title="散乱知识点"></a>散乱知识点</h1><ol>
-<li><a href="https://www.jianshu.com/p/9215251693f0" target="_blank" rel="noopener">KVO、Delegate、Notification 区别及相关使用场景</a></li>
+<li><a href="https://www.jianshu.com/p/9215251693f0" target="_blank" rel="noopener">KVO、Delegate、Notification 区别及相关使用场景</a>，KVO isa-swizzling，根据原类创建中间类，重写方法，然后返回原类的Class</li>
+<li>什么是类簇 —— 类簇是Foundation的一种设计模式，比如NSNumber下的int、double、long。可以很方便的用一个类来管理不同的数据类型。</li>
 </ol>
 
           
@@ -540,122 +1080,6 @@
 <h2 id="q017"><a href="#q017" class="headerlink" title="q017"></a>q017</h2><p><strong>滑动冲突</strong><br>原因：flutter事件传递机制是由外向内传递的，外层如果处理了事件，会直接resume掉事件流，内层控件没有机会处理事件<br>解决方案：对于GestureDetector onScale 和 onDrag事件不能共存的问题，通过两层嵌套的GestureDetector解决。对于系统外层控件直接处理滑动事件的情况（例如tabView），通过内层控件回调外层标志位决定外层是否处理事件，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TabBarView(</span><br><span class="line">   children: children,</span><br><span class="line">   physics: _needHandleScroll ? PageScrollPhysics() : NeverScrollableScrollPhysics(),</span><br><span class="line">),</span><br></pre></td></tr></table></figure></p>
 <h2 id="q018"><a href="#q018" class="headerlink" title="q018"></a>q018</h2><p>方案：将Text嵌套在Expanded中</p>
 <h2 id="q019"><a href="#q019" class="headerlink" title="q019"></a>q019</h2><p>Info.plist中加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;io.flutter.embedded_views_preview&lt;/key&gt;</span><br><span class="line">&lt;true/&gt;</span><br><span class="line">&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">    &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;</span><br><span class="line">    &lt;true/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/03/11/开发笔记：Flutter/" itemprop="url">
-                  开发笔记：Flutter
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-03-11T17:10:27+08:00" content="2019-03-11">
-              2019-03-11
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Flutter官方实例Gallery代码的阅读笔记。<br>Flutter选择的dart语言方法名使用的是全小写下划线的规则，而类名命名则是驼峰。<br>(dart命名规范)[<a href="https://www.dartlang.org/guides/language/effective-dart/style]" target="_blank" rel="noopener">https://www.dartlang.org/guides/language/effective-dart/style]</a></p>
-<h1 id="main-dart"><a href="#main-dart" class="headerlink" title="main.dart"></a>main.dart</h1><p>app入口，fullter的runApp方法如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void runApp(Widget app) &#123;</span><br><span class="line">  WidgetsFlutterBinding.ensureInitialized()</span><br><span class="line">    ..attachRootWidget(app)</span><br><span class="line">    ..scheduleWarmUpFrame();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>..</code>是dart中的级联操作符，表示连续调用方法，WidgetsFlutterBinding继承于BindingBase，ensureInitialized方法很简单，创建了一个自身的实例。<br>接下来attachRootWidget方法，flutter中有一个很重要的Widget概念，从app到一个按钮全都是Widget，而这些Widget与H5中的doom一样，构成了一个Widget树，attachRootWidget方法就获得了最顶层的根节点。<br>最后的scheduleWarmUpFrame方法，里面有两个Timer，根据方法名看在做一些绘制的工作。</p>
-<h1 id="app-dart"><a href="#app-dart" class="headerlink" title="app.dart"></a>app.dart</h1><p>GalleryApp中有不少属性，除了几个bool类型的外，updateUrlFetcher用于App更新提醒（可以借鉴一下用于灰度testFlight），onSendFeedback用于反馈。<br>_GalleryAppState中的GalleryOptions存放夜间模式、文字方向、字体大小等全局定义（这部分在自己开发时可以做成本地缓存或server下发，拉到数据之后映射到options）。AppStateModel其实很类似，用于购物车业务。<br>在build方法中初始化GalleryHome，返回了一个ScopedModel StatelessWidget，指定home。</p>
 
           
         
@@ -1025,8 +1449,8 @@
             
               
                 
-                <a class="post-title-link" href="/2018/07/18/属性变量、实例变量、成员变量的内存泄漏测试/" itemprop="url">
-                  属性变量、实例变量、成员变量的内存泄漏测试
+                <a class="post-title-link" href="/2018/07/18/测试：属性变量、实例变量、成员变量的内存泄漏/" itemprop="url">
+                  测试：属性变量、实例变量、成员变量的内存泄漏
                 </a>
               
             
@@ -1353,387 +1777,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/04/iOS基础：UIViewController生命周期/" itemprop="url">
-                  iOS基础：UIViewController生命周期
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-01-04T11:44:02+08:00" content="2017-01-04">
-              2017-01-04
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS基础知识/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS基础知识</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="UIViewController生命周期"><a href="#UIViewController生命周期" class="headerlink" title="UIViewController生命周期"></a>UIViewController生命周期</h1><ol>
-<li>init</li>
-<li>loadView</li>
-<li>viewDidLoad</li>
-<li>viewWillAppear</li>
-<li>viewWillLayoutSubviews</li>
-<li>viewDidLayoutSubviews</li>
-<li>viewDidAppear</li>
-<li>viewWillDisappear</li>
-<li>viewDidDisappear</li>
-<li>dealloc</li></ol>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/04/iOS基础：UIViewController生命周期/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/19/开发笔记：iOS中踩过的坑/" itemprop="url">
-                  开发笔记：iOS中踩过的坑
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-12-19T15:48:43+08:00" content="2016-12-19">
-              2016-12-19
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>NSNumber类型判断是否为0不能使用<code>aIntegerNum == 0</code>，而应使用<code>[aIntegerNum isEqualToNumber:@0]</code>，前者比较地址，后者比较值。</li>
-<li>UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。</li>
-<li>时间戳转换时间时会相差8小时，需要计算时区。</li>
-<li>iOS10中UISwitch的特异性</li>
-<li>快速便利Array\Set时，对元素进行操作必挂</li>
-<li>在block中使用成员变量，会导致循环引用</li>
-<li>iOS10以下导航栏问题<a href="导航栏隐藏 &amp;&amp; 导航栏错乱">http://www.jianshu.com/p/e4448c24d900</a> <a href="iOS 隐藏导航栏导致导航栏错乱的那些坑">http://www.jianshu.com/p/4b8af425a7d0</a></li>
-<li><p>__block相当于unsafe_unretain，在某些情况下，会导致crash</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.string1 = @&quot;String 1&quot;;   </span><br><span class="line">self.string2 = self.string1;   // unsafe_unretain</span><br><span class="line">self.string1 = nil;  </span><br><span class="line">NSLog(@&quot;String 2 = %@&quot;, self.string2);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>MRC goto语法，目标语句中的代码，与switch中的finally类似，正常执行。</p>
-</li>
-<li>A页面跳B页面，iOS11先走B页面的viewDidLoad再走A页面的viewWillDisappear，iOS10先走A页面的viewWillDisappear再走B页面的viewDidLoad，拓展：<a href="https://www.jianshu.com/p/2ca25b1ebe5a" target="_blank" rel="noopener">viewDidAppear和viewDidDisappear的执行顺序</a><a href="https://www.jianshu.com/p/9391b8043445" target="_blank" rel="noopener">iOS–viewDidAppear和viewDidDisappear调用顺序</a>。</li>
-<li>iOS10及以下系统，在viewDidLoad中设置导航栏标题的透明度是无效的，会被系统重设；而在iOS11中是生效的，但是，在滑动返回过程中，alpha会被重设为1。</li>
-<li>Notification在主线程中是同步执行的。</li>
-<li>若给UIButton高亮状态设置了backgroundImage，则需要相应地设置高亮状态icon及字色。</li>
-<li>iOS8以上系统加在Window上的UIViewController会自动调整frame，而iOS8不会。</li>
-<li>虽然GCD和UIViewAnimation不会造成循环引用，但是dispatch_after会持有对象使其无法释放。</li>
-<li>一个页面中有多个UIScrollView时，scrollsToTop需仅开启一个，否则状态栏返回顶部功能失效。</li>
-<li>UIButton的点击态有UIControlStateHighlighted和UIControlStateSelected | UIControlStateHighlighted，参照<a href="UIButton选中状态下的点击">https://www.jianshu.com/p/57b2c41448bf</a>。</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/08/iOS基础：UIControlState/" itemprop="url">
-                  iOS基础：UIControlState
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-08T19:40:13+08:00" content="2016-10-08">
-              2016-10-08
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS基础知识/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS基础知识</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>以UIButton为例，我们为button的UIControlStateSelected状态设置一个实心五角星，为UIControlStateNormal状态设置一个空心五角星，最后为其设置UIControlEventTouchUpInside事件的action。</p>
-<p>在一些业务场景中，我们需要为其设置一个点击态（按下但没有松开手指）时的样式，该如何做呢？</p>
-<p>看一下UIControlState的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef NS_OPTIONS(NSUInteger, UIControlState) &#123;</span><br><span class="line">    UIControlStateNormal       = 0,</span><br><span class="line">    UIControlStateHighlighted  = 1 &lt;&lt; 0,                  // used when UIControl isHighlighted is set</span><br><span class="line">    UIControlStateDisabled     = 1 &lt;&lt; 1,</span><br><span class="line">    UIControlStateSelected     = 1 &lt;&lt; 2,                  // flag usable by app (see below)</span><br><span class="line">    UIControlStateFocused NS_ENUM_AVAILABLE_IOS(9_0) = 1 &lt;&lt; 3, // Applicable only when the screen supports focus</span><br><span class="line">    UIControlStateApplication  = 0x00FF0000,              // additional flags available for application use</span><br><span class="line">    UIControlStateReserved     = 0xFF000000               // flags reserved for internal framework use</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/08/iOS基础：UIControlState/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1772,7 +1820,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1780,7 +1828,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1789,7 +1837,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

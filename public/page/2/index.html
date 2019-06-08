@@ -227,6 +227,382 @@
             
               
                 
+                <a class="post-title-link" href="/2017/01/04/iOS基础：UIViewController生命周期/" itemprop="url">
+                  iOS基础：UIViewController生命周期
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-04T11:44:02+08:00" content="2017-01-04">
+              2017-01-04
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS基础知识/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS基础知识</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="UIViewController生命周期"><a href="#UIViewController生命周期" class="headerlink" title="UIViewController生命周期"></a>UIViewController生命周期</h1><ol>
+<li>init</li>
+<li>loadView</li>
+<li>viewDidLoad</li>
+<li>viewWillAppear</li>
+<li>viewWillLayoutSubviews</li>
+<li>viewDidLayoutSubviews</li>
+<li>viewDidAppear</li>
+<li>viewWillDisappear</li>
+<li>viewDidDisappear</li>
+<li>dealloc</li></ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/01/04/iOS基础：UIViewController生命周期/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/19/开发笔记：iOS中踩过的坑/" itemprop="url">
+                  开发笔记：iOS中踩过的坑
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-19T15:48:43+08:00" content="2016-12-19">
+              2016-12-19
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>NSNumber类型判断是否为0不能使用<code>aIntegerNum == 0</code>，而应使用<code>[aIntegerNum isEqualToNumber:@0]</code>，前者比较地址，后者比较值。</li>
+<li>UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。</li>
+<li>时间戳转换时间时会相差8小时，需要计算时区。</li>
+<li>iOS10中UISwitch的特异性</li>
+<li>快速便利Array\Set时，对元素进行操作必挂</li>
+<li>在block中使用成员变量，会导致循环引用</li>
+<li>iOS10以下导航栏问题<a href="导航栏隐藏 &amp;&amp; 导航栏错乱">http://www.jianshu.com/p/e4448c24d900</a> <a href="iOS 隐藏导航栏导致导航栏错乱的那些坑">http://www.jianshu.com/p/4b8af425a7d0</a></li>
+<li><p>__block相当于unsafe_unretain，在某些情况下，会导致crash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.string1 = @&quot;String 1&quot;;   </span><br><span class="line">self.string2 = self.string1;   // unsafe_unretain</span><br><span class="line">self.string1 = nil;  </span><br><span class="line">NSLog(@&quot;String 2 = %@&quot;, self.string2);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MRC goto语法，目标语句中的代码，与switch中的finally类似，正常执行。</p>
+</li>
+<li>A页面跳B页面，iOS11先走B页面的viewDidLoad再走A页面的viewWillDisappear，iOS10先走A页面的viewWillDisappear再走B页面的viewDidLoad，拓展：<a href="https://www.jianshu.com/p/2ca25b1ebe5a" target="_blank" rel="noopener">viewDidAppear和viewDidDisappear的执行顺序</a><a href="https://www.jianshu.com/p/9391b8043445" target="_blank" rel="noopener">iOS–viewDidAppear和viewDidDisappear调用顺序</a>。</li>
+<li>iOS10及以下系统，在viewDidLoad中设置导航栏标题的透明度是无效的，会被系统重设；而在iOS11中是生效的，但是，在滑动返回过程中，alpha会被重设为1。</li>
+<li>Notification在主线程中是同步执行的。</li>
+<li>若给UIButton高亮状态设置了backgroundImage，则需要相应地设置高亮状态icon及字色。</li>
+<li>iOS8以上系统加在Window上的UIViewController会自动调整frame，而iOS8不会。</li>
+<li>虽然GCD和UIViewAnimation不会造成循环引用，但是dispatch_after会持有对象使其无法释放。</li>
+<li>一个页面中有多个UIScrollView时，scrollsToTop需仅开启一个，否则状态栏返回顶部功能失效。</li>
+<li>UIButton的点击态有UIControlStateHighlighted和UIControlStateSelected | UIControlStateHighlighted，参照<a href="UIButton选中状态下的点击">https://www.jianshu.com/p/57b2c41448bf</a>。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/08/iOS基础：UIControlState/" itemprop="url">
+                  iOS基础：UIControlState
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-08T19:40:13+08:00" content="2016-10-08">
+              2016-10-08
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS基础知识/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS基础知识</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>以UIButton为例，我们为button的UIControlStateSelected状态设置一个实心五角星，为UIControlStateNormal状态设置一个空心五角星，最后为其设置UIControlEventTouchUpInside事件的action。</p>
+<p>在一些业务场景中，我们需要为其设置一个点击态（按下但没有松开手指）时的样式，该如何做呢？</p>
+<p>看一下UIControlState的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef NS_OPTIONS(NSUInteger, UIControlState) &#123;</span><br><span class="line">    UIControlStateNormal       = 0,</span><br><span class="line">    UIControlStateHighlighted  = 1 &lt;&lt; 0,                  // used when UIControl isHighlighted is set</span><br><span class="line">    UIControlStateDisabled     = 1 &lt;&lt; 1,</span><br><span class="line">    UIControlStateSelected     = 1 &lt;&lt; 2,                  // flag usable by app (see below)</span><br><span class="line">    UIControlStateFocused NS_ENUM_AVAILABLE_IOS(9_0) = 1 &lt;&lt; 3, // Applicable only when the screen supports focus</span><br><span class="line">    UIControlStateApplication  = 0x00FF0000,              // additional flags available for application use</span><br><span class="line">    UIControlStateReserved     = 0xFF000000               // flags reserved for internal framework use</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/08/iOS基础：UIControlState/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/29/UISwitch在iOS 10中的BUG/" itemprop="url">
                   UISwitch在iOS 10中的BUG
                 </a>
@@ -1021,251 +1397,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/14/iOS基础：类、对象和方法/" itemprop="url">
-                  iOS基础：类、对象和方法.md
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-14T16:15:39+08:00" content="2016-08-14">
-              2016-08-14
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS基础知识/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS基础知识</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>本文是在阅读<code>Objective-C程序设计  第6版</code>一书过程中写的学习笔记，文中出现的大部分代码基本与书中相同。</p>
-<h1 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h1><p>我们知道，OC是在C的基础上设计的<code>面向对象</code>的程序设计语言，而C则是<code>过程性语言</code>。<br>以我的理解，所谓的过程性语言，是为了实现某种功能所设计的，比如我想要将两个整数累加，返回它们的和，这是我的目的，所以C语言中完成这种目的一段代码称为函数，这个函数的功能是累加两个整数。<br>而所谓的面相对象，这个函数则被看作一个真实存在的物件，这里我们叫它计算器，当我们想要累加两个整数时，创建了一个计算器对象，然后再调用它本身的功能（方法）来实现我们的目的。</p>
-<p>我认为可以这样理解，过程性语言中，“我”是主体，当“我”想要做什么时，创建了“我”需要的函数然后去使用它；而面向对象，每个对象都是独立存在的主体，它们可以为“我”服务。<br></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/14/iOS基础：类、对象和方法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/11/iOS基础：GCD/" itemprop="url">
-                  iOS基础：GCD
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-11T20:34:23+08:00" content="2016-08-11">
-              2016-08-11
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS基础知识/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS基础知识</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。</p>
-<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><ol>
-<li>代码是顺序执行的。</li>
-<li>queue是FIFO（先进先出）的数据结构。</li>
-<li>线程之间是并行的。</li>
-<li><code>串行队列</code>：任务<code>不能同时进行</code>，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。</li>
-<li><code>并发队列</code>：任务<code>可以同时进行</code>，这意味着只要0…n个任务开始执行，那么第n+1个任务也可以开始。</li>
-<li><code>void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务（也就是block）放到队列中，同步执行，也就是说在<code>当前线程</code>中执行任务，<code>阻塞当前线程</code>。</li>
-<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务放到队列中，异步执行，也就是说在<code>其他线程</code>中执行任务，<code>不阻塞当前线程</code>。（在下文的推演中，发现其并不总是在<code>其他线程</code>中执行）<br>（p.s. 在实际推演和API中，发现6、7两条中对于线程的描述均是错误的，block在哪个线程中运行取决于queue）</li></ol>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/11/iOS基础：GCD/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1304,7 +1440,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1312,7 +1448,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1321,7 +1457,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

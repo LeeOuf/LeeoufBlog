@@ -1,0 +1,621 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="load,initialize,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="Load和Initialize往死了问是一种怎样的体验？这篇blog有很好的参考价值，不过有一些细节仍然存在错误。 + load()方法，顾名思义是类的加载方法，在main()函数之前调用，其官方文档如下：123456789101112131415161718192021222324252627282930313233Invoked whenever a class or category is">
+<meta name="keywords" content="load,initialize">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Runtime-load和initialize">
+<meta property="og:url" content="https://LeeOuf.github.io/2019/06/07/Runtime-load和initialize/index.html">
+<meta property="og:site_name" content="LeeOuf&#39;s Blog">
+<meta property="og:description" content="Load和Initialize往死了问是一种怎样的体验？这篇blog有很好的参考价值，不过有一些细节仍然存在错误。 + load()方法，顾名思义是类的加载方法，在main()函数之前调用，其官方文档如下：123456789101112131415161718192021222324252627282930313233Invoked whenever a class or category is">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-07T06:44:38.729Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Runtime-load和initialize">
+<meta name="twitter:description" content="Load和Initialize往死了问是一种怎样的体验？这篇blog有很好的参考价值，不过有一些细节仍然存在错误。 + load()方法，顾名思义是类的加载方法，在main()函数之前调用，其官方文档如下：123456789101112131415161718192021222324252627282930313233Invoked whenever a class or category is">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <title> Runtime-load和initialize | LeeOuf's Blog </title>
+  <!-- <script type="text/javascript">
+    (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+    })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+    
+    _st('install','fJ4RztWwYeg1bSWfz3x1','2.0.0');
+  </script> -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd5f13bbcbc196ab6b286b6774bf922a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeeOuf's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Coding time.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hourglass-half"></i> <br>
+            
+            时间
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Runtime-load和initialize
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-06-07T14:02:55+08:00" content="2019-06-07">
+              2019-06-07
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Runtime/" itemprop="url" rel="index">
+                    <span itemprop="name">Runtime</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://www.jianshu.com/p/bd82ef5ea186" target="_blank" rel="noopener">Load和Initialize往死了问是一种怎样的体验？</a>这篇blog有很好的参考价值，不过有一些细节仍然存在错误。</p>
+<p><code>+ load()</code>方法，顾名思义是类的加载方法，在<code>main()</code>函数之前调用，其官方文档如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Invoked whenever a class or category is added to the Objective-C runtime; implement this method to perform class-specific behavior upon loading.</span><br><span class="line"></span><br><span class="line">当类（Class）或者类别（Category）加入Runtime中时（就是被引用的时候）。</span><br><span class="line">实现该方法，可以在加载时做一些类特有的操作。</span><br><span class="line"></span><br><span class="line">Discussion</span><br><span class="line"></span><br><span class="line">The load message is sent to classes and categories that are both dynamically loaded and statically linked, but only if the newly loaded class or category implements a method that can respond.</span><br><span class="line"></span><br><span class="line">The order of initialization is as follows:</span><br><span class="line"></span><br><span class="line">All initializers in any framework you link to.</span><br><span class="line">调用所有的Framework中的初始化方法</span><br><span class="line"></span><br><span class="line">All +load methods in your image.</span><br><span class="line">调用所有的+load方法</span><br><span class="line"></span><br><span class="line">All C++ static initializers and C/C++ attribute(constructor) functions in your image.</span><br><span class="line">调用C++的静态初始化方及C/C++中的attribute(constructor)函数</span><br><span class="line"></span><br><span class="line">All initializers in frameworks that link to you.</span><br><span class="line">调用所有链接到目标文件的framework中的初始化方法</span><br><span class="line"></span><br><span class="line">In addition:</span><br><span class="line"></span><br><span class="line">A class’s +load method is called after all of its superclasses’ +load methods.</span><br><span class="line">一个类的+load方法在其父类的+load方法后调用</span><br><span class="line"></span><br><span class="line">A category +load method is called after the class’s own +load method.</span><br><span class="line">一个Category的+load方法在被其扩展的类的自有+load方法后调用</span><br><span class="line"></span><br><span class="line">In a custom implementation of load you can therefore safely message other unrelated classes from the same image, but any load methods implemented by those classes may not have run yet.</span><br><span class="line">在+load方法中，可以安全地向同一二进制包中的其它无关的类发送消息，但接收消息的类中的+load方法可能尚未被调用。</span><br></pre></td></tr></table></figure></p>
+<p><code>+ initialize()</code>方法，顾名思义即类的初始化方法，其官方文档如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Initializes the class before it receives its first message.</span><br><span class="line"></span><br><span class="line">在这个类接收第一条消息之前调用。</span><br><span class="line"></span><br><span class="line">Discussion</span><br><span class="line"></span><br><span class="line">The runtime sends initialize to each class in a program exactly one time just before the class, or any class that inherits from it, is sent its first message from within the program. (Thus the method may never be invoked if the class is not used.) The runtime sends the initialize message to classes in a thread-safe manner. Superclasses receive this message before their subclasses.</span><br><span class="line"></span><br><span class="line">Runtime在一个程序中每一个类的一个程序中发送一个初始化一次，或是从它继承的任何类中，都是在程序中发送第一条消息。（因此，当该类不使用时，该方法可能永远不会被调用。）运行时发送一个线程安全的方式初始化消息。父类的调用一定在子类之前。</span><br></pre></td></tr></table></figure></p>
+<p>其基础特征及调用时序可以在文档中有一个大概的了解，然后我们在这个基础上提出问题。<br>前提：A类、B类，均实现其load及initialize方法，B为A的子类，另外C1、C2为A的分类。</p>
+<ol>
+<li>不做任何操作，求时序。</li>
+<li>对A类发消息，求时序。</li>
+<li>对B类发消息，求时序。<br>此后问题删除分类。</li>
+<li>先对A类发消息，再对B类发消息，求时序。</li>
+<li>先对B类发消息，再对A类发消息，求时序。</li>
+<li>删除B类initialize方法，先对A类发消息，再对B类发消息，求时序。</li>
+<li>在A类的load方法中对B类发消息，此外对A类发消息，求时序。</li>
+<li>取消B类和A类的继承关系，改为继承NSObject，条件同问题7，求时序。</li>
+</ol>
+<p>输入如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">问题1：</span><br><span class="line">2019-06-07 14:25:28.996053+0800 LKTestOC[59335:5384227] A: father load</span><br><span class="line">2019-06-07 14:25:28.996694+0800 LKTestOC[59335:5384227] B: son load</span><br><span class="line">2019-06-07 14:25:28.996812+0800 LKTestOC[59335:5384227] C1: category load</span><br><span class="line">2019-06-07 14:25:28.996881+0800 LKTestOC[59335:5384227] C2: category load</span><br><span class="line">结论：load方法时序 父类-&gt;子类-&gt;分类，不会覆盖，且与消息发送无关。</span><br><span class="line"></span><br><span class="line">问题2：</span><br><span class="line">2019-06-07 14:26:33.960364+0800 LKTestOC[59510:5385993] A: father load</span><br><span class="line">2019-06-07 14:26:33.960938+0800 LKTestOC[59510:5385993] B: son load</span><br><span class="line">2019-06-07 14:26:33.961009+0800 LKTestOC[59510:5385993] C1: category load</span><br><span class="line">2019-06-07 14:26:33.961078+0800 LKTestOC[59510:5385993] C2: category load</span><br><span class="line">2019-06-07 14:26:34.069072+0800 LKTestOC[59510:5385993] C2: category initialize</span><br><span class="line">结论：initialize方法在消息发送后调用，会覆盖，分类时序最后，且与主类是否import分类无关。</span><br><span class="line"></span><br><span class="line">问题3：</span><br><span class="line">2019-06-07 14:32:15.164806+0800 LKTestOC[60397:5393459] A: father load</span><br><span class="line">2019-06-07 14:32:15.165367+0800 LKTestOC[60397:5393459] B: son load</span><br><span class="line">2019-06-07 14:32:15.165457+0800 LKTestOC[60397:5393459] C1: category load</span><br><span class="line">2019-06-07 14:32:15.165530+0800 LKTestOC[60397:5393459] C2: category load</span><br><span class="line">2019-06-07 14:32:15.269258+0800 LKTestOC[60397:5393459] C2: category initialize</span><br><span class="line">2019-06-07 14:32:15.269361+0800 LKTestOC[60397:5393459] B: son initialize</span><br><span class="line">结论：initialize方法时序 父类-&gt;分类-&gt;子类。</span><br><span class="line"></span><br><span class="line">问题4、5：</span><br><span class="line">2019-06-07 14:33:54.319935+0800 LKTestOC[60679:5396081] A: father load</span><br><span class="line">2019-06-07 14:33:54.320518+0800 LKTestOC[60679:5396081] B: son load</span><br><span class="line">2019-06-07 14:33:54.466408+0800 LKTestOC[60679:5396081] A: father initialize</span><br><span class="line">2019-06-07 14:33:54.466562+0800 LKTestOC[60679:5396081] B: son initialize</span><br><span class="line">结论：子类的initliaze会自动调用父类方法，且每个类初始化时只会调用一次initliaze。</span><br><span class="line"></span><br><span class="line">问题6：</span><br><span class="line">2019-06-07 14:38:39.735874+0800 LKTestOC[61421:5403318] A: father load</span><br><span class="line">2019-06-07 14:38:39.736519+0800 LKTestOC[61421:5403318] B: son load</span><br><span class="line">2019-06-07 14:38:39.921747+0800 LKTestOC[61421:5403318] A: father initialize</span><br><span class="line">2019-06-07 14:38:39.921889+0800 LKTestOC[61421:5403318] A: father initialize</span><br><span class="line">结论：如官方文档所说，子类未实现intialize时父类会调用多次，此处要重点注意，如果想利用initialize做懒加载，需防止调用多次，可利用(self == [ClassName self])做判断。</span><br><span class="line"></span><br><span class="line">问题7：</span><br><span class="line">2019-06-07 14:43:10.949354+0800 LKTestOC[62160:5409931] A: father initialize</span><br><span class="line">2019-06-07 14:43:10.949928+0800 LKTestOC[62160:5409931] B: son initialize</span><br><span class="line">2019-06-07 14:43:11.008578+0800 LKTestOC[62160:5409931] A: father load</span><br><span class="line">2019-06-07 14:43:11.008811+0800 LKTestOC[62160:5409931] B: son load</span><br><span class="line">结论：initialize方法不一定在main()之后，严格遵循发送消息时调用。</span><br><span class="line"></span><br><span class="line">问题8：</span><br><span class="line">2019-06-07 14:44:12.102702+0800 LKTestOC[62327:5411529] B: son initialize</span><br><span class="line">2019-06-07 14:44:12.105044+0800 LKTestOC[62327:5411529] A: father load</span><br><span class="line">2019-06-07 14:44:12.105306+0800 LKTestOC[62327:5411529] B: son load</span><br><span class="line">结论：符合预期。</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/load/" rel="tag">#load</a>
+          
+            <a href="/tags/initialize/" rel="tag">#initialize</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/27/iOS基础知识面归纳/" rel="next" title="iOS基础知识面归纳">
+                <i class="fa fa-chevron-left"></i> iOS基础知识面归纳
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/07/Runtime-引用计数和Weak表/" rel="prev" title="Runtime-引用计数和Weak表">
+                Runtime-引用计数和Weak表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="LeeOuf">
+          <p class="site-author-name" itemprop="name">LeeOuf</p>
+          <p class="site-description motion-element" itemprop="description">人生有时</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3216090377/profile" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/LeeOuf" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/6712857/leeouf?tab=profile" target="_blank" title="Stack Overflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  Stack Overflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeOuf</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

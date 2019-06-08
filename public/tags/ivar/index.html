@@ -40,7 +40,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Flutter,笔记,">
+  <meta name="keywords" content="leeouf, Leeouf, LeeOuf, iOS, Blog">
 
 
 
@@ -56,18 +56,16 @@
 
 
 
-<meta name="description" content="Flutter官方实例Gallery代码的阅读笔记。Flutter选择的dart语言方法名使用的是全小写下划线的规则，而类名命名则是驼峰。(dart命名规范)[https://www.dartlang.org/guides/language/effective-dart/style] main.dartapp入口，fullter的runApp方法如下12345void runApp(Widget">
-<meta name="keywords" content="Flutter,笔记">
-<meta property="og:type" content="article">
-<meta property="og:title" content="开发笔记：Flutter">
-<meta property="og:url" content="https://LeeOuf.github.io/2019/03/11/开发笔记：Flutter/index.html">
+<meta name="description" content="人生有时">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LeeOuf&#39;s Blog">
+<meta property="og:url" content="https://LeeOuf.github.io/tags/ivar/index.html">
 <meta property="og:site_name" content="LeeOuf&#39;s Blog">
-<meta property="og:description" content="Flutter官方实例Gallery代码的阅读笔记。Flutter选择的dart语言方法名使用的是全小写下划线的规则，而类名命名则是驼峰。(dart命名规范)[https://www.dartlang.org/guides/language/effective-dart/style] main.dartapp入口，fullter的runApp方法如下12345void runApp(Widget">
+<meta property="og:description" content="人生有时">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-10T07:04:54.354Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开发笔记：Flutter">
-<meta name="twitter:description" content="Flutter官方实例Gallery代码的阅读笔记。Flutter选择的dart语言方法名使用的是全小写下划线的规则，而类名命名则是驼峰。(dart命名规范)[https://www.dartlang.org/guides/language/effective-dart/style] main.dartapp入口，fullter的runApp方法如下12345void runApp(Widget">
+<meta name="twitter:title" content="LeeOuf&#39;s Blog">
+<meta name="twitter:description" content="人生有时">
 
 
 
@@ -88,7 +86,7 @@
 
 
 
-  <title> 开发笔记：Flutter | LeeOuf's Blog </title>
+  <title> 标签: ivar | LeeOuf's Blog </title>
   <!-- <script type="text/javascript">
     (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
     (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
@@ -127,7 +125,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right page-post-detail ">
+  <div class="container one-collumn sidebar-position-right  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -205,150 +203,44 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                开发笔记：Flutter
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-03-11T17:10:27+08:00" content="2019-03-11">
-              2019-03-11
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>Flutter官方实例Gallery代码的阅读笔记。<br>Flutter选择的dart语言方法名使用的是全小写下划线的规则，而类名命名则是驼峰。<br>(dart命名规范)[<a href="https://www.dartlang.org/guides/language/effective-dart/style]" target="_blank" rel="noopener">https://www.dartlang.org/guides/language/effective-dart/style]</a></p>
-<h1 id="main-dart"><a href="#main-dart" class="headerlink" title="main.dart"></a>main.dart</h1><p>app入口，fullter的runApp方法如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void runApp(Widget app) &#123;</span><br><span class="line">  WidgetsFlutterBinding.ensureInitialized()</span><br><span class="line">    ..attachRootWidget(app)</span><br><span class="line">    ..scheduleWarmUpFrame();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>..</code>是dart中的级联操作符，表示连续调用方法，WidgetsFlutterBinding继承于BindingBase，ensureInitialized方法很简单，创建了一个自身的实例。<br>接下来attachRootWidget方法，flutter中有一个很重要的Widget概念，从app到一个按钮全都是Widget，而这些Widget与H5中的doom一样，构成了一个Widget树，attachRootWidget方法就获得了最顶层的根节点。<br>最后的scheduleWarmUpFrame方法，里面有两个Timer，根据方法名看在做一些绘制的工作。</p>
-<h1 id="app-dart"><a href="#app-dart" class="headerlink" title="app.dart"></a>app.dart</h1><p>GalleryApp中有不少属性，除了几个bool类型的外，updateUrlFetcher用于App更新提醒（可以借鉴一下用于灰度testFlight），onSendFeedback用于反馈。<br>_GalleryAppState中的GalleryOptions存放夜间模式、文字方向、字体大小等全局定义（这部分在自己开发时可以做成本地缓存或server下发，拉到数据之后映射到options）。AppStateModel其实很类似，用于购物车业务。<br>在build方法中初始化GalleryHome，返回了一个ScopedModel StatelessWidget，指定home。</p>
-
-      
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2>
+        ivar
+        <small>标签</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-
-      
-    </div>
-
-    <div>
-      
+            <a class="post-title-link" href="/2019/06/08/Runtime-ivar/" itemprop="url">
+              
+                <span itemprop="name">Runtime-ivar</span>
+              
+            </a>
         
+      </h1>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-06-08T16:51:05+08:00" content="2019-06-08">
+          06-08
+        </time>
+      </div>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Flutter/" rel="tag">#Flutter</a>
-          
-            <a href="/tags/笔记/" rel="tag">#笔记</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/07/26/iOS常见warning梳理/" rel="next" title="iOS常见warning梳理">
-                <i class="fa fa-chevron-left"></i> iOS常见warning梳理
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/10/开发笔记：flutter中踩过的坑/" rel="prev" title="开发笔记：flutter中踩过的坑">
-                开发笔记：flutter中踩过的坑 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
@@ -356,10 +248,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -379,17 +267,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="LeeOuf">
           <p class="site-author-name" itemprop="name">LeeOuf</p>
@@ -398,7 +277,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -406,7 +285,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -415,7 +294,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -466,17 +345,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#main-dart"><span class="nav-number">1.</span> <span class="nav-text">main.dart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#app-dart"><span class="nav-number">2.</span> <span class="nav-text">app.dart</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -573,10 +441,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 

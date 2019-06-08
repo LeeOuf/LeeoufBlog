@@ -7,62 +7,9 @@ tags:
 ---
 对这几年来开发中遇到的常见基础知识点做一个总结。
 
-# 启动优化相关
+# Block
 参考[iOS-Block的本质](https://www.jianshu.com/p/4e79e9a0dd82)
 [关于Block用copy修饰的原因的一点自己的理解](https://www.jianshu.com/p/bf3798fe3f49)
-## load方法和initialize方法的异同
-load方法官方文档如下：
-```
-Invoked whenever a class or category is added to the Objective-C runtime; implement this method to perform class-specific behavior upon loading.
-
-当类（Class）或者类别（Category）加入Runtime中时（就是被引用的时候）。
-实现该方法，可以在加载时做一些类特有的操作。
-
-Discussion
-
-The load message is sent to classes and categories that are both dynamically loaded and statically linked, but only if the newly loaded class or category implements a method that can respond.
-
-The order of initialization is as follows:
-
-All initializers in any framework you link to.
-调用所有的Framework中的初始化方法
-
-All +load methods in your image.
-调用所有的+load方法
-
-All C++ static initializers and C/C++ attribute(constructor) functions in your image.
-调用C++的静态初始化方及C/C++中的attribute(constructor)函数
-
-All initializers in frameworks that link to you.
-调用所有链接到目标文件的framework中的初始化方法
-
-In addition:
-
-A class’s +load method is called after all of its superclasses’ +load methods.
-一个类的+load方法在其父类的+load方法后调用
-
-A category +load method is called after the class’s own +load method.
-一个Category的+load方法在被其扩展的类的自有+load方法后调用
-
-In a custom implementation of load you can therefore safely message other unrelated classes from the same image, but any load methods implemented by those classes may not have run yet.
-在+load方法中，可以安全地向同一二进制包中的其它无关的类发送消息，但接收消息的类中的+load方法可能尚未被调用。
-```
-initialize官方文档如下：
-```
-Initializes the class before it receives its first message.
-
-在这个类接收第一条消息之前调用。
-
-Discussion
-
-The runtime sends initialize to each class in a program exactly one time just before the class, or any class that inherits from it, is sent its first message from within the program. (Thus the method may never be invoked if the class is not used.) The runtime sends the initialize message to classes in a thread-safe manner. Superclasses receive this message before their subclasses.
-
-Runtime在一个程序中每一个类的一个程序中发送一个初始化一次，或是从它继承的任何类中，都是在程序中发送第一条消息。（因此，当该类不使用时，该方法可能永远不会被调用。）运行时发送一个线程安全的方式初始化消息。父类的调用一定在子类之前。
-```
-
-可以从官方文档总结出，load方法会在Runtime中（应用启动时）被调用，initialize是在类接收第一条消息时被调用，两者都是先调用本类，再调用类别，两者均自动调用父类，不需要super操作，且自动调用仅一次。
-
-# Block
 ## Block本质
 Block是一种OC对象，内部有isa指针，它封装了函数调用和函数调用环境的OC对象。它会捕获变量的临时值（遇到过一个BUG，Block初始化时捕获了变量值，后续每一次调用时本应该基于最新的值来做业务），若想要在block内部改变外部值，使用__block。
 
@@ -128,6 +75,11 @@ struct objc_category{
 }
 ```
 
+## isa
+isa是一个指向Class的指针，实例对象的isa指向它的类，他的类的isa指向其元类，元类的isa指向根元类，根元类的isa指向其自身。
+{% asset_img isa.png isa指针 %}
+需要注意NSObject的元类，父类指针指向NSObject，形成一个环。
+
 ## SEL和IMP的区别
 SEL的数据结构：`typedef struct objc_selector *SEL；`，它是指向一个方法的指针；
 IMP的定义：`id (*IMP)(id, SEL,...)`，它是一个函数指针，指向方法实现的地址。第一个参数：是指向self的指针(如果是实例方法，则是类实例的内存地址；如果是类方法，则是指向元类的指针)
@@ -143,6 +95,18 @@ struct objc_method{
 }
 ```
 Method可以理解为方法名和方法实现的map映射，便于我们通过方法指针找到方法实现。OC的消息转发、方法动态绑定、方法交换都是基于这个机制。
+
+## 消息发送 - objc_msgSend()
+参考[Objective-C 消息发送与转发机制原理](http://yulingtianxia.com/blog/2016/06/15/Objective-C-Message-Sending-and-Forwarding/)
+1. 检测selector、target。
+2. 从这个类的缓存方法列表里找，是否有执行过这个方法。
+3. 找不到就从方法列表里找。
+4. 找不到就从父类的方法列表里找，直到NSObject。
+5. 找不到进入动态方法解析，类对象+ (BOOL)resolveClassMethod:(SEL)sel和元类对象+ (BOOL)resolveInstanceMethod:(SEL)sel
+6. 找不到进入消息转发，- (id)forwardingTargetForSelector:(SEL)aSelector生成NSInvocation，forwardInvocation:转发。
+
+## load方法和initialize方法的异同
+[Runtime-load和initialize](http://blog.leeouf.com/2019/06/07/Runtime-load和initialize/)
 
 # RunLoop
 参考[iOS底层原理总结-RunLoop](https://www.jianshu.com/p/de752066d0ad)
@@ -206,6 +170,16 @@ struct __CFRunLoopMode {
 - 处理用户事件，传感器、通知。
 - 调度CPU资源，让我们在空闲时能干很多事。
 
+## RunLoop流程
+{% asset_img RunLoop.png RunLoop流程 %}
+
+## RunLoop Mode
+- kCFRunLoopDefaultMode：默认模式，主线程是在这个运行模式下运行
+- UITrackingRunLoopMode：跟踪用户交互事件（用于 ScrollView 追踪触摸滑动，保证界面滑动时不受其他Mode影响）
+- UIInitializationRunLoopMode：在刚启动App时第进入的第一个 Mode，启动完成后就不再使用
+- GSEventReceiveRunLoopMode：接受系统内部事件，通常用不到
+- kCFRunLoopCommonModes：伪模式，不是一种真正的运行模式，是同步Source/Timer/Observer到多个Mode中的一种解决方案
+
 ## RunLoop几种状态
 ```
 typedef CF_OPTIONS(CFOptionFlags, CFRunLoopActivity) {
@@ -238,9 +212,90 @@ Crash中出现频率较高的BAD_ACCESS就是野指针Crash之一，即指针指
 - AutoreleasePool里的Autorelease对象的加入是在RunLoop事件中，AutoreleasePool里的Autorelease对象的释放是在AutoreleasePool释放时。
 
 ### MRC怎么写
-像init，copy这些实例方法，是由对象持有者管理内存的，所以在MRC中要主动release，而stringWithFormat之类的类方法则是由类自身去管理。基础原则即：谁创建谁释放。
+像init，copy这些实例方法，是由对象持有者管理内存的，所以在MRC中要主动release，而stringWithFormat之类的类方法则是由类自身去管理。
 
 # UIKit
+## UIView与CALayer
+- UIView基于UIKit，继承于UIResponder，CALayer基于QuartzCore，继承于NSObject。
+- UIView是CALayer的delegate，UIView负责处理事件，CALayer负责绘制。
+- CALayer不需要处理交互事件，所以更轻量。
+
+## frame与bounds
+- frame以父级页面坐标系为基础，bounds是以自身左上角为原点。
+
+## animation
+先看一段代码
+```
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.testView = [[UIView alloc] initWithFrame:CGRectMake(40, 50, 200, 100)];
+    [self.view addSubview:self.testView];
+    [self printFrame];
+    
+    [UIView animateWithDuration:5.0f animations:^{
+        self.testView.transform = CGAffineTransformMakeScale(2, 2);
+    } completion:^(BOOL finished) {
+        NSLog(@"animate complete");
+        [self printFrame];
+    }];
+    
+//    NSLog(@"before change");
+//    self.testView.frame = CGRectMake(40, 50, 50, 25);
+//    [self printFrame];
+//    NSLog(@"after change");
+    
+    self.timer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(printFrame) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)printFrame {
+    NSLog(@"frame:%@ - bounds:%@", NSStringFromCGRect(self.testView.frame), NSStringFromCGRect(self.testView.bounds));
+}
+```
+此时的输出是
+```
+2019-05-30 13:20:38.968830+0800 LKTestOC[26445:12812774] frame:{{40, 50}, {200, 100}} - bounds:{{0, 0}, {200, 100}}
+2019-05-30 13:20:39.970986+0800 LKTestOC[26445:12812774] frame:{{-60, 0}, {400, 200}} - bounds:{{0, 0}, {200, 100}}
+2019-05-30 13:20:40.970806+0800 LKTestOC[26445:12812774] frame:{{-60, 0}, {400, 200}} - bounds:{{0, 0}, {200, 100}}
+2019-05-30 13:20:41.971040+0800 LKTestOC[26445:12812774] frame:{{-60, 0}, {400, 200}} - bounds:{{0, 0}, {200, 100}}
+2019-05-30 13:20:42.970473+0800 LKTestOC[26445:12812774] frame:{{-60, 0}, {400, 200}} - bounds:{{0, 0}, {200, 100}}
+2019-05-30 13:20:43.970007+0800 LKTestOC[26445:12812774] frame:{{-60, 0}, {400, 200}} - bounds:{{0, 0}, {200, 100}}
+2019-05-30 13:20:43.980835+0800 LKTestOC[26445:12812774] animate complete
+2019-05-30 13:20:43.981103+0800 LKTestOC[26445:12812774] frame:{{-60, 0}, {400, 200}} - bounds:{{0, 0}, {200, 100}}
+```
+打开注释后的输出是：
+```
+2019-05-30 13:21:57.706688+0800 LKTestOC[26631:12816453] frame:{{40, 50}, {200, 100}} - bounds:{{0, 0}, {200, 100}}
+2019-05-30 13:21:57.707726+0800 LKTestOC[26631:12816453] before change
+2019-05-30 13:21:57.707959+0800 LKTestOC[26631:12816453] frame:{{40, 50}, {50, 25}} - bounds:{{0, 0}, {25, 12.5}}
+2019-05-30 13:21:57.708076+0800 LKTestOC[26631:12816453] after change
+2019-05-30 13:21:58.708456+0800 LKTestOC[26631:12816453] frame:{{40, 50}, {50, 25}} - bounds:{{0, 0}, {25, 12.5}}
+2019-05-30 13:21:59.708621+0800 LKTestOC[26631:12816453] frame:{{40, 50}, {50, 25}} - bounds:{{0, 0}, {25, 12.5}}
+2019-05-30 13:22:00.708491+0800 LKTestOC[26631:12816453] frame:{{40, 50}, {50, 25}} - bounds:{{0, 0}, {25, 12.5}}
+2019-05-30 13:22:01.708489+0800 LKTestOC[26631:12816453] frame:{{40, 50}, {50, 25}} - bounds:{{0, 0}, {25, 12.5}}
+2019-05-30 13:22:02.708597+0800 LKTestOC[26631:12816453] frame:{{40, 50}, {50, 25}} - bounds:{{0, 0}, {25, 12.5}}
+2019-05-30 13:22:02.719551+0800 LKTestOC[26631:12816453] animate complete
+2019-05-30 13:22:02.719705+0800 LKTestOC[26631:12816453] frame:{{40, 50}, {50, 25}} - bounds:{{0, 0}, {25, 12.5}}
+```
+可以看出
+- animate后frame是直接变化的，而在屏幕上的绘制是逐渐变化。
+- bounds可以看成是view在其自身坐标系上的真实大小，frame应该是bounds与transform等叠加之后在父级坐标系中的值。
+- 因为frame是直接变化的，因此在动画开始后改frame是基于这个值直接变化。
+- 涂色后可以看出，在动画开始后改变frame，真实的动画是从(25,12.5)放大到(50,25)的过程。
+
+## 事件响应链
+参考[iOS hitTest](https://blog.csdn.net/qq_18505715/article/details/78411052)
+hitTest方法调用步骤如下：
+1. 首先在当前视图的hitTest方法中调用pointInside方法判断触摸点是否在当前视图内
+2. 若pointInside方法返回NO，说明触摸点不在当前视图内，则当前视图的hitTest返回nil，该视图不处理该事件
+3. 若pointInside方法返回YES，说明触摸点在当前视图内，则从最上层的子视图开始（即从subviews数组的末尾向前遍历），遍历当前视图的所有子视图，调用子视图的hitTest方法重复步骤1-3
+4. 直到有子视图的hitTest方法返回非空对象或者全部子视图遍历完毕
+5. 若第一次有子视图的hitTest方法返回非空对象，则当前视图的hitTest方法就返回此对象，处理结束
+6. 若所有子视图的hitTest方法都返回nil，则当前视图的hitTest方法返回当前视图本身，最终由该对象处理触摸事件
+而事件传递的顺序则与hitTest调用顺序相反，如下：
+view -> superView ...- > UIViewController.view -> UIViewController -> UIWindow -> UIApplication -> 事件丢弃
+
 ## UITableView调优
 ### 系统API
 - Cell复用池
@@ -312,5 +367,28 @@ Http是无状态的，而Https是加入了SSL层，可进行加密传输、身�
 ## cookie和session
 cookie和session的最大区别就是cookie保存在客户端，session保存在服务端。
 
+# JSPatch原理
+参考[JSPatch-实现原理详解](https://github.com/bang590/JSPatch/wiki/JSPatch-实现原理详解)
+通过JSContext来实现JS调用OC方法，通过方法交换替换掉IMP指针。
+
+# 热更新
+## RN
+基于JSCore的解析引擎，通过bridge调用native方法，UI基于OEM widgets。
+
+## Flutter
+自己实现了渲染框架，底层skia引擎，Widgets Rendering。通过Platform Method Channels与原生代码通信。
+
+# Protobuf
+解析二进制字节流，有效地压缩数据，数据量体积小，使用Tag - Length - Value编码方式，存储紧凑，空间利用率高。
+## Varint
+编码方式T-V，值越小的数字，使用越少的字节数表示。
+## Zigzag
+将 有符号数 转换成 无符号数，然后再采用Varint编码。
+## 数组
+repeated字段，编码方式Tag - Length - Value -Value -Value。
+## optional & required
+optional默认值，可删除。
+
 # 散乱知识点
-1. [KVO、Delegate、Notification 区别及相关使用场景](https://www.jianshu.com/p/9215251693f0)
+1. [KVO、Delegate、Notification 区别及相关使用场景](https://www.jianshu.com/p/9215251693f0)，KVO isa-swizzling，根据原类创建中间类，重写方法，然后返回原类的Class
+2. 什么是类簇 —— 类簇是Foundation的一种设计模式，比如NSNumber下的int、double、long。可以很方便的用一个类来管理不同的数据类型。
