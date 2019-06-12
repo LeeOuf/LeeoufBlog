@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="LeeOuf&#39;s Blog">
 <meta property="og:description" content="GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。 前提 代码是顺序执行的。 queue是FIFO（先进先出）的数据结构。 线程之间是并行的。 串行队列：任务不能同时进行，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。 并发队列：任务可以同时进行，这意味着只要0…n个任务开始执行，那么第n+1个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-12T05:11:00.829Z">
+<meta property="og:updated_time" content="2019-06-12T05:45:29.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS基础-GCD">
 <meta name="twitter:description" content="GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。 前提 代码是顺序执行的。 queue是FIFO（先进先出）的数据结构。 线程之间是并行的。 串行队列：任务不能同时进行，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。 并发队列：任务可以同时进行，这意味着只要0…n个任务开始执行，那么第n+1个">
@@ -75,7 +75,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"right","display":"hide"},
+    sidebar: {"position":"right","display":"post"},
     fancybox: true,
     motion: false,
     duoshuo: {
@@ -293,8 +293,7 @@
 <li><code>串行队列</code>：任务<code>不能同时进行</code>，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。</li>
 <li><code>并发队列</code>：任务<code>可以同时进行</code>，这意味着只要0…n个任务开始执行，那么第n+1个任务也可以开始。</li>
 <li><code>void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务（也就是block）放到队列中，同步执行，也就是说在<code>当前线程</code>中执行任务，<code>阻塞当前线程</code>。</li>
-<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务放到队列中，异步执行，也就是说在<code>其他线程</code>中执行任务，<code>不阻塞当前线程</code>。（在下文的推演中，发现其并不总是在<code>其他线程</code>中执行）<br>（p.s. 在实际推演和API中，发现6、7两条中对于线程的描述均是错误的，block在哪个线程中运行取决于queue）<a id="more"></a>
-</li>
+<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务放到队列中，异步执行，也就是说在<code>其他线程</code>中执行任务，<code>不阻塞当前线程</code>。（在下文的推演中，发现其并不总是在<code>其他线程</code>中执行）<br>（p.s. 在实际推演和API中，发现6、7两条中对于线程的描述均是错误的，block在哪个线程中运行取决于queue）</li>
 </ol>
 <h1 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h1><h2 id="1-代码是顺序执行的。"><a href="#1-代码是顺序执行的。" class="headerlink" title="1. 代码是顺序执行的。"></a>1. 代码是顺序执行的。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSLog(@&quot;step0&quot;);</span><br><span class="line">NSLog(@&quot;step1&quot;);</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2016-08-12 22:29:49.002 MyPractice[25215:3752290] step0</span><br><span class="line">2016-08-12 22:29:49.002 MyPractice[25215:3752290] step1</span><br></pre></td></tr></table></figure>

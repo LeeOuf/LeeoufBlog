@@ -56,18 +56,18 @@
 
 
 
-<meta name="description" content="Blog托管在github，拉取代码后。  下载nodejs，Node.js官网 安装hexo，sudo npm install -g hexo 保留原有deploy配置，执行sudo npm install hexo-deployer-git --save 安装server，sudo npm install hexo-server">
+<meta name="description" content="Blog托管在github，拉取代码后。  下载nodejs，Node.js官网 安装hexo，sudo npm install -g hexo 保留原有deploy配置，执行sudo npm install hexo-deployer-git --save 安装server，sudo npm install hexo-server  如发生github pages init错误，删除.deplo">
 <meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="配置-迁移hexo">
 <meta property="og:url" content="https://LeeOuf.github.io/2016/09/03/配置-迁移hexo/index.html">
 <meta property="og:site_name" content="LeeOuf&#39;s Blog">
-<meta property="og:description" content="Blog托管在github，拉取代码后。  下载nodejs，Node.js官网 安装hexo，sudo npm install -g hexo 保留原有deploy配置，执行sudo npm install hexo-deployer-git --save 安装server，sudo npm install hexo-server">
+<meta property="og:description" content="Blog托管在github，拉取代码后。  下载nodejs，Node.js官网 安装hexo，sudo npm install -g hexo 保留原有deploy配置，执行sudo npm install hexo-deployer-git --save 安装server，sudo npm install hexo-server  如发生github pages init错误，删除.deplo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-12T05:04:36.663Z">
+<meta property="og:updated_time" content="2019-06-12T05:45:34.705Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="配置-迁移hexo">
-<meta name="twitter:description" content="Blog托管在github，拉取代码后。  下载nodejs，Node.js官网 安装hexo，sudo npm install -g hexo 保留原有deploy配置，执行sudo npm install hexo-deployer-git --save 安装server，sudo npm install hexo-server">
+<meta name="twitter:description" content="Blog托管在github，拉取代码后。  下载nodejs，Node.js官网 安装hexo，sudo npm install -g hexo 保留原有deploy配置，执行sudo npm install hexo-deployer-git --save 安装server，sudo npm install hexo-server  如发生github pages init错误，删除.deplo">
 
 
 
@@ -75,7 +75,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"right","display":"hide"},
+    sidebar: {"position":"right","display":"post"},
     fancybox: true,
     motion: false,
     duoshuo: {
@@ -290,8 +290,7 @@
 <li>下载nodejs，<a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js官网</a></li>
 <li>安装hexo，<code>sudo npm install -g hexo</code></li>
 <li>保留原有deploy配置，执行<code>sudo npm install hexo-deployer-git --save</code></li>
-<li>安装server，<code>sudo npm install hexo-server</code><a id="more"></a>
-</li>
+<li>安装server，<code>sudo npm install hexo-server</code></li>
 </ul>
 <p>如发生github pages init错误，删除.deploy_git文件</p>
 <p>theme中配置<code>_config.yml</code>文件，将被墙资源改为cdn资源。<br>另外，360前端cdn资源已经不再提供服务，Google资源服务器已经回到北京，不再需要通过镜像或反向代理等方法获取fonts和jQuery。<br>目前可以达到秒开博客的效果，Google回归中国似乎指日可待啊。</p>

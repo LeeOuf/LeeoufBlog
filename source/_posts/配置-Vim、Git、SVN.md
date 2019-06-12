@@ -35,7 +35,6 @@ set t_Sb=^[[4%dm
 set t_Sf=^[[3%dm
 endif
 ```
-<!-- more -->
 
 ## 命令
 [vim命令大全](http://www.cnblogs.com/softwaretesting/archive/2011/07/12/2104435.html)

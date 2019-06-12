@@ -11,7 +11,6 @@ tags:
 ---
 我们知道iOS中的frame由x, y, width, height决定的一个个矩形。
 接下来尝试用一个矩形类来探究如何使用类中的属性和方法。
-<!-- more -->
 
 **坐标类XYPoint。**
 ```
@@ -38,7 +37,6 @@ tags:
 
 @end
 ```
-<!-- more -->
 
 **矩形类MyRect**
 ```

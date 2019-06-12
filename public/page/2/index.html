@@ -73,7 +73,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"right","display":"hide"},
+    sidebar: {"position":"right","display":"post"},
     fancybox: true,
     motion: false,
     duoshuo: {
@@ -289,12 +289,16 @@
 
       
         
-          <p>YYKit，作者ibireme，<a href="http://blog.ibireme.com" target="_blank" rel="noopener">Blog</a>，<a href="https://github.com/ibireme/YYKit" target="_blank" rel="noopener">YYKitDemo</a>。</p>
-<h1 id="YYModel"><a href="#YYModel" class="headerlink" title="YYModel"></a>YYModel</h1><p>YYModel作为NSObject的Category，具有JSON字符串与Model相互转化的功能。<br>JSON解析过程如下：</p>
-<ol>
-<li>判空，获取class。</li>
-<li>若用户自定义class，则根据元类YYModelMeta获取class（如根据字段将类分为圆、正方形等）。</li>
-<li>根据JSON转化Model。<br>自定义class属于扩展功能，先分析JSON转化Model这一主要功能。</li></ol>
+          
+          
+            YYKit，作者ibireme，Blog，YYKitDemo。
+YYModelYYModel作为NSObject的Category，具有JSON字符串与Model相互转化的功能。JSON解析过程如下：
+
+判空，获取class。
+若用户自定义class，则根据元类YYModelMeta获取class（
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/03/13/开源库阅读笔记-YYModel/#more" rel="contents">
               阅读全文 &raquo;
@@ -409,17 +413,21 @@
 
       
         
-          <h1 id="UIViewController生命周期"><a href="#UIViewController生命周期" class="headerlink" title="UIViewController生命周期"></a>UIViewController生命周期</h1><ol>
-<li>init</li>
-<li>loadView</li>
-<li>viewDidLoad</li>
-<li>viewWillAppear</li>
-<li>viewWillLayoutSubviews</li>
-<li>viewDidLayoutSubviews</li>
-<li>viewDidAppear</li>
-<li>viewWillDisappear</li>
-<li>viewDidDisappear</li>
-<li>dealloc</li></ol>
+          
+          
+            UIViewController生命周期
+init
+loadView
+viewDidLoad
+viewWillAppear
+viewWillLayoutSubviews
+viewDidLayoutSubviews
+viewDidAppear
+viewWillDisappear
+viewDidDisa
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/01/04/iOS基础-UIViewController生命周期/#more" rel="contents">
               阅读全文 &raquo;
@@ -656,9 +664,13 @@ UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsI
 
       
         
-          <p>以UIButton为例，我们为button的UIControlStateSelected状态设置一个实心五角星，为UIControlStateNormal状态设置一个空心五角星，最后为其设置UIControlEventTouchUpInside事件的action。</p>
-<p>在一些业务场景中，我们需要为其设置一个点击态（按下但没有松开手指）时的样式，该如何做呢？</p>
-<p>看一下UIControlState的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef NS_OPTIONS(NSUInteger, UIControlState) &#123;</span><br><span class="line">    UIControlStateNormal       = 0,</span><br><span class="line">    UIControlStateHighlighted  = 1 &lt;&lt; 0,                  // used when UIControl isHighlighted is set</span><br><span class="line">    UIControlStateDisabled     = 1 &lt;&lt; 1,</span><br><span class="line">    UIControlStateSelected     = 1 &lt;&lt; 2,                  // flag usable by app (see below)</span><br><span class="line">    UIControlStateFocused NS_ENUM_AVAILABLE_IOS(9_0) = 1 &lt;&lt; 3, // Applicable only when the screen supports focus</span><br><span class="line">    UIControlStateApplication  = 0x00FF0000,              // additional flags available for application use</span><br><span class="line">    UIControlStateReserved     = 0xFF000000               // flags reserved for internal framework use</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+          
+          
+            以UIButton为例，我们为button的UIControlStateSelected状态设置一个实心五角星，为UIControlStateNormal状态设置一个空心五角星，最后为其设置UIControlEventTouchUpInside事件的action。
+在一些业务场景中，我们需要为其设置
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/10/08/iOS基础-UIControlState/#more" rel="contents">
               阅读全文 &raquo;
@@ -773,8 +785,12 @@ UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsI
 
       
         
-          <h1 id="UISwitch"><a href="#UISwitch" class="headerlink" title="UISwitch"></a>UISwitch</h1><p>UISwitch是UIControl的子类，定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#import &lt;CoreGraphics/CoreGraphics.h&gt;</span><br><span class="line">#import &lt;UIKit/UIControl.h&gt;</span><br><span class="line">#import &lt;UIKit/UIKitDefines.h&gt;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">NS_CLASS_AVAILABLE_IOS(2_0) __TVOS_PROHIBITED @interface UISwitch : UIControl &lt;NSCoding&gt;</span><br><span class="line"></span><br><span class="line">@property(nullable, nonatomic, strong) UIColor *onTintColor NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line">@property(null_resettable, nonatomic, strong) UIColor *tintColor NS_AVAILABLE_IOS(6_0);</span><br><span class="line">@property(nullable, nonatomic, strong) UIColor *thumbTintColor NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line"></span><br><span class="line">@property(nullable, nonatomic, strong) UIImage *onImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line">@property(nullable, nonatomic, strong) UIImage *offImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;</span><br><span class="line"></span><br><span class="line">@property(nonatomic,getter=isOn) BOOL on;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithFrame:(CGRect)frame NS_DESIGNATED_INITIALIZER;      // This class enforces a size appropriate for the control, and so the frame size is ignored.</span><br><span class="line">- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;</span><br><span class="line"></span><br><span class="line">- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure></p>
-<p>方法定义中有一个<code>- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action</code>，如注释所说不发送action。<br></p>
+          
+          
+            UISwitchUISwitch是UIControl的子类，定义如下：1234567891011121314151617181920212223242526#import &lt;Foundation/Foundation.h&gt;#import &lt;CoreGraphics/CoreGrap
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/29/UISwitch在iOS 10中的BUG/#more" rel="contents">
               阅读全文 &raquo;
@@ -889,7 +905,12 @@ UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsI
 
       
         
-          <h1 id="快捷键（Eclipse风格）"><a href="#快捷键（Eclipse风格）" class="headerlink" title="快捷键（Eclipse风格）"></a>快捷键（Eclipse风格）</h1><p>Sublime Text -&gt; Preferences -&gt; Key Bindings - User<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    /**</span><br><span class="line">     * 代码格式化</span><br><span class="line">     */</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+r&quot;], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: &#123; &quot;target&quot;: &quot;browser&quot;&#125; &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;keys&quot;: [&quot;alt+shift+f&quot;],</span><br><span class="line">        &quot;command&quot;: &quot;reindent&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    /**</span><br><span class="line">     * json格式化</span><br><span class="line">     */</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;tidy_xml&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+j&quot;], &quot;command&quot;: &quot;pretty_json&quot; &#125;, </span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+m&quot;], &quot;command&quot;: &quot;un_pretty_json&quot; &#125;,</span><br><span class="line">    /**</span><br><span class="line">     * 适配eclipse快捷键</span><br><span class="line">     */</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+/&quot;], &quot;command&quot;: &quot;auto_complete&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+i&quot;], &quot;command&quot;: &quot;reindent&quot; &#125;,</span><br><span class="line">    // 当前行和下面一行交互位置</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+up&quot;], &quot;command&quot;: &quot;swap_line_up&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+down&quot;], &quot;command&quot;: &quot;swap_line_down&quot; &#125;,</span><br><span class="line">    // 复制当前行到上一行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+alt+up&quot;], &quot;command&quot;: &quot;duplicate_line&quot; &#125;,</span><br><span class="line">    // 复制当前行到下一行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+alt+down&quot;], &quot;command&quot;: &quot;duplicate_line&quot; &#125;,</span><br><span class="line">    // 删除整行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+d&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: &#123;&quot;file&quot;: &quot;Packages/Default/Delete Line.sublime-macro&quot;&#125; &#125;,</span><br><span class="line">    // 光标移动到指定行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+l&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;:&quot;&#125; &#125;,</span><br><span class="line">    // 快速定位到选中的文字</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+k&quot;], &quot;command&quot;: &quot;find_under_expand_skip&quot; &#125;,</span><br><span class="line">    // &#123; &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;swap_case&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;upper_case&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+y&quot;], &quot;command&quot;: &quot;lower_case&quot; &#125;,</span><br><span class="line">    // 在当前行的下一行插入空行(这时鼠标可以在当前行的任一位置, 不一定是最后)</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;shift+enter&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: &#123;&quot;file&quot;: &quot;Packages/Default/Add Line.sublime-macro&quot;&#125; &#125;,</span><br><span class="line">    // 定位到对于的匹配符(譬如&#123;&#125;)(从前面定位后面时,光标要在匹配符里面,后面到前面,则反之)</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+p&quot;], &quot;command&quot;: &quot;move_to&quot;, &quot;args&quot;: &#123;&quot;to&quot;: &quot;brackets&quot;&#125; &#125;,</span><br><span class="line">    // outline</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;@&quot;&#125; &#125;,</span><br><span class="line">    // 当前文件中的关键字(方便快速查找内容)</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+alt+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;#&quot;&#125; &#125;,</span><br><span class="line">    // open resource</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+r&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;show_files&quot;: true&#125; &#125;,</span><br><span class="line">    // 文件内查找/替换</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+f&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: &#123;&quot;panel&quot;: &quot;replace&quot;&#125; &#125;,</span><br><span class="line">    // 全局查找/替换, 在查询结果中双击跳转到匹配位置</span><br><span class="line">    &#123;&quot;keys&quot;: [&quot;command+h&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: &#123;&quot;panel&quot;: &quot;find_in_files&quot;&#125; &#125;,</span><br><span class="line"> </span><br><span class="line">    // plugin配置</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+a&quot;], &quot;command&quot;: &quot;alignment&quot; &#125;,</span><br><span class="line">    &#123;&quot;keys&quot;: [&quot;command+shift+f&quot;], &quot;command&quot;: &quot;js_format&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+          
+          
+            快捷键（Eclipse风格）Sublime Text -&gt; Preferences -&gt; Key Bindings - User12345678910111213141516171819202122232425262728293031323334353637383940414243444
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/21/配置-SublimeText/#more" rel="contents">
               阅读全文 &raquo;
@@ -1004,9 +1025,14 @@ UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsI
 
       
         
-          <h1 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h1><p><code>vim /etc/profile</code>，添加如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># base</span><br><span class="line">alias ll=&quot;ls -la&quot;</span><br></pre></td></tr></table></figure></p>
-<h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><p><code>vim /etc/profile</code>，添加<code>export TERM=xterm</code>。</p>
-<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><p><code>vim ~/.vimrc</code>，配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">syntax on</span><br><span class="line">set tabstop=4</span><br><span class="line">set softtabstop=4</span><br><span class="line">set shiftwidth=4</span><br><span class="line">set autoindent</span><br><span class="line">set cindent</span><br><span class="line">set cinoptions=&#123;0,1s,t0,n-2,p2s,(03s,=.5s,&gt;1s,=1s,:1s</span><br><span class="line"></span><br><span class="line">if &amp;term==&quot;xterm&quot;</span><br><span class="line">set t_Co=8</span><br><span class="line">set t_Sb=^[[4%dm</span><br><span class="line">set t_Sf=^[[3%dm</span><br><span class="line">endif</span><br></pre></td></tr></table></figure></p>
+          
+          
+            bashvim /etc/profile，添加如下12# basealias ll=&quot;ls -la&quot;
+Vimvim /etc/profile，添加export TERM=xterm。
+样式vim ~/.vimrc，配置如下12345678910111213syntax onset
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/21/配置-Vim、Git、SVN/#more" rel="contents">
               阅读全文 &raquo;
@@ -1121,8 +1147,14 @@ UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsI
 
       
         
-          <p>部分内容来自：<a href="http://www.jianshu.com/p/2ed2c7ac6d53?nomobile=yes" target="_blank" rel="noopener">简书：为Xcode添加删除当前行、复制当前行快捷键</a> 感谢作者的分享。<br>本文仅为记录个人的开发配置。</p>
-<p>Xcode8以后，不再支持plugins，因此之前用来设置快捷键的boost等插件都已失效。<br>有一些eclipse带过来的快捷键习惯该如何设置呢？<br></p>
+          
+          
+            部分内容来自：简书：为Xcode添加删除当前行、复制当前行快捷键 感谢作者的分享。本文仅为记录个人的开发配置。
+Xcode8以后，不再支持plugins，因此之前用来设置快捷键的boost等插件都已失效。有一些eclipse带过来的快捷键习惯该如何设置呢？
+上下移动当前行Xcode -&gt; Pr
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/21/配置-Xcode快捷键/#more" rel="contents">
               阅读全文 &raquo;
@@ -1237,8 +1269,13 @@ UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsI
 
       
         
-          <h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h2 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h2><p><strong>栈区（stack）</strong><br>由编译器自动分配释放 ，当一个函数被调用,一个stack frame(栈帧)就会被压到stack里，包含函数的参数、局部变量、返回地址等。当函数返回后,这个栈帧就会被销毁。</p>
-<p><strong>堆区(heap)</strong><br>heap的空间需要手动分配。heap与动态内存分配相关,内存可以随时在堆中分配和销毁。我们需要明确请求内存分配与内存销毁。<br></p>
+          
+          
+            内存堆栈栈区（stack）由编译器自动分配释放 ，当一个函数被调用,一个stack frame(栈帧)就会被压到stack里，包含函数的参数、局部变量、返回地址等。当函数返回后,这个栈帧就会被销毁。
+堆区(heap)heap的空间需要手动分配。heap与动态内存分配相关,内存可以随时在堆中分配和销毁
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/17/iOS基础-OC基础知识小结/#more" rel="contents">
               阅读全文 &raquo;
@@ -1353,12 +1390,17 @@ UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsI
 
       
         
-          <p>Blog托管在github，拉取代码后。</p>
-<ul>
-<li>下载nodejs，<a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js官网</a></li>
-<li>安装hexo，<code>sudo npm install -g hexo</code></li>
-<li>保留原有deploy配置，执行<code>sudo npm install hexo-deployer-git --save</code></li>
-<li>安装server，<code>sudo npm install hexo-server</code></li></ul>
+          
+          
+            Blog托管在github，拉取代码后。
+
+下载nodejs，Node.js官网
+安装hexo，sudo npm install -g hexo
+保留原有deploy配置，执行sudo npm install hexo-deployer-git --save
+安装server，sudo npm in
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/03/配置-迁移hexo/#more" rel="contents">
               阅读全文 &raquo;

@@ -17,7 +17,6 @@ tags:
 8. viewWillDisappear
 9. viewDidDisappear
 10. dealloc
-<!-- more -->
 
 # UIView layoutSubviews方法触发条件
 [layoutSubviews触发条件](http://stackoverflow.com/questions/728372/when-is-layoutsubviews-called)

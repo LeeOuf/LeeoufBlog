@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="LeeOuf&#39;s Blog">
 <meta property="og:description" content="以UIButton为例，我们为button的UIControlStateSelected状态设置一个实心五角星，为UIControlStateNormal状态设置一个空心五角星，最后为其设置UIControlEventTouchUpInside事件的action。 在一些业务场景中，我们需要为其设置一个点击态（按下但没有松开手指）时的样式，该如何做呢？ 看一下UIControlState的定义：1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-12T05:16:56.705Z">
+<meta property="og:updated_time" content="2019-06-12T05:46:11.538Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS基础-UIControlState">
 <meta name="twitter:description" content="以UIButton为例，我们为button的UIControlStateSelected状态设置一个实心五角星，为UIControlStateNormal状态设置一个空心五角星，最后为其设置UIControlEventTouchUpInside事件的action。 在一些业务场景中，我们需要为其设置一个点击态（按下但没有松开手指）时的样式，该如何做呢？ 看一下UIControlState的定义：1">
@@ -75,7 +75,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"right","display":"hide"},
+    sidebar: {"position":"right","display":"post"},
     fancybox: true,
     motion: false,
     duoshuo: {
@@ -288,7 +288,6 @@
         <p>以UIButton为例，我们为button的UIControlStateSelected状态设置一个实心五角星，为UIControlStateNormal状态设置一个空心五角星，最后为其设置UIControlEventTouchUpInside事件的action。</p>
 <p>在一些业务场景中，我们需要为其设置一个点击态（按下但没有松开手指）时的样式，该如何做呢？</p>
 <p>看一下UIControlState的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef NS_OPTIONS(NSUInteger, UIControlState) &#123;</span><br><span class="line">    UIControlStateNormal       = 0,</span><br><span class="line">    UIControlStateHighlighted  = 1 &lt;&lt; 0,                  // used when UIControl isHighlighted is set</span><br><span class="line">    UIControlStateDisabled     = 1 &lt;&lt; 1,</span><br><span class="line">    UIControlStateSelected     = 1 &lt;&lt; 2,                  // flag usable by app (see below)</span><br><span class="line">    UIControlStateFocused NS_ENUM_AVAILABLE_IOS(9_0) = 1 &lt;&lt; 3, // Applicable only when the screen supports focus</span><br><span class="line">    UIControlStateApplication  = 0x00FF0000,              // additional flags available for application use</span><br><span class="line">    UIControlStateReserved     = 0xFF000000               // flags reserved for internal framework use</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
 <p><strong>需要注意，这是一个NS_OPTIONS类型，而不是NS_ENUM</strong><br>这几种状态转化成二进制实际上是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   0</span><br><span class="line">   1</span><br><span class="line">  10</span><br><span class="line"> 100</span><br><span class="line">1000</span><br></pre></td></tr></table></figure></p>
 <p>这意味着我们可以对其进行位操作，比如：<br><code>[button setImage:selectedImage forState:UIControlStateSelected | UIControlStateHighlighted];</code><br>以上表示，设置按钮被选中且高亮时的图片。</p>
 

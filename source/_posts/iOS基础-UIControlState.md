@@ -22,7 +22,6 @@ typedef NS_OPTIONS(NSUInteger, UIControlState) {
     UIControlStateReserved     = 0xFF000000               // flags reserved for internal framework use
 };
 ```
-<!-- more -->
 
 **需要注意，这是一个NS_OPTIONS类型，而不是NS_ENUM**
 这几种状态转化成二进制实际上是：

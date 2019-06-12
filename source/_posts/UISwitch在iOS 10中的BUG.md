@@ -39,7 +39,6 @@ NS_ASSUME_NONNULL_END
 ```
 
 方法定义中有一个`- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action`，如注释所说不发送action。
-<!-- more -->
 
 # iOS 9下表现
 接下来在iOS 9中进行验证：

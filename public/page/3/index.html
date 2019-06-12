@@ -73,7 +73,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"right","display":"hide"},
+    sidebar: {"position":"right","display":"post"},
     fancybox: true,
     motion: false,
     duoshuo: {
@@ -289,7 +289,13 @@
 
       
         
-          <p>我们知道iOS中的frame由x, y, width, height决定的一个个矩形。<br>接下来尝试用一个矩形类来探究如何使用类中的属性和方法。<br></p>
+          
+          
+            我们知道iOS中的frame由x, y, width, height决定的一个个矩形。接下来尝试用一个矩形类来探究如何使用类中的属性和方法。
+坐标类XYPoint。123456789#import &lt;Foundation/Foundation.h&gt;@interface XYPoint :
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/16/iOS基础-初学OC/#more" rel="contents">
               阅读全文 &raquo;
@@ -404,9 +410,13 @@
 
       
         
-          <p>本文是在阅读<code>Objective-C程序设计  第6版</code>一书过程中写的学习笔记，文中出现的大部分代码基本与书中相同。</p>
-<h1 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h1><p>我们知道，OC是在C的基础上设计的<code>面向对象</code>的程序设计语言，而C则是<code>过程性语言</code>。<br>以我的理解，所谓的过程性语言，是为了实现某种功能所设计的，比如我想要将两个整数累加，返回它们的和，这是我的目的，所以C语言中完成这种目的一段代码称为函数，这个函数的功能是累加两个整数。<br>而所谓的面相对象，这个函数则被看作一个真实存在的物件，这里我们叫它计算器，当我们想要累加两个整数时，创建了一个计算器对象，然后再调用它本身的功能（方法）来实现我们的目的。</p>
-<p>我认为可以这样理解，过程性语言中，“我”是主体，当“我”想要做什么时，创建了“我”需要的函数然后去使用它；而面向对象，每个对象都是独立存在的主体，它们可以为“我”服务。<br></p>
+          
+          
+            本文是在阅读Objective-C程序设计  第6版一书过程中写的学习笔记，文中出现的大部分代码基本与书中相同。
+什么是对象我们知道，OC是在C的基础上设计的面向对象的程序设计语言，而C则是过程性语言。以我的理解，所谓的过程性语言，是为了实现某种功能所设计的，比如我想要将两个整数累加，返回它们的和，
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/14/iOS基础-类、对象和方法/#more" rel="contents">
               阅读全文 &raquo;
@@ -521,15 +531,17 @@
 
       
         
-          <p>GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。</p>
-<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><ol>
-<li>代码是顺序执行的。</li>
-<li>queue是FIFO（先进先出）的数据结构。</li>
-<li>线程之间是并行的。</li>
-<li><code>串行队列</code>：任务<code>不能同时进行</code>，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。</li>
-<li><code>并发队列</code>：任务<code>可以同时进行</code>，这意味着只要0…n个任务开始执行，那么第n+1个任务也可以开始。</li>
-<li><code>void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务（也就是block）放到队列中，同步执行，也就是说在<code>当前线程</code>中执行任务，<code>阻塞当前线程</code>。</li>
-<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务放到队列中，异步执行，也就是说在<code>其他线程</code>中执行任务，<code>不阻塞当前线程</code>。（在下文的推演中，发现其并不总是在<code>其他线程</code>中执行）<br>（p.s. 在实际推演和API中，发现6、7两条中对于线程的描述均是错误的，block在哪个线程中运行取决于queue）</li></ol>
+          
+          
+            GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。
+前提
+代码是顺序执行的。
+queue是FIFO（先进先出）的数据结构。
+线程之间是并行的。
+串行队列：任务不能同时进行，这意味着第n+1个任务必须等待0…n个任
+            ...
+          
+
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/11/iOS基础-GCD/#more" rel="contents">
               阅读全文 &raquo;
