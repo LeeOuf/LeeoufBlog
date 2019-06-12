@@ -130,7 +130,7 @@ font:
 # Key is the link label showing to end users.
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
 social:
-  Weibo: http://weibo.com/3216090377/profile
+  # Weibo: http://weibo.com/3216090377/profile
   GitHub: https://github.com/LeeOuf
   Stack Overflow: http://stackoverflow.com/users/6712857/leeouf?tab=profile
 
@@ -223,8 +223,8 @@ scroll_to_more: true
 # Automatically Excerpt. Not recommand.
 # Please use <!-- more --> in the post to control excerpt accurately.
 auto_excerpt:
-  enable: false
-  length: 200
+  enable: true
+  length: 150
 
 
 # Wechat Subscriber

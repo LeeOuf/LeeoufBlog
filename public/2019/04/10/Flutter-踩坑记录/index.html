@@ -1,0 +1,639 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Flutter,笔记,踩坑记录,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="Flutter 踩坑记录问题索引TabBar及PageView状态保存ScrollView滚动进度保存ListView下拉刷新后数据已返回，UI未更新中文汉字变形热重载hot reload未生效转场动画在list内黑屏不生效Android plugin内不能使用AAR包Android plugin内AAR包内的so库加载不出来Json注解制动生成的解析文件解析数据失败加载更多后头像加载慢或不加载d">
+<meta name="keywords" content="Flutter,笔记,踩坑记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter-踩坑记录">
+<meta property="og:url" content="https://LeeOuf.github.io/2019/04/10/Flutter-踩坑记录/index.html">
+<meta property="og:site_name" content="LeeOuf&#39;s Blog">
+<meta property="og:description" content="Flutter 踩坑记录问题索引TabBar及PageView状态保存ScrollView滚动进度保存ListView下拉刷新后数据已返回，UI未更新中文汉字变形热重载hot reload未生效转场动画在list内黑屏不生效Android plugin内不能使用AAR包Android plugin内AAR包内的so库加载不出来Json注解制动生成的解析文件解析数据失败加载更多后头像加载慢或不加载d">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-12T05:09:46.359Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter-踩坑记录">
+<meta name="twitter:description" content="Flutter 踩坑记录问题索引TabBar及PageView状态保存ScrollView滚动进度保存ListView下拉刷新后数据已返回，UI未更新中文汉字变形热重载hot reload未生效转场动画在list内黑屏不生效Android plugin内不能使用AAR包Android plugin内AAR包内的so库加载不出来Json注解制动生成的解析文件解析数据失败加载更多后头像加载慢或不加载d">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <title> Flutter-踩坑记录 | LeeOuf's Blog </title>
+  <!-- <script type="text/javascript">
+    (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+    })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+    
+    _st('install','fJ4RztWwYeg1bSWfz3x1','2.0.0');
+  </script> -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd5f13bbcbc196ab6b286b6774bf922a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeeOuf's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Coding time.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hourglass-half"></i> <br>
+            
+            时间
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Flutter-踩坑记录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-04-10T14:59:08+08:00" content="2019-04-10">
+              2019-04-10
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Flutter-踩坑记录"><a href="#Flutter-踩坑记录" class="headerlink" title="Flutter 踩坑记录"></a>Flutter 踩坑记录</h1><h2 id="问题索引"><a href="#问题索引" class="headerlink" title="问题索引"></a>问题索引</h2><p><a href="#q001">TabBar及PageView状态保存</a><br><a href="#q002">ScrollView滚动进度保存</a><br><a href="#q003">ListView下拉刷新后数据已返回，UI未更新</a><br><a href="#q004">中文汉字变形</a><br><a href="#q005">热重载hot reload未生效</a><br><a href="#q006">转场动画在list内黑屏不生效</a><br><a href="#q007">Android plugin内不能使用AAR包</a><br><a href="#q008">Android plugin内AAR包内的so库加载不出来</a><br><a href="#q009">Json注解制动生成的解析文件解析数据失败</a><br><a href="#q010">加载更多后头像加载慢或不加载</a><br><a href="#q011">dio安卓上网络请求失败</a><br><a href="#q012">NestedScrollView中的子View使用controller监听会导致Sliver控件吸顶效果失效</a><br><a href="#q013">枚举值需要取index，否则打印类名</a><br><a href="#q014">flutter动画不执行</a><br><a href="#q015">在SilverAppBar内使用滑动控件（ScrollView、PageView等）滑动控件消失</a><br><a href="#q016">dispose后不允许setState</a><br><a href="#q017">滑动冲突</a><br><a href="#q018">Row中的Text控件出现overflow警告</a><br><a href="#q019">webview无法连接网络</a></p>
+<h2 id="q001"><a href="#q001" class="headerlink" title="q001"></a>q001</h2><p><strong>TabBar及PageView状态保存</strong></p>
+<p><em>Flutter 1.2.1 statble</em></p>
+<p>子页面离开屏幕时，state会被销毁引发的bug<br><a href="https://juejin.im/post/5b73c3b3f265da27d701473a" target="_blank" rel="noopener">https://juejin.im/post/5b73c3b3f265da27d701473a</a></p>
+<h2 id="q002"><a href="#q002" class="headerlink" title="q002"></a>q002</h2><p><strong>ScrollView滚动进度保存</strong></p>
+<p><em>Flutter 1.2.1 statble</em></p>
+<p>进入其他页面返回后保存scrollView的offset<br><a href="https://stackoverflow.com/questions/49087703/preserving-state-between-tab-view-pages" target="_blank" rel="noopener">https://stackoverflow.com/questions/49087703/preserving-state-between-tab-view-pages</a></p>
+<h2 id="q003"><a href="#q003" class="headerlink" title="q003"></a>q003</h2><p><strong>ListView下拉刷新后数据已返回，UI未更新</strong></p>
+<p><em>Flutter 1.2.1 statble</em></p>
+<p>ListView需要有Key，否则被复用引发的UI不立即更新bug<br><a href="https://stackoverflow.com/questions/51279611/flutter-listview-builder-not-updating-after-insert" target="_blank" rel="noopener">https://stackoverflow.com/questions/51279611/flutter-listview-builder-not-updating-after-insert</a></p>
+<h2 id="q004"><a href="#q004" class="headerlink" title="q004"></a>q004</h2><p><strong>中文汉字变形</strong></p>
+<p><em>Flutter 1.2.1 statble</em></p>
+<p>该问题发生在MaterialApp中，多数情况与fontfamily有关。<br><a href="https://github.com/flutter/flutter/issues/22966" target="_blank" rel="noopener">https://github.com/flutter/flutter/issues/22966</a><br><a href="https://github.com/flutter/flutter/issues/26752" target="_blank" rel="noopener">https://github.com/flutter/flutter/issues/26752</a><br><a href="https://github.com/flutter/flutter/issues/25726" target="_blank" rel="noopener">https://github.com/flutter/flutter/issues/25726</a></p>
+<h2 id="q005"><a href="#q005" class="headerlink" title="q005"></a>q005</h2><p><strong>热重载hot reload未生效</strong></p>
+<p><em>Flutter 1.2.1 statble</em></p>
+<p>目前已知几种情况下，hot reload无法生效</p>
+<ul>
+<li>需要build_runner做代码生成部分的代码</li>
+<li>使用了新添加的资源</li>
+</ul>
+<p>发现hot reload无效，可以尝试使用hot restart重新启动应用，若还是无效，可以考虑执行ScriptForCI/update.sh后，重新flutter run。</p>
+<h2 id="q006"><a href="#q006" class="headerlink" title="q006"></a>q006</h2><p><strong>转场动画在list内黑屏不生效</strong><br>Hero转场动画在list内黑屏不生效<br>原因：list内可能存在多个元素，Hero tag固定的情况下会判定view tree里面存在多个相同tag的转场元素<br>解决方案：tag随机生成，并通过参数传入下个页面</p>
+<h2 id="q007"><a href="#q007" class="headerlink" title="q007"></a>q007</h2><p><strong>Android plugin内不能使用AAR包</strong><br>Android插件开发中，AAR包引用不到<br>原因：flutter暂不支持AAR的引用，仅支持gradle方式引用<br>解决方案：</p>
+<ol>
+<li>放弃插件方案，直接在application工程下开发flutter与native的交互方案</li>
+<li>百度私服。将AAR文件放入百度私服maven库，通过gradle方式引用。<br>WIKI：<a href="http://wiki.baidu.com/pages/viewpage.action?pageId=465488650" target="_blank" rel="noopener">http://wiki.baidu.com/pages/viewpage.action?pageId=465488650</a><br>maven库地址：<a href="http://maven.baidu-int.com/nexus/content/groups/public" target="_blank" rel="noopener">http://maven.baidu-int.com/nexus/content/groups/public</a><br>链接：<a href="http://maven.baidu-int.com/nexus/content/groups/public/com/baidu/bdpass/" target="_blank" rel="noopener">http://maven.baidu-int.com/nexus/content/groups/public/com/baidu/bdpass/</a><br>使用方法：compile ‘com.baidu.bdpass:HWOpenSDK:3.3.3@aar’<br>接口人：<a href="mailto:zhanghuaming@baidu.com" target="_blank" rel="noopener">zhanghuaming@baidu.com</a></li>
+</ol>
+<h2 id="q008"><a href="#q008" class="headerlink" title="q008"></a>q008</h2><p><strong>Android plugin内AAR包内的so库加载不出来</strong><br>Android 插件通过gradle方式引用AAR包，但是其中的so库load不出来<br>原因：flutter对AAR包的引用支持不好<br>解决方案：放弃使用pass提供的AAR包，用贴吧主端的sofire-sdk-3.1.9.3.jar + libfire.so替代</p>
+<h2 id="q009"><a href="#q009" class="headerlink" title="q009"></a>q009</h2><p><strong>Json注解制动生成的解析文件解析数据失败</strong><br>原因：server返回的数据有问题，一个map的结构体可能返回list类型的空串<br>解决方案：在解析之前对可能发生错误的地方做预处理，如果类型不对直接置null</p>
+<h2 id="q010"><a href="#q010" class="headerlink" title="q010"></a>q010</h2><p><strong>Json注解制动生成的解析文件解析数据失败</strong><br>原因：View复用导致没有刷新<br>解决方案：需要给头像控件增加一个单独的Key</p>
+<p>##q011<br>原因：没有网络请求的权限<br>解决方案：在tbflutterlite/android/app/src/main/AndroidMainifest.xml中添加网络请求权限，同理如果需要读写SD卡也需要声明对应的权限</p>
+<p>##q012<br>原因：未知<br>解决方案：改用NotificationListener</p>
+<h2 id="q014"><a href="#q014" class="headerlink" title="q014"></a>q014</h2><p><strong>flutter动画不执行</strong><br>原因：flutter TickerProvider同一时间只能对一个动画生效，且动画执行完一次后，下次执行时起始数据在末尾<br>方案：动画controller写成全局变量，执行动画前先调reset方法。</p>
+<h2 id="q015"><a href="#q015" class="headerlink" title="q015"></a>q015</h2><p><strong>在SilverAppBar内使用滑动控件（ScrollView、PageView等）滑动控件消失</strong><br>原因不明。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SliverAppBar(</span><br><span class="line">  flexibleSpace: FlexibleSpaceBar(</span><br><span class="line">    background: PageView.builder(</span><br><span class="line">      ... ...</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>PageView若更换成其他非滑动型控件，则无此问题。</p>
+<h2 id="q016"><a href="#q016" class="headerlink" title="q016"></a>q016</h2><p>原因：内存泄漏<br>方案：dispose时将callBack等异步操作取消或置null</p>
+<h2 id="q017"><a href="#q017" class="headerlink" title="q017"></a>q017</h2><p><strong>滑动冲突</strong><br>原因：flutter事件传递机制是由外向内传递的，外层如果处理了事件，会直接resume掉事件流，内层控件没有机会处理事件<br>解决方案：对于GestureDetector onScale 和 onDrag事件不能共存的问题，通过两层嵌套的GestureDetector解决。对于系统外层控件直接处理滑动事件的情况（例如tabView），通过内层控件回调外层标志位决定外层是否处理事件，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TabBarView(</span><br><span class="line">   children: children,</span><br><span class="line">   physics: _needHandleScroll ? PageScrollPhysics() : NeverScrollableScrollPhysics(),</span><br><span class="line">),</span><br></pre></td></tr></table></figure></p>
+<h2 id="q018"><a href="#q018" class="headerlink" title="q018"></a>q018</h2><p>方案：将Text嵌套在Expanded中</p>
+<h2 id="q019"><a href="#q019" class="headerlink" title="q019"></a>q019</h2><p>Info.plist中加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;io.flutter.embedded_views_preview&lt;/key&gt;</span><br><span class="line">&lt;true/&gt;</span><br><span class="line">&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">    &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;</span><br><span class="line">    &lt;true/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Flutter/" rel="tag">#Flutter</a>
+          
+            <a href="/tags/笔记/" rel="tag">#笔记</a>
+          
+            <a href="/tags/踩坑记录/" rel="tag">#踩坑记录</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/26/研发效率-iOS常见warning梳理/" rel="next" title="研发效率-iOS常见warning梳理">
+                <i class="fa fa-chevron-left"></i> 研发效率-iOS常见warning梳理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/27/iOS基础-知识面归纳/" rel="prev" title="iOS基础-知识面归纳">
+                iOS基础-知识面归纳 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="LeeOuf">
+          <p class="site-author-name" itemprop="name">LeeOuf</p>
+          <p class="site-description motion-element" itemprop="description">人生有时</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/LeeOuf" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/6712857/leeouf?tab=profile" target="_blank" title="Stack Overflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  Stack Overflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flutter-踩坑记录"><span class="nav-number">1.</span> <span class="nav-text">Flutter 踩坑记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题索引"><span class="nav-number">1.1.</span> <span class="nav-text">问题索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q001"><span class="nav-number">1.2.</span> <span class="nav-text">q001</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q002"><span class="nav-number">1.3.</span> <span class="nav-text">q002</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q003"><span class="nav-number">1.4.</span> <span class="nav-text">q003</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q004"><span class="nav-number">1.5.</span> <span class="nav-text">q004</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q005"><span class="nav-number">1.6.</span> <span class="nav-text">q005</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q006"><span class="nav-number">1.7.</span> <span class="nav-text">q006</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q007"><span class="nav-number">1.8.</span> <span class="nav-text">q007</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q008"><span class="nav-number">1.9.</span> <span class="nav-text">q008</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q009"><span class="nav-number">1.10.</span> <span class="nav-text">q009</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q010"><span class="nav-number">1.11.</span> <span class="nav-text">q010</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q014"><span class="nav-number">1.12.</span> <span class="nav-text">q014</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q015"><span class="nav-number">1.13.</span> <span class="nav-text">q015</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q016"><span class="nav-number">1.14.</span> <span class="nav-text">q016</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q017"><span class="nav-number">1.15.</span> <span class="nav-text">q017</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q018"><span class="nav-number">1.16.</span> <span class="nav-text">q018</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#q019"><span class="nav-number">1.17.</span> <span class="nav-text">q019</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeOuf</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

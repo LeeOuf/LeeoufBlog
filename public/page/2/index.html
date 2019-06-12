@@ -227,8 +227,128 @@
             
               
                 
-                <a class="post-title-link" href="/2017/01/04/iOS基础：UIViewController生命周期/" itemprop="url">
-                  iOS基础：UIViewController生命周期
+                <a class="post-title-link" href="/2017/03/13/开源库阅读笔记-YYModel/" itemprop="url">
+                  开源库阅读笔记-YYModel
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-13T18:33:05+08:00" content="2017-03-13">
+              2017-03-13
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/开源库阅读笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">开源库阅读笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>YYKit，作者ibireme，<a href="http://blog.ibireme.com" target="_blank" rel="noopener">Blog</a>，<a href="https://github.com/ibireme/YYKit" target="_blank" rel="noopener">YYKitDemo</a>。</p>
+<h1 id="YYModel"><a href="#YYModel" class="headerlink" title="YYModel"></a>YYModel</h1><p>YYModel作为NSObject的Category，具有JSON字符串与Model相互转化的功能。<br>JSON解析过程如下：</p>
+<ol>
+<li>判空，获取class。</li>
+<li>若用户自定义class，则根据元类YYModelMeta获取class（如根据字段将类分为圆、正方形等）。</li>
+<li>根据JSON转化Model。<br>自定义class属于扩展功能，先分析JSON转化Model这一主要功能。</li></ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/03/13/开源库阅读笔记-YYModel/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/04/iOS基础-UIViewController生命周期/" itemprop="url">
+                  iOS基础-UIViewController生命周期
                 </a>
               
             
@@ -301,7 +421,7 @@
 <li>viewDidDisappear</li>
 <li>dealloc</li></ol>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/04/iOS基础：UIViewController生命周期/#more" rel="contents">
+            <a class="btn" href="/2017/01/04/iOS基础-UIViewController生命周期/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -352,8 +472,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/12/19/开发笔记：iOS中踩过的坑/" itemprop="url">
-                  开发笔记：iOS中踩过的坑
+                <a class="post-title-link" href="/2016/12/19/笔记-iOS中踩坑记录/" itemprop="url">
+                  笔记-iOS中踩坑记录
                 </a>
               
             
@@ -415,30 +535,18 @@
       
         
           
-            <ol>
-<li>NSNumber类型判断是否为0不能使用<code>aIntegerNum == 0</code>，而应使用<code>[aIntegerNum isEqualToNumber:@0]</code>，前者比较地址，后者比较值。</li>
-<li>UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。</li>
-<li>时间戳转换时间时会相差8小时，需要计算时区。</li>
-<li>iOS10中UISwitch的特异性</li>
-<li>快速便利Array\Set时，对元素进行操作必挂</li>
-<li>在block中使用成员变量，会导致循环引用</li>
-<li>iOS10以下导航栏问题<a href="导航栏隐藏 &amp;&amp; 导航栏错乱">http://www.jianshu.com/p/e4448c24d900</a> <a href="iOS 隐藏导航栏导致导航栏错乱的那些坑">http://www.jianshu.com/p/4b8af425a7d0</a></li>
-<li><p>__block相当于unsafe_unretain，在某些情况下，会导致crash</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.string1 = @&quot;String 1&quot;;   </span><br><span class="line">self.string2 = self.string1;   // unsafe_unretain</span><br><span class="line">self.string1 = nil;  </span><br><span class="line">NSLog(@&quot;String 2 = %@&quot;, self.string2);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>MRC goto语法，目标语句中的代码，与switch中的finally类似，正常执行。</p>
-</li>
-<li>A页面跳B页面，iOS11先走B页面的viewDidLoad再走A页面的viewWillDisappear，iOS10先走A页面的viewWillDisappear再走B页面的viewDidLoad，拓展：<a href="https://www.jianshu.com/p/2ca25b1ebe5a" target="_blank" rel="noopener">viewDidAppear和viewDidDisappear的执行顺序</a><a href="https://www.jianshu.com/p/9391b8043445" target="_blank" rel="noopener">iOS–viewDidAppear和viewDidDisappear调用顺序</a>。</li>
-<li>iOS10及以下系统，在viewDidLoad中设置导航栏标题的透明度是无效的，会被系统重设；而在iOS11中是生效的，但是，在滑动返回过程中，alpha会被重设为1。</li>
-<li>Notification在主线程中是同步执行的。</li>
-<li>若给UIButton高亮状态设置了backgroundImage，则需要相应地设置高亮状态icon及字色。</li>
-<li>iOS8以上系统加在Window上的UIViewController会自动调整frame，而iOS8不会。</li>
-<li>虽然GCD和UIViewAnimation不会造成循环引用，但是dispatch_after会持有对象使其无法释放。</li>
-<li>一个页面中有多个UIScrollView时，scrollsToTop需仅开启一个，否则状态栏返回顶部功能失效。</li>
-<li>UIButton的点击态有UIControlStateHighlighted和UIControlStateSelected | UIControlStateHighlighted，参照<a href="UIButton选中状态下的点击">https://www.jianshu.com/p/57b2c41448bf</a>。</li>
-</ol>
-
           
+            
+NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。
+UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsI
+            ...
+          
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/19/笔记-iOS中踩坑记录/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -486,8 +594,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/10/08/iOS基础：UIControlState/" itemprop="url">
-                  iOS基础：UIControlState
+                <a class="post-title-link" href="/2016/10/08/iOS基础-UIControlState/" itemprop="url">
+                  iOS基础-UIControlState
                 </a>
               
             
@@ -552,7 +660,7 @@
 <p>在一些业务场景中，我们需要为其设置一个点击态（按下但没有松开手指）时的样式，该如何做呢？</p>
 <p>看一下UIControlState的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef NS_OPTIONS(NSUInteger, UIControlState) &#123;</span><br><span class="line">    UIControlStateNormal       = 0,</span><br><span class="line">    UIControlStateHighlighted  = 1 &lt;&lt; 0,                  // used when UIControl isHighlighted is set</span><br><span class="line">    UIControlStateDisabled     = 1 &lt;&lt; 1,</span><br><span class="line">    UIControlStateSelected     = 1 &lt;&lt; 2,                  // flag usable by app (see below)</span><br><span class="line">    UIControlStateFocused NS_ENUM_AVAILABLE_IOS(9_0) = 1 &lt;&lt; 3, // Applicable only when the screen supports focus</span><br><span class="line">    UIControlStateApplication  = 0x00FF0000,              // additional flags available for application use</span><br><span class="line">    UIControlStateReserved     = 0xFF000000               // flags reserved for internal framework use</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/08/iOS基础：UIControlState/#more" rel="contents">
+            <a class="btn" href="/2016/10/08/iOS基础-UIControlState/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -604,7 +712,7 @@
               
                 
                 <a class="post-title-link" href="/2016/09/29/UISwitch在iOS 10中的BUG/" itemprop="url">
-                  UISwitch在iOS 10中的BUG
+                  笔记-UISwitch在iOS 10中的BUG
                 </a>
               
             
@@ -719,8 +827,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/21/配置：Sublime-Text3/" itemprop="url">
-                  配置：Sublime-Text3
+                <a class="post-title-link" href="/2016/09/21/配置-SublimeText/" itemprop="url">
+                  配置-SublimeText
                 </a>
               
             
@@ -747,8 +855,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/开发配置/" itemprop="url" rel="index">
-                    <span itemprop="name">开发配置</span>
+                  <a href="/categories/配置/" itemprop="url" rel="index">
+                    <span itemprop="name">配置</span>
                   </a>
                 </span>
 
@@ -783,7 +891,7 @@
         
           <h1 id="快捷键（Eclipse风格）"><a href="#快捷键（Eclipse风格）" class="headerlink" title="快捷键（Eclipse风格）"></a>快捷键（Eclipse风格）</h1><p>Sublime Text -&gt; Preferences -&gt; Key Bindings - User<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    /**</span><br><span class="line">     * 代码格式化</span><br><span class="line">     */</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+r&quot;], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: &#123; &quot;target&quot;: &quot;browser&quot;&#125; &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;keys&quot;: [&quot;alt+shift+f&quot;],</span><br><span class="line">        &quot;command&quot;: &quot;reindent&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    /**</span><br><span class="line">     * json格式化</span><br><span class="line">     */</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;tidy_xml&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+j&quot;], &quot;command&quot;: &quot;pretty_json&quot; &#125;, </span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+m&quot;], &quot;command&quot;: &quot;un_pretty_json&quot; &#125;,</span><br><span class="line">    /**</span><br><span class="line">     * 适配eclipse快捷键</span><br><span class="line">     */</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+/&quot;], &quot;command&quot;: &quot;auto_complete&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+i&quot;], &quot;command&quot;: &quot;reindent&quot; &#125;,</span><br><span class="line">    // 当前行和下面一行交互位置</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+up&quot;], &quot;command&quot;: &quot;swap_line_up&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+down&quot;], &quot;command&quot;: &quot;swap_line_down&quot; &#125;,</span><br><span class="line">    // 复制当前行到上一行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+alt+up&quot;], &quot;command&quot;: &quot;duplicate_line&quot; &#125;,</span><br><span class="line">    // 复制当前行到下一行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+alt+down&quot;], &quot;command&quot;: &quot;duplicate_line&quot; &#125;,</span><br><span class="line">    // 删除整行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+d&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: &#123;&quot;file&quot;: &quot;Packages/Default/Delete Line.sublime-macro&quot;&#125; &#125;,</span><br><span class="line">    // 光标移动到指定行</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+l&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;:&quot;&#125; &#125;,</span><br><span class="line">    // 快速定位到选中的文字</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+k&quot;], &quot;command&quot;: &quot;find_under_expand_skip&quot; &#125;,</span><br><span class="line">    // &#123; &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;swap_case&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+x&quot;], &quot;command&quot;: &quot;upper_case&quot; &#125;,</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+y&quot;], &quot;command&quot;: &quot;lower_case&quot; &#125;,</span><br><span class="line">    // 在当前行的下一行插入空行(这时鼠标可以在当前行的任一位置, 不一定是最后)</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;shift+enter&quot;], &quot;command&quot;: &quot;run_macro_file&quot;, &quot;args&quot;: &#123;&quot;file&quot;: &quot;Packages/Default/Add Line.sublime-macro&quot;&#125; &#125;,</span><br><span class="line">    // 定位到对于的匹配符(譬如&#123;&#125;)(从前面定位后面时,光标要在匹配符里面,后面到前面,则反之)</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+p&quot;], &quot;command&quot;: &quot;move_to&quot;, &quot;args&quot;: &#123;&quot;to&quot;: &quot;brackets&quot;&#125; &#125;,</span><br><span class="line">    // outline</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;@&quot;&#125; &#125;,</span><br><span class="line">    // 当前文件中的关键字(方便快速查找内容)</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+alt+o&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;text&quot;: &quot;#&quot;&#125; &#125;,</span><br><span class="line">    // open resource</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+shift+r&quot;], &quot;command&quot;: &quot;show_overlay&quot;, &quot;args&quot;: &#123;&quot;overlay&quot;: &quot;goto&quot;, &quot;show_files&quot;: true&#125; &#125;,</span><br><span class="line">    // 文件内查找/替换</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;command+f&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: &#123;&quot;panel&quot;: &quot;replace&quot;&#125; &#125;,</span><br><span class="line">    // 全局查找/替换, 在查询结果中双击跳转到匹配位置</span><br><span class="line">    &#123;&quot;keys&quot;: [&quot;command+h&quot;], &quot;command&quot;: &quot;show_panel&quot;, &quot;args&quot;: &#123;&quot;panel&quot;: &quot;find_in_files&quot;&#125; &#125;,</span><br><span class="line"> </span><br><span class="line">    // plugin配置</span><br><span class="line">    &#123; &quot;keys&quot;: [&quot;alt+a&quot;], &quot;command&quot;: &quot;alignment&quot; &#125;,</span><br><span class="line">    &#123;&quot;keys&quot;: [&quot;command+shift+f&quot;], &quot;command&quot;: &quot;js_format&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/21/配置：Sublime-Text3/#more" rel="contents">
+            <a class="btn" href="/2016/09/21/配置-SublimeText/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -834,8 +942,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/21/配置：Vim-Git-SVN/" itemprop="url">
-                  配置：Vim-Git-SVN
+                <a class="post-title-link" href="/2016/09/21/配置-Vim、Git、SVN/" itemprop="url">
+                  配置-Vim、Git、SVN
                 </a>
               
             
@@ -862,8 +970,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/开发配置/" itemprop="url" rel="index">
-                    <span itemprop="name">开发配置</span>
+                  <a href="/categories/配置/" itemprop="url" rel="index">
+                    <span itemprop="name">配置</span>
                   </a>
                 </span>
 
@@ -900,7 +1008,7 @@
 <h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><p><code>vim /etc/profile</code>，添加<code>export TERM=xterm</code>。</p>
 <h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><p><code>vim ~/.vimrc</code>，配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">syntax on</span><br><span class="line">set tabstop=4</span><br><span class="line">set softtabstop=4</span><br><span class="line">set shiftwidth=4</span><br><span class="line">set autoindent</span><br><span class="line">set cindent</span><br><span class="line">set cinoptions=&#123;0,1s,t0,n-2,p2s,(03s,=.5s,&gt;1s,=1s,:1s</span><br><span class="line"></span><br><span class="line">if &amp;term==&quot;xterm&quot;</span><br><span class="line">set t_Co=8</span><br><span class="line">set t_Sb=^[[4%dm</span><br><span class="line">set t_Sf=^[[3%dm</span><br><span class="line">endif</span><br></pre></td></tr></table></figure></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/21/配置：Vim-Git-SVN/#more" rel="contents">
+            <a class="btn" href="/2016/09/21/配置-Vim、Git、SVN/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -951,8 +1059,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/21/配置：Xcode快捷键配置/" itemprop="url">
-                  配置：Xcode快捷键配置
+                <a class="post-title-link" href="/2016/09/21/配置-Xcode快捷键/" itemprop="url">
+                  配置-Xcode快捷键
                 </a>
               
             
@@ -979,8 +1087,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/开发配置/" itemprop="url" rel="index">
-                    <span itemprop="name">开发配置</span>
+                  <a href="/categories/配置/" itemprop="url" rel="index">
+                    <span itemprop="name">配置</span>
                   </a>
                 </span>
 
@@ -1016,7 +1124,7 @@
           <p>部分内容来自：<a href="http://www.jianshu.com/p/2ed2c7ac6d53?nomobile=yes" target="_blank" rel="noopener">简书：为Xcode添加删除当前行、复制当前行快捷键</a> 感谢作者的分享。<br>本文仅为记录个人的开发配置。</p>
 <p>Xcode8以后，不再支持plugins，因此之前用来设置快捷键的boost等插件都已失效。<br>有一些eclipse带过来的快捷键习惯该如何设置呢？<br></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/21/配置：Xcode快捷键配置/#more" rel="contents">
+            <a class="btn" href="/2016/09/21/配置-Xcode快捷键/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1067,8 +1175,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/17/Objective-C基础知识小结/" itemprop="url">
-                  Objective-C基础知识小结
+                <a class="post-title-link" href="/2016/09/17/iOS基础-OC基础知识小结/" itemprop="url">
+                  iOS基础-OC基础知识小结
                 </a>
               
             
@@ -1132,7 +1240,7 @@
           <h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h2 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h2><p><strong>栈区（stack）</strong><br>由编译器自动分配释放 ，当一个函数被调用,一个stack frame(栈帧)就会被压到stack里，包含函数的参数、局部变量、返回地址等。当函数返回后,这个栈帧就会被销毁。</p>
 <p><strong>堆区(heap)</strong><br>heap的空间需要手动分配。heap与动态内存分配相关,内存可以随时在堆中分配和销毁。我们需要明确请求内存分配与内存销毁。<br></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/17/Objective-C基础知识小结/#more" rel="contents">
+            <a class="btn" href="/2016/09/17/iOS基础-OC基础知识小结/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1183,8 +1291,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/03/配置：迁移hexo/" itemprop="url">
-                  配置：迁移hexo
+                <a class="post-title-link" href="/2016/09/03/配置-迁移hexo/" itemprop="url">
+                  配置-迁移hexo
                 </a>
               
             
@@ -1211,8 +1319,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/开发配置/" itemprop="url" rel="index">
-                    <span itemprop="name">开发配置</span>
+                  <a href="/categories/配置/" itemprop="url" rel="index">
+                    <span itemprop="name">配置</span>
                   </a>
                 </span>
 
@@ -1252,122 +1360,7 @@
 <li>保留原有deploy配置，执行<code>sudo npm install hexo-deployer-git --save</code></li>
 <li>安装server，<code>sudo npm install hexo-server</code></li></ul>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/03/配置：迁移hexo/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/16/初学Objective-C/" itemprop="url">
-                  初学Objective-C
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-16T15:36:56+08:00" content="2016-08-16">
-              2016-08-16
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS基础知识/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS基础知识</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>我们知道iOS中的frame由x, y, width, height决定的一个个矩形。<br>接下来尝试用一个矩形类来探究如何使用类中的属性和方法。<br></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/16/初学Objective-C/#more" rel="contents">
+            <a class="btn" href="/2016/09/03/配置-迁移hexo/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1440,7 +1433,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1448,7 +1441,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1457,7 +1450,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1469,15 +1462,6 @@
 
         <div class="links-of-author motion-element">
           
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/3216090377/profile" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
             
               <span class="links-of-author-item">
                 <a href="https://github.com/LeeOuf" target="_blank" title="GitHub">
