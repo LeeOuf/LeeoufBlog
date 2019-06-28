@@ -133,6 +133,7 @@ social:
   # Weibo: http://weibo.com/3216090377/profile
   GitHub: https://github.com/LeeOuf
   Stack Overflow: http://stackoverflow.com/users/6712857/leeouf?tab=profile
+  GitBook: http://blog.leeouf.com/pub/dart
 
 # Social Links Icons
 # Icon Mapping:
@@ -147,7 +148,7 @@ social_icons:
   Twitter: twitter
   Weibo: weibo
   Stack Overflow: stack-overflow
-
+  GitBook: GitBook
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg

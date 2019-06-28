@@ -1,0 +1,676 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="多线程,GCD,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。 前提 代码是顺序执行的。 queue是FIFO（先进先出）的数据结构。 线程之间是并行的。 串行队列：任务不能同时进行，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。 并发队列：任务可以同时进行，这意味着只要0…n个任务开始执行，那么第n+1个">
+<meta name="keywords" content="多线程,GCD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS基础：GCD">
+<meta property="og:url" content="https://LeeOuf.github.io/2016/08/11/iOS基础：GCD/index.html">
+<meta property="og:site_name" content="LeeOuf&#39;s Blog">
+<meta property="og:description" content="GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。 前提 代码是顺序执行的。 queue是FIFO（先进先出）的数据结构。 线程之间是并行的。 串行队列：任务不能同时进行，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。 并发队列：任务可以同时进行，这意味着只要0…n个任务开始执行，那么第n+1个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-12T10:03:01.504Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS基础：GCD">
+<meta name="twitter:description" content="GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。 前提 代码是顺序执行的。 queue是FIFO（先进先出）的数据结构。 线程之间是并行的。 串行队列：任务不能同时进行，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。 并发队列：任务可以同时进行，这意味着只要0…n个任务开始执行，那么第n+1个">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <title> iOS基础：GCD | LeeOuf's Blog </title>
+  <!-- <script type="text/javascript">
+    (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+    })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+    
+    _st('install','fJ4RztWwYeg1bSWfz3x1','2.0.0');
+  </script> -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd5f13bbcbc196ab6b286b6774bf922a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeeOuf's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Coding time.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hourglass-half"></i> <br>
+            
+            时间
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS基础：GCD
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-11T20:34:23+08:00" content="2016-08-11">
+              2016-08-11
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS基础知识/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS基础知识</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>GCD是老生常谈了，不过作为一个新手这个基础乃是重中之重，光看他人的blog总是难以消化，因此自己做些笔记总结实验一下，如有偏差还望指正。</p>
+<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><ol>
+<li>代码是顺序执行的。</li>
+<li>queue是FIFO（先进先出）的数据结构。</li>
+<li>线程之间是并行的。</li>
+<li><code>串行队列</code>：任务<code>不能同时进行</code>，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。</li>
+<li><code>并发队列</code>：任务<code>可以同时进行</code>，这意味着只要0…n个任务开始执行，那么第n+1个任务也可以开始。</li>
+<li><code>void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务（也就是block）放到队列中，同步执行，也就是说在<code>当前线程</code>中执行任务，<code>阻塞当前线程</code>。</li>
+<li><code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务放到队列中，异步执行，也就是说在<code>其他线程</code>中执行任务，<code>不阻塞当前线程</code>。（在下文的推演中，发现其并不总是在<code>其他线程</code>中执行）<br>（p.s. 在实际推演和API中，发现6、7两条中对于线程的描述均是错误的，block在哪个线程中运行取决于queue）</li>
+</ol>
+<h1 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h1><h2 id="1-代码是顺序执行的。"><a href="#1-代码是顺序执行的。" class="headerlink" title="1. 代码是顺序执行的。"></a>1. 代码是顺序执行的。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSLog(@&quot;step0&quot;);</span><br><span class="line">NSLog(@&quot;step1&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2016-08-12 22:29:49.002 MyPractice[25215:3752290] step0</span><br><span class="line">2016-08-12 22:29:49.002 MyPractice[25215:3752290] step1</span><br></pre></td></tr></table></figure>
+<p>可以看到确实是顺序执行的（严肃脸）。</p>
+<h2 id="2-queue是FIFO（先进先出）的数据结构。"><a href="#2-queue是FIFO（先进先出）的数据结构。" class="headerlink" title="2. queue是FIFO（先进先出）的数据结构。"></a>2. queue是FIFO（先进先出）的数据结构。</h2><h2 id="3-线程之间是并行的。"><a href="#3-线程之间是并行的。" class="headerlink" title="3. 线程之间是并行的。"></a>3. 线程之间是并行的。</h2><h2 id="4-串行队列：任务不能同时进行，这意味着第n-1个任务必须等待0…n个任务全部完成后才会开始。"><a href="#4-串行队列：任务不能同时进行，这意味着第n-1个任务必须等待0…n个任务全部完成后才会开始。" class="headerlink" title="4. 串行队列：任务不能同时进行，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。"></a>4. <code>串行队列</code>：任务<code>不能同时进行</code>，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。</h2><p>首先来看什么是<code>DISPATCH_QUEUE_SERIAL</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*!</span><br><span class="line"> * @const DISPATCH_QUEUE_SERIAL</span><br><span class="line"> * @discussion A dispatch queue that invokes blocks serially in FIFO order.</span><br><span class="line"> */</span><br><span class="line">#define DISPATCH_QUEUE_SERIAL NULL</span><br></pre></td></tr></table></figure></p>
+<p>该队列以先进先出的顺序串行调用blocks。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step0 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">for (int i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        [NSThread sleepForTimeInterval:1];</span><br><span class="line">        NSLog(@&quot;step1.%d finished! - %@&quot;, i, [NSThread currentThread]);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step2 finished! - %@&quot;, [NSThread currentThread]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2016-08-13 22:49:03.733 MyPractice[32046:5376787] step0 finished! - &lt;NSThread: 0x7fac03602dd0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 22:49:03.734 MyPractice[32046:5376787] step2 finished! - &lt;NSThread: 0x7fac03602dd0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 22:49:04.737 MyPractice[32046:5376906] step1.0 finished! - &lt;NSThread: 0x7fac034a0690&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2016-08-13 22:49:05.741 MyPractice[32046:5376906] step1.1 finished! - &lt;NSThread: 0x7fac034a0690&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2016-08-13 22:49:06.747 MyPractice[32046:5376906] step1.2 finished! - &lt;NSThread: 0x7fac034a0690&gt;&#123;number = 2, name = (null)&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到1大类中的三个任务顺序执行。</p>
+<h2 id="5-并发队列：任务可以同时进行，这意味着只要0…n个任务开始执行，那么第n-1个任务也可以开始。"><a href="#5-并发队列：任务可以同时进行，这意味着只要0…n个任务开始执行，那么第n-1个任务也可以开始。" class="headerlink" title="5. 并发队列：任务可以同时进行，这意味着只要0…n个任务开始执行，那么第n+1个任务也可以开始。"></a>5. <code>并发队列</code>：任务<code>可以同时进行</code>，这意味着只要0…n个任务开始执行，那么第n+1个任务也可以开始。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step0 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">for (int i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        [NSThread sleepForTimeInterval:1];</span><br><span class="line">        NSLog(@&quot;step1.%d finished! - %@&quot;, i, [NSThread currentThread]);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step2 finished! - %@&quot;, [NSThread currentThread]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2016-08-13 04:21:14.000 MyPractice[27321:4331458] step0 finished! - &lt;NSThread: 0x7f9c08c059f0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 04:21:14.001 MyPractice[27321:4331458] step2 finished! - &lt;NSThread: 0x7f9c08c059f0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 04:21:15.005 MyPractice[27321:4331587] step1.1 finished! - &lt;NSThread: 0x7f9c08f04540&gt;&#123;number = 3, name = (null)&#125;</span><br><span class="line">2016-08-13 04:21:15.005 MyPractice[27321:4331577] step1.0 finished! - &lt;NSThread: 0x7f9c08d0acc0&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2016-08-13 04:21:15.005 MyPractice[27321:4331593] step1.2 finished! - &lt;NSThread: 0x7f9c08e0b560&gt;&#123;number = 4, name = (null)&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到1大类中的三个任务同时执行。</p>
+<h2 id="6-void-dispatch-sync-dispatch-queue-t-queue-dispatch-block-t-block-：将任务（也就是block）放到队列中，同步执行，也就是说在当前线程中执行任务，阻塞当前线程。"><a href="#6-void-dispatch-sync-dispatch-queue-t-queue-dispatch-block-t-block-：将任务（也就是block）放到队列中，同步执行，也就是说在当前线程中执行任务，阻塞当前线程。" class="headerlink" title="6. void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);：将任务（也就是block）放到队列中，同步执行，也就是说在当前线程中执行任务，阻塞当前线程。"></a>6. <code>void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务（也就是block）放到队列中，同步执行，也就是说在<code>当前线程</code>中执行任务，<code>阻塞当前线程</code>。</h2><h3 id="dispatch-sync任务到其它串行队列中。"><a href="#dispatch-sync任务到其它串行队列中。" class="headerlink" title="dispatch_sync任务到其它串行队列中。"></a>dispatch_sync任务到其它串行队列中。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step0 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">dispatch_sync(queue, ^&#123;    // block1</span><br><span class="line">    [NSThread sleepForTimeInterval:1];</span><br><span class="line">    NSLog(@&quot;step1 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">[NSThread sleepForTimeInterval:2];</span><br><span class="line">NSLog(@&quot;step2 finished! - %@&quot;, [NSThread currentThread]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2016-08-13 04:28:39.621 MyPractice[27486:4339739] step0 finished! - &lt;NSThread: 0x7f8050606ad0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 04:28:40.622 MyPractice[27486:4339739] step1 finished! - &lt;NSThread: 0x7f8050606ad0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 04:28:42.623 MyPractice[27486:4339739] step2 finished! - &lt;NSThread: 0x7f8050606ad0&gt;&#123;number = 1, name = main&#125;</span><br></pre></td></tr></table></figure>
+<p>block1处于用于用户自定义串行队列中，由当前线程（主线程）执行，阻塞主线程，step2必须等待block1返回后方可开始执行。</p>
+<h3 id="dispatch-sync任务到当前串行队列中。"><a href="#dispatch-sync任务到当前串行队列中。" class="headerlink" title="dispatch_sync任务到当前串行队列中。"></a>dispatch_sync任务到当前串行队列中。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_get_main_queue();</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step0 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">dispatch_sync(queue, ^&#123;     // block1</span><br><span class="line">    [NSThread sleepForTimeInterval:1];</span><br><span class="line">    NSLog(@&quot;step1 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">[NSThread sleepForTimeInterval:2];</span><br><span class="line">NSLog(@&quot;step2 finished! - %@&quot;, [NSThread currentThread]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2016-08-13 04:35:51.992 MyPractice[27577:4345752] step0 finished! - &lt;NSThread: 0x7f80d8701fc0&gt;&#123;number = 1, name = main&#125;</span><br></pre></td></tr></table></figure>
+<p>整体为主队列中的block0，执行完step0后等待block1返回，然后才可执行step2；同时block1插入主队列，阻塞主线程，此时主队列中还有未完成的任务block0，因此block1开始等待block1完成。<br>至此，block0与block1循环等待，死锁。</p>
+<h3 id="dispatch-sync任务到其它并发队列中。"><a href="#dispatch-sync任务到其它并发队列中。" class="headerlink" title="dispatch_sync任务到其它并发队列中。"></a>dispatch_sync任务到其它并发队列中。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step0 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">dispatch_sync(queue, ^&#123;     // block1</span><br><span class="line">    [NSThread sleepForTimeInterval:1];</span><br><span class="line">    NSLog(@&quot;step1 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">[NSThread sleepForTimeInterval:2];</span><br><span class="line">NSLog(@&quot;step2 finished! - %@&quot;, [NSThread currentThread]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2016-08-13 04:41:45.625 MyPractice[27630:4348773] step0 finished! - &lt;NSThread: 0x7faec9403070&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 04:41:46.625 MyPractice[27630:4348773] step1 finished! - &lt;NSThread: 0x7faec9403070&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 04:41:48.627 MyPractice[27630:4348773] step2 finished! - &lt;NSThread: 0x7faec9403070&gt;&#123;number = 1, name = main&#125;</span><br></pre></td></tr></table></figure>
+<p>step0执行完毕，block1插入用户自定义并发队列，仍在当前线程（主线程）执行，因此阻塞主线程，此时的并发队列前没有其它任务，block1正常执行完毕返回，开始执行step2。</p>
+<p><strong>总结</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">/*!</span><br><span class="line"> * @function dispatch_sync</span><br><span class="line"> *</span><br><span class="line"> * @abstract</span><br><span class="line"> * Submits a block for synchronous execution on a dispatch queue.</span><br><span class="line"> *</span><br><span class="line"> * @discussion</span><br><span class="line"> * Submits a block to a dispatch queue like dispatch_async(), however</span><br><span class="line"> * dispatch_sync() will not return until the block has finished.</span><br><span class="line"> *</span><br><span class="line"> * Calls to dispatch_sync() targeting the current queue will result</span><br><span class="line"> * in dead-lock. Use of dispatch_sync() is also subject to the same</span><br><span class="line"> * multi-party dead-lock problems that may result from the use of a mutex.</span><br><span class="line"> * Use of dispatch_async() is preferred.</span><br><span class="line"> *</span><br><span class="line"> * Unlike dispatch_async(), no retain is performed on the target queue. Because</span><br><span class="line"> * calls to this function are synchronous, the dispatch_sync() &quot;borrows&quot; the</span><br><span class="line"> * reference of the caller.</span><br><span class="line"> *</span><br><span class="line"> * As an optimization, dispatch_sync() invokes the block on the current</span><br><span class="line"> * thread when possible.</span><br><span class="line"> *</span><br><span class="line"> * @param queue</span><br><span class="line"> * The target dispatch queue to which the block is submitted.</span><br><span class="line"> * The result of passing NULL in this parameter is undefined.</span><br><span class="line"> *</span><br><span class="line"> * @param block</span><br><span class="line"> * The block to be invoked on the target dispatch queue.</span><br><span class="line"> * The result of passing NULL in this parameter is undefined.</span><br><span class="line"> */</span><br><span class="line">#ifdef __BLOCKS__</span><br><span class="line">__OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_4_0)</span><br><span class="line">DISPATCH_EXPORT DISPATCH_NONNULL_ALL DISPATCH_NOTHROW</span><br><span class="line">void</span><br><span class="line">dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>dispatch_sync()在block结束前不会返回。</li>
+<li>dispatch_sync()任务到当前队列中会引起死锁。</li>
+<li>系统不会retain目标队列，因为dispatch_sync()是同步执行的，它“借”走了其调度者的引用。（这里我理解为，同步执行的任务不完成不会返回，因此引用从外部跟着它进入了block内部，在任务完成后再回到外部）。</li>
+<li>dispatch_sync()可能会无视queue的类型，优先在当前线程执行任务。（不知在什么情况下不会在当前线程执行，此处留个心眼）。</li>
+<li>参数queue － block任务提交的目标队列；如果传递进来的queue为NULL，返回结果为undefined。</li>
+<li>参数block － 将要在目标队列中执行的任务；如果传递进来的block为NULL，返回结果为undedined。</li>
+</ul>
+<h2 id="7-void-dispatch-async-dispatch-queue-t-queue-dispatch-block-t-block-：将任务放到队列中，异步执行，也就是说在其他线程中执行任务，不阻塞当前线程。"><a href="#7-void-dispatch-async-dispatch-queue-t-queue-dispatch-block-t-block-：将任务放到队列中，异步执行，也就是说在其他线程中执行任务，不阻塞当前线程。" class="headerlink" title="7. void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);：将任务放到队列中，异步执行，也就是说在其他线程中执行任务，不阻塞当前线程。"></a>7. <code>void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</code>：将任务放到队列中，异步执行，也就是说在<code>其他线程</code>中执行任务，<code>不阻塞当前线程</code>。</h2><h3 id="dispatch-async任务到其它串行队列中。"><a href="#dispatch-async任务到其它串行队列中。" class="headerlink" title="dispatch_async任务到其它串行队列中。"></a>dispatch_async任务到其它串行队列中。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step0 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">dispatch_async(queue, ^&#123;     // block1</span><br><span class="line">    [NSThread sleepForTimeInterval:1];</span><br><span class="line">    NSLog(@&quot;step1 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">[NSThread sleepForTimeInterval:2];</span><br><span class="line">NSLog(@&quot;step2 finished! - %@&quot;, [NSThread currentThread]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2016-08-13 05:06:15.123 MyPractice[27791:4366095] step0 finished! - &lt;NSThread: 0x7fe7196022e0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 05:06:16.129 MyPractice[27791:4366129] step1 finished! - &lt;NSThread: 0x7fe7196a2f50&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2016-08-13 05:06:17.125 MyPractice[27791:4366095] step2 finished! - &lt;NSThread: 0x7fe7196022e0&gt;&#123;number = 1, name = main&#125;</span><br></pre></td></tr></table></figure>
+<p>执行顺序为step0 -&gt; step1 -&gt; step2，step1在其它线程上执行，注意step2与step0时差2秒，step1与step0时差1秒，也就是说step1与step2并行。<br>程序运行到step0，step1插入用户自定义串行队列，在其它线程执行，不阻塞当前线程（主线程），并立即返回，于是step2开始执行。</p>
+<h3 id="dispatch-async任务到当前串行队列中。"><a href="#dispatch-async任务到当前串行队列中。" class="headerlink" title="dispatch_async任务到当前串行队列中。"></a>dispatch_async任务到当前串行队列中。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_get_main_queue();</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step0 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">dispatch_async(queue, ^&#123;     // block1</span><br><span class="line">    [NSThread sleepForTimeInterval:1];</span><br><span class="line">    NSLog(@&quot;step1 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">[NSThread sleepForTimeInterval:2];</span><br><span class="line">NSLog(@&quot;step2 finished! - %@&quot;, [NSThread currentThread]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2016-08-13 05:10:43.516 MyPractice[27830:4369848] step0 finished! - &lt;NSThread: 0x7fc280d07d30&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 05:10:45.518 MyPractice[27830:4369848] step2 finished! - &lt;NSThread: 0x7fc280d07d30&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 05:10:46.524 MyPractice[27830:4369848] step1 finished! - &lt;NSThread: 0x7fc280d07d30&gt;&#123;number = 1, name = main&#125;</span><br></pre></td></tr></table></figure>
+<p>执行顺序为step0 -&gt; step2 -&gt; step1，step1在主线程上执行（这与我们猜想的新开线程不一致，说明我们的猜想错了，至于为什么，先放一放，后面再说），从执行时间来看任务是串行执行的。<br>执行完step0，step1插入主队列，不阻塞当前线程（主线程）并立即返回，开始执行step2，但是block1却必须等待block0执行完毕，因此step1在step2结束后开始执行。</p>
+<h3 id="dispatch-async任务到其他并发队列中。"><a href="#dispatch-async任务到其他并发队列中。" class="headerlink" title="dispatch_async任务到其他并发队列中。"></a>dispatch_async任务到其他并发队列中。</h3><p>已经在5. xxx中实验过，3个任务在3个不同的线程上异步执行。</p>
+<p><strong>总结</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">/*!</span><br><span class="line"> * @function dispatch_async</span><br><span class="line"> *</span><br><span class="line"> * @abstract</span><br><span class="line"> * Submits a block for asynchronous execution on a dispatch queue.</span><br><span class="line"> *</span><br><span class="line"> * @discussion</span><br><span class="line"> * The dispatch_async() function is the fundamental mechanism for submitting</span><br><span class="line"> * blocks to a dispatch queue.</span><br><span class="line"> *</span><br><span class="line"> * Calls to dispatch_async() always return immediately after the block has</span><br><span class="line"> * been submitted, and never wait for the block to be invoked.</span><br><span class="line"> *</span><br><span class="line"> * The target queue determines whether the block will be invoked serially or</span><br><span class="line"> * concurrently with respect to other blocks submitted to that same queue.</span><br><span class="line"> * Serial queues are processed concurrently with respect to each other.</span><br><span class="line"> *</span><br><span class="line"> * @param queue</span><br><span class="line"> * The target dispatch queue to which the block is submitted.</span><br><span class="line"> * The system will hold a reference on the target queue until the block</span><br><span class="line"> * has finished.</span><br><span class="line"> * The result of passing NULL in this parameter is undefined.</span><br><span class="line"> *</span><br><span class="line"> * @param block</span><br><span class="line"> * The block to submit to the target dispatch queue. This function performs</span><br><span class="line"> * Block_copy() and Block_release() on behalf of callers.</span><br><span class="line"> * The result of passing NULL in this parameter is undefined.</span><br><span class="line"> */</span><br><span class="line">#ifdef __BLOCKS__</span><br><span class="line">__OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_4_0)</span><br><span class="line">DISPATCH_EXPORT DISPATCH_NONNULL_ALL DISPATCH_NOTHROW</span><br><span class="line">void</span><br><span class="line">dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>dispatch_async()的机制是把blocks任务提交到队列中。</li>
+<li>dispatch_async()会立即返回而不会等待block完成。</li>
+<li>目标队列的类型决定任务是按照队列里任务的顺序串行或并发地执行；串行队列之间是并发的。<br><strong>这里我的理解是，如果dispatch_async任务到一个并发队列中，那么任务就会被委派到一个新线程中执行，而如果放入一个串行队列，那么它有可能在当前线程执行，也有可能在其他线程执行。在上文实验中出现特例的是主队列，同时它也是当前队列，而主队列又是特殊的串行队列，它只在主线程上执行。这里的主队列比较特殊，不能根据它做出准确结论，我们需要再做一些实验</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step0 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">dispatch_async(queue, ^&#123;     // block1.1</span><br><span class="line">    [NSThread sleepForTimeInterval:1];</span><br><span class="line">    NSLog(@&quot;step1.1 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">    </span><br><span class="line">    dispatch_async(queue, ^&#123;     // block1.2</span><br><span class="line">        [NSThread sleepForTimeInterval:1];</span><br><span class="line">        NSLog(@&quot;step1.2 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">dispatch_async(queue, ^&#123;     // block1.3</span><br><span class="line">    [NSThread sleepForTimeInterval:1];</span><br><span class="line">    NSLog(@&quot;step1.3 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">[NSThread sleepForTimeInterval:3];</span><br><span class="line">NSLog(@&quot;step2 finished! - %@&quot;, [NSThread currentThread]);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2016-08-13 11:03:07.821 MyPractice[28927:4454751] step0 finished! - &lt;NSThread: 0x7fbe786079a0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 11:03:08.827 MyPractice[28927:4454778] step1.1 finished! - &lt;NSThread: 0x7fbe78419320&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2016-08-13 11:03:09.831 MyPractice[28927:4454778] step1.3 finished! - &lt;NSThread: 0x7fbe78419320&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2016-08-13 11:03:10.823 MyPractice[28927:4454751] step2 finished! - &lt;NSThread: 0x7fbe786079a0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 11:03:10.832 MyPractice[28927:4454778] step1.2 finished! - &lt;NSThread: 0x7fbe78419320&gt;&#123;number = 2, name = (null)&#125;</span><br></pre></td></tr></table></figure>
+<p>block1.1不在当前线程（主线程）中执行，而是在新线程（0x7fbe78419320）中，从当前线程切换到了新线程；<br>block1.2仍然在当前线程（0x7fbe78419320）中执行；<br>另外，block1.3也在（0x7fbe78419320）这一线程中执行，同样没有进入一个新线程；</p>
+<p>结合实验的结果和一些blog的说法，我认为block在哪个线程取决于queue，对于每个queue来说，它和线程池有某种对应关系：</p>
+<ul>
+<li>主队列对应着主线程；</li>
+<li>并发队列对应多条线程（非主线程）；</li>
+<li>串行队列对应着一条线程（非主线程）；</li>
+<li>dispatch_sync&amp;dispatch_async：调度对应线程池中的线程；</li>
+</ul>
+<p>接下来继续解读官方API</p>
+<ul>
+<li>系统会保留目标队列的引用直到block结束。（queue中有任务时不会释放）</li>
+<li>参数queue － block任务提交的目标队列；如果传递进来的queue为NULL，返回结果为undefined。</li>
+<li>dispatch_async()会代替它的调用者执行Block_copy()和Block_realease()。（block进入queue时会copy，出queue时会realease）</li>
+<li>参数block － 将要在目标队列中执行的任务；如果传递进来的block为NULL，返回结果为undedined。</li>
+</ul>
+<p>最后对自己提个问题，既然UI的实现没有多线程支持，那么将UI操作放入一个自定义的队列时，它在哪个线程执行呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step0 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">__weak ViewController* weakSelf = self;</span><br><span class="line">dispatch_async(queue, ^&#123;     // block1</span><br><span class="line">    NSLog(@&quot;before step1! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">    [NSThread sleepForTimeInterval:1];</span><br><span class="line">    weakSelf.view.backgroundColor = [UIColor blueColor];</span><br><span class="line">    NSLog(@&quot;after step1! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">[NSThread sleepForTimeInterval:2];</span><br><span class="line">NSLog(@&quot;step2 finished! - %@&quot;, [NSThread currentThread]);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2016-08-13 11:21:46.485 MyPractice[29211:4475426] step0 finished! - &lt;NSThread: 0x7fd5e1403450&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 11:21:46.486 MyPractice[29211:4475474] before step1! - &lt;NSThread: 0x7fd5e1523bb0&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2016-08-13 11:21:47.489 MyPractice[29211:4475474] after step1! - &lt;NSThread: 0x7fd5e1523bb0&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2016-08-13 11:21:48.486 MyPractice[29211:4475426] step2 finished! - &lt;NSThread: 0x7fd5e1403450&gt;&#123;number = 1, name = main&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;cn.edu.bjtu.myQueue&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;step0 finished! - %@&quot;, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">__weak ViewController* weakSelf = self;</span><br><span class="line">dispatch_sync(queue, ^&#123;     // block1</span><br><span class="line">    NSLog(@&quot;before step1! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">    [NSThread sleepForTimeInterval:1];</span><br><span class="line">    weakSelf.view.backgroundColor = [UIColor blueColor];</span><br><span class="line">    NSLog(@&quot;after step1! - %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">[NSThread sleepForTimeInterval:2];</span><br><span class="line">NSLog(@&quot;step2 finished! - %@&quot;, [NSThread currentThread]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2016-08-13 11:22:20.948 MyPractice[29246:4476879] step0 finished! - &lt;NSThread: 0x7f8962402ee0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 11:22:20.949 MyPractice[29246:4476879] before step1! - &lt;NSThread: 0x7f8962402ee0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 11:22:21.950 MyPractice[29246:4476879] after step1! - &lt;NSThread: 0x7f8962402ee0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2016-08-13 11:22:23.952 MyPractice[29246:4476879] step2 finished! - &lt;NSThread: 0x7f8962402ee0&gt;&#123;number = 1, name = main&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到仍然和之前总结的一样，在哪个线程执行仍然取决于queue的类型。<br>此处迷茫++，还得继续研究啊…</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多线程/" rel="tag">#多线程</a>
+          
+            <a href="/tags/GCD/" rel="tag">#GCD</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/14/iOS基础：类、对象和方法/" rel="prev" title="iOS基础：类、对象和方法.md">
+                iOS基础：类、对象和方法.md <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="LeeOuf">
+          <p class="site-author-name" itemprop="name">LeeOuf</p>
+          <p class="site-description motion-element" itemprop="description">人生有时</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/LeeOuf" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/6712857/leeouf?tab=profile" target="_blank" title="Stack Overflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  Stack Overflow
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.leeouf.com/pub/dart" target="_blank" title="GitBook">
+                  
+                    <i class="fa fa-fw fa-gitbook"></i>
+                  
+                  GitBook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前提"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证"><span class="nav-number">2.</span> <span class="nav-text">验证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-代码是顺序执行的。"><span class="nav-number">2.1.</span> <span class="nav-text">1. 代码是顺序执行的。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-queue是FIFO（先进先出）的数据结构。"><span class="nav-number">2.2.</span> <span class="nav-text">2. queue是FIFO（先进先出）的数据结构。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-线程之间是并行的。"><span class="nav-number">2.3.</span> <span class="nav-text">3. 线程之间是并行的。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-串行队列：任务不能同时进行，这意味着第n-1个任务必须等待0…n个任务全部完成后才会开始。"><span class="nav-number">2.4.</span> <span class="nav-text">4. 串行队列：任务不能同时进行，这意味着第n+1个任务必须等待0…n个任务全部完成后才会开始。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-并发队列：任务可以同时进行，这意味着只要0…n个任务开始执行，那么第n-1个任务也可以开始。"><span class="nav-number">2.5.</span> <span class="nav-text">5. 并发队列：任务可以同时进行，这意味着只要0…n个任务开始执行，那么第n+1个任务也可以开始。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-void-dispatch-sync-dispatch-queue-t-queue-dispatch-block-t-block-：将任务（也就是block）放到队列中，同步执行，也就是说在当前线程中执行任务，阻塞当前线程。"><span class="nav-number">2.6.</span> <span class="nav-text">6. void dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);：将任务（也就是block）放到队列中，同步执行，也就是说在当前线程中执行任务，阻塞当前线程。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-sync任务到其它串行队列中。"><span class="nav-number">2.6.1.</span> <span class="nav-text">dispatch_sync任务到其它串行队列中。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-sync任务到当前串行队列中。"><span class="nav-number">2.6.2.</span> <span class="nav-text">dispatch_sync任务到当前串行队列中。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-sync任务到其它并发队列中。"><span class="nav-number">2.6.3.</span> <span class="nav-text">dispatch_sync任务到其它并发队列中。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-void-dispatch-async-dispatch-queue-t-queue-dispatch-block-t-block-：将任务放到队列中，异步执行，也就是说在其他线程中执行任务，不阻塞当前线程。"><span class="nav-number">2.7.</span> <span class="nav-text">7. void dispatch_async(dispatch_queue_t queue, dispatch_block_t block);：将任务放到队列中，异步执行，也就是说在其他线程中执行任务，不阻塞当前线程。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-async任务到其它串行队列中。"><span class="nav-number">2.7.1.</span> <span class="nav-text">dispatch_async任务到其它串行队列中。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-async任务到当前串行队列中。"><span class="nav-number">2.7.2.</span> <span class="nav-text">dispatch_async任务到当前串行队列中。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-async任务到其他并发队列中。"><span class="nav-number">2.7.3.</span> <span class="nav-text">dispatch_async任务到其他并发队列中。</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeeOuf</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
