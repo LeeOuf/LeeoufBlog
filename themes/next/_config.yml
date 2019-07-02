@@ -32,11 +32,15 @@ menu:
   archives: /archives
   categories: /categories
   tags: /tags
+  search: /search
   #essay: /categories/essay
   #ios: /categories/ios
   #about: /about
   #commonweal: /404.html
 
+# Local search
+local_search:
+  enable: true
 
 # Enable/Disable menu icons.
 # Icon Mapping:
@@ -49,12 +53,11 @@ menu_icons:
   #home: home
   archives: hourglass-half
   essay: tint
-  ios: apple
   about: user
   categories: th
   tags: tags
   commonweal: heartbeat
-
+  search: search
 
 
 
@@ -148,7 +151,7 @@ social_icons:
   Twitter: twitter
   Weibo: weibo
   Stack Overflow: stack-overflow
-  GitBook: GitBook
+  GitBook: book
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg

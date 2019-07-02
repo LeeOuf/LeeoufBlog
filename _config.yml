@@ -45,14 +45,19 @@ highlight:
   tab_replace:
 
 # Category & Tag
-# default_category: uncategorized
-default_category: iOS
+default_category: uncategorized
 category_map: 
+  时间: archives
   分类: categories
   标签: tags
   日常: essay
-  iOS: ios
 tag_map: 
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
