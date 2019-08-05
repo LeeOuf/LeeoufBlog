@@ -6,7 +6,7 @@
 favicon: /favicon.ico
 
 # Set default keywords (Use a comma to separate)
-keywords: "leeouf, Leeouf, LeeOuf, iOS, Blog"
+keywords: "leouf, Leouf, LeOuf, LeeOuf, leeouf, Leeouf, iOS, Blog"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
@@ -136,7 +136,7 @@ social:
   # Weibo: http://weibo.com/3216090377/profile
   GitHub: https://github.com/LeeOuf
   Stack Overflow: http://stackoverflow.com/users/6712857/leeouf?tab=profile
-  GitBook: http://blog.leeouf.com/pub/dart
+  GitBook: http://blog.leouf.com/pub/dart
 
 # Social Links Icons
 # Icon Mapping:
@@ -257,7 +257,7 @@ mathjax:
 baidu_analytics: cd5f13bbcbc196ab6b286b6774bf922a
 
 # Duoshuo ShortName
-# duoshuo_shortname: leeouf
+# duoshuo_shortname: leouf
 
 # Disqus
 #disqus_shortname:

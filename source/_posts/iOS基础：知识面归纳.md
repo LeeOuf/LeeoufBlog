@@ -106,7 +106,7 @@ Method可以理解为方法名和方法实现的map映射，便于我们通过�
 6. 找不到进入消息转发，- (id)forwardingTargetForSelector:(SEL)aSelector生成NSInvocation，forwardInvocation:转发。
 
 ## load方法和initialize方法的异同
-[Runtime-load和initialize](http://blog.leeouf.com/2019/06/07/Runtime-load和initialize/)
+[Runtime-load和initialize](http://blog.leouf.com/2019/06/07/Runtime-load和initialize/)
 
 # RunLoop
 参考[iOS底层原理总结-RunLoop](https://www.jianshu.com/p/de752066d0ad)

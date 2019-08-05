@@ -208,12 +208,12 @@ int main(int argc, const char * argv[]) {
     // 改变局部变量tempString，打印出的block截获了其瞬间值"Baidu"
     tempString = @"Beijing";
     
-    [testBlock handleBlock:@"LeeOuf"];
+    [testBlock handleBlock:@"LeOuf"];
     return 0;
 }
 ```
 ```
-2016-09-17 22:33:05.425 LKTestPracticeClass[31278:5428415] Block is here with LeeOuf at Baidu.
+2016-09-17 22:33:05.425 LKTestPracticeClass[31278:5428415] Block is here with LeOuf at Baidu.
 2016-09-17 22:33:05.426 LKTestPracticeClass[31278:5428415] Block is completed.
 ```
 
