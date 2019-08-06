@@ -49,4 +49,6 @@ post_details.js中的方法会导致点击右侧文章目录后，整个目录�
 
 ## 如遇到hexo g无法生成source的情况，`npm ls --depth 0`列出缺失包，`npm install xxx --save`逐个下载
 
+## deploy后若发现源文件都被发布了，一般是.git的问题
+
 入职百度第一周，充实且兴奋。保持良好工作效率的同时，希望能保持更新博客的习惯。
