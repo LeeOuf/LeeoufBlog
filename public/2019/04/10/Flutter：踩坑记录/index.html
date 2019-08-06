@@ -4,7 +4,7 @@
 
 
 <html class="theme-next mist">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -60,7 +60,7 @@
 <meta name="keywords" content="Flutter,笔记,踩坑记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flutter：踩坑记录">
-<meta property="og:url" content="https://leeouf.github.io/2019/04/10/Flutter：踩坑记录/index.html">
+<meta property="og:url" content="http://leouf.cn/2019/04/10/Flutter：踩坑记录/index.html">
 <meta property="og:site_name" content="LeOuf&#39;s Blog">
 <meta property="og:description" content="Flutter 踩坑记录问题索引TabBar及PageView状态保存ScrollView滚动进度保存ListView下拉刷新后数据已返回，UI未更新中文汉字变形热重载hot reload未生效转场动画在list内黑屏不生效Android plugin内不能使用AAR包Android plugin内AAR包内的so库加载不出来Json注解制动生成的解析文件解析数据失败加载更多后头像加载慢或不加载d">
 <meta property="og:locale" content="zh-Hans">
@@ -353,11 +353,16 @@
 <h2 id="q014"><a href="#q014" class="headerlink" title="q014"></a>q014</h2><p><strong>flutter动画不执行</strong><br>原因：flutter TickerProvider同一时间只能对一个动画生效，且动画执行完一次后，下次执行时起始数据在末尾<br>方案：动画controller写成全局变量，执行动画前先调reset方法。</p>
 <h2 id="q015"><a href="#q015" class="headerlink" title="q015"></a>q015</h2><p><strong>在SilverAppBar内使用滑动控件（ScrollView、PageView等）滑动控件消失</strong><br>原因不明。</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SliverAppBar(</span><br><span class="line">  flexibleSpace: FlexibleSpaceBar(</span><br><span class="line">    background: PageView.builder(</span><br><span class="line">      ... ...</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
 <p>PageView若更换成其他非滑动型控件，则无此问题。</p>
 <h2 id="q016"><a href="#q016" class="headerlink" title="q016"></a>q016</h2><p>原因：内存泄漏<br>方案：dispose时将callBack等异步操作取消或置null</p>
-<h2 id="q017"><a href="#q017" class="headerlink" title="q017"></a>q017</h2><p><strong>滑动冲突</strong><br>原因：flutter事件传递机制是由外向内传递的，外层如果处理了事件，会直接resume掉事件流，内层控件没有机会处理事件<br>解决方案：对于GestureDetector onScale 和 onDrag事件不能共存的问题，通过两层嵌套的GestureDetector解决。对于系统外层控件直接处理滑动事件的情况（例如tabView），通过内层控件回调外层标志位决定外层是否处理事件，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TabBarView(</span><br><span class="line">   children: children,</span><br><span class="line">   physics: _needHandleScroll ? PageScrollPhysics() : NeverScrollableScrollPhysics(),</span><br><span class="line">),</span><br></pre></td></tr></table></figure></p>
+<h2 id="q017"><a href="#q017" class="headerlink" title="q017"></a>q017</h2><p><strong>滑动冲突</strong><br>原因：flutter事件传递机制是由外向内传递的，外层如果处理了事件，会直接resume掉事件流，内层控件没有机会处理事件<br>解决方案：对于GestureDetector onScale 和 onDrag事件不能共存的问题，通过两层嵌套的GestureDetector解决。对于系统外层控件直接处理滑动事件的情况（例如tabView），通过内层控件回调外层标志位决定外层是否处理事件，例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TabBarView(</span><br><span class="line">   children: children,</span><br><span class="line">   physics: _needHandleScroll ? PageScrollPhysics() : NeverScrollableScrollPhysics(),</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
+
 <h2 id="q018"><a href="#q018" class="headerlink" title="q018"></a>q018</h2><p>方案：将Text嵌套在Expanded中</p>
-<h2 id="q019"><a href="#q019" class="headerlink" title="q019"></a>q019</h2><p>Info.plist中加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;io.flutter.embedded_views_preview&lt;/key&gt;</span><br><span class="line">&lt;true/&gt;</span><br><span class="line">&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">    &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;</span><br><span class="line">    &lt;true/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="q019"><a href="#q019" class="headerlink" title="q019"></a>q019</h2><p>Info.plist中加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;io.flutter.embedded_views_preview&lt;/key&gt;</span><br><span class="line">&lt;true/&gt;</span><br><span class="line">&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">    &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;</span><br><span class="line">    &lt;true/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>

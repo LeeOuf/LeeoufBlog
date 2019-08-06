@@ -4,7 +4,7 @@
 
 
 <html class="theme-next mist">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -56,18 +56,18 @@
 
 
 
-<meta name="description" content="iOS常见warning梳理常见warning类型   warning类型 影响 修复方式 严重等级     方法有定义无实现 crash 补齐或删除方法 P0   调用不存在的方法 crash 调用正确方法 P0   调用系统DEPRECATED方法/属性 crash、bug 分系统进行调用 P0   方法调用中参数类型错误 crash、bug 转化对象类型 P0   赋值类型不一致 crash">
+<meta name="description" content="iOS常见warning梳理常见warning类型|warning类型 | 影响 | 修复方式 | 严重等级 ||—|—|—|| 方法有定义无实现 | crash | 补齐或删除方法 | P0 || 调用不存在的方法 | crash | 调用正确方法 | P0 || 调用系统DEPRECATED方法/属性 | crash、bug | 分系统进行调用 | P0 || 方法调用中参数类型错误 | cr">
 <meta name="keywords" content="warning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="研发效率：iOS常见warning梳理">
-<meta property="og:url" content="https://leeouf.github.io/2018/07/26/研发效率：iOS常见warning梳理/index.html">
+<meta property="og:url" content="http://leouf.cn/2018/07/26/研发效率：iOS常见warning梳理/index.html">
 <meta property="og:site_name" content="LeOuf&#39;s Blog">
-<meta property="og:description" content="iOS常见warning梳理常见warning类型   warning类型 影响 修复方式 严重等级     方法有定义无实现 crash 补齐或删除方法 P0   调用不存在的方法 crash 调用正确方法 P0   调用系统DEPRECATED方法/属性 crash、bug 分系统进行调用 P0   方法调用中参数类型错误 crash、bug 转化对象类型 P0   赋值类型不一致 crash">
+<meta property="og:description" content="iOS常见warning梳理常见warning类型|warning类型 | 影响 | 修复方式 | 严重等级 ||—|—|—|| 方法有定义无实现 | crash | 补齐或删除方法 | P0 || 调用不存在的方法 | crash | 调用正确方法 | P0 || 调用系统DEPRECATED方法/属性 | crash、bug | 分系统进行调用 | P0 || 方法调用中参数类型错误 | cr">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-08-02T02:56:33.939Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="研发效率：iOS常见warning梳理">
-<meta name="twitter:description" content="iOS常见warning梳理常见warning类型   warning类型 影响 修复方式 严重等级     方法有定义无实现 crash 补齐或删除方法 P0   调用不存在的方法 crash 调用正确方法 P0   调用系统DEPRECATED方法/属性 crash、bug 分系统进行调用 P0   方法调用中参数类型错误 crash、bug 转化对象类型 P0   赋值类型不一致 crash">
+<meta name="twitter:description" content="iOS常见warning梳理常见warning类型|warning类型 | 影响 | 修复方式 | 严重等级 ||—|—|—|| 方法有定义无实现 | crash | 补齐或删除方法 | P0 || 调用不存在的方法 | crash | 调用正确方法 | P0 || 调用系统DEPRECATED方法/属性 | crash、bug | 分系统进行调用 | P0 || 方法调用中参数类型错误 | cr">
 
 
 
@@ -318,213 +318,22 @@
       
 
       
-        <h1 id="iOS常见warning梳理"><a href="#iOS常见warning梳理" class="headerlink" title="iOS常见warning梳理"></a>iOS常见warning梳理</h1><h2 id="常见warning类型"><a href="#常见warning类型" class="headerlink" title="常见warning类型"></a>常见warning类型</h2><table>
-<thead>
-<tr>
-<th>warning类型</th>
-<th>影响</th>
-<th>修复方式</th>
-<th>严重等级</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>方法有定义无实现</td>
-<td>crash</td>
-<td>补齐或删除方法</td>
-<td>P0</td>
-</tr>
-<tr>
-<td>调用不存在的方法</td>
-<td>crash</td>
-<td>调用正确方法</td>
-<td>P0</td>
-</tr>
-<tr>
-<td>调用系统DEPRECATED方法/属性</td>
-<td>crash、bug</td>
-<td>分系统进行调用</td>
-<td>P0</td>
-</tr>
-<tr>
-<td>方法调用中参数类型错误</td>
-<td>crash、bug</td>
-<td>转化对象类型</td>
-<td>P0</td>
-</tr>
-<tr>
-<td>赋值类型不一致</td>
-<td>crash、bug</td>
-<td>转化对象类型</td>
-<td>P0</td>
-</tr>
-<tr>
-<td>未调用super方法</td>
-<td>内存泄漏、bug</td>
-<td>调用super</td>
-<td>P0</td>
-</tr>
-<tr>
-<td>循环引用</td>
-<td>内存泄漏</td>
-<td>weak strong dance</td>
-<td>P0</td>
-</tr>
-<tr>
-<td>重名代理</td>
-<td>bug</td>
-<td>改名</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>重名宏</td>
-<td>bug</td>
-<td>改名</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>子类与父类有重名同类型属性</td>
-<td>bug</td>
-<td>删除其中一个</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>子类与父类有重名不同类型属性</td>
-<td>bug</td>
-<td>子类添加忽略警告标记，@dynamic动态合成属性</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>格式化输出类型不一致</td>
-<td>bug</td>
-<td>强制转换类型</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>@required代理未实现</td>
-<td>bug</td>
-<td>补齐代理方法</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>工程未按推荐方式配置</td>
-<td>warning提示等级、编译选项等存在风险</td>
-<td>更新到recommend settings</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>MRC文件内存泄漏警告</td>
-<td>性能浪费</td>
-<td>修复代码或添加ARC标记</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>临时变量无初始值</td>
-<td>bug</td>
-<td>赋初始值</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>枚举赋值类型不一致</td>
-<td>bug</td>
-<td>修改代码</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>非对象属性加了*</td>
-<td>bug</td>
-<td>删除*</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>代码中包含非法字符</td>
-<td>编译器无法识别</td>
-<td>删除非法字符</td>
-<td>P1</td>
-</tr>
-<tr>
-<td>Nullable/NonNull标记不全</td>
-<td>产生大量warning</td>
-<td>删除或补全该文件内的标记</td>
-<td>P2</td>
-</tr>
-<tr>
-<td>未使用的临时变量</td>
-<td>性能浪费</td>
-<td>删除无用变量</td>
-<td>P2</td>
-</tr>
-<tr>
-<td>未使用的static变量</td>
-<td>性能浪费</td>
-<td>删除无用变量</td>
-<td>P2</td>
-</tr>
-<tr>
-<td>代理类未添加代理标记</td>
-<td>类型检查警告</td>
-<td>添加代理</td>
-<td>P2</td>
-</tr>
-<tr>
-<td>performSelector</td>
-<td>不推荐使用的方法调用方式</td>
-<td>直接调用方法</td>
-<td>P2</td>
-</tr>
-<tr>
-<td>第三方库最低版本与主工程不一致</td>
-<td>编译警告</td>
-<td>添加-w linker标记</td>
-<td>P2</td>
-</tr>
-<tr>
-<td>.c文件的64/32位警告</td>
-<td>编译警告</td>
-<td>添加-Wno-shorten-64-to-32文件标记</td>
-<td>P2</td>
-</tr>
-<tr>
-<td>import文件名大小写错误</td>
-<td>无</td>
-<td>修复文件名</td>
-<td>P3</td>
-</tr>
-<tr>
-<td>非法注释</td>
-<td>注释格式不规范，无法快捷查看定义</td>
-<td>使用系统快捷注释</td>
-<td>P3</td>
-</tr>
-<tr>
-<td>block定义不规范</td>
-<td>类型检查警告</td>
-<td>补齐void</td>
-<td>P3</td>
-</tr>
-<tr>
-<td>工程有文件引用但文件不存在</td>
-<td>文件索引失败</td>
-<td>bug</td>
-<td>P3</td>
-</tr>
-<tr>
-<td>asset有索引无文件</td>
-<td>bug</td>
-<td>删除索引</td>
-<td>P3</td>
-</tr>
-<tr>
-<td>search path存在，文件不存在</td>
-<td>找不到索引</td>
-<td>删除search path</td>
-<td>P3</td>
-</tr>
-</tbody>
-</table>
+        <h1 id="iOS常见warning梳理"><a href="#iOS常见warning梳理" class="headerlink" title="iOS常见warning梳理"></a>iOS常见warning梳理</h1><h2 id="常见warning类型"><a href="#常见warning类型" class="headerlink" title="常见warning类型"></a>常见warning类型</h2><p>|warning类型 | 影响 | 修复方式 | 严重等级 |<br>|—|—|—|<br>| 方法有定义无实现 | crash | 补齐或删除方法 | P0 |<br>| 调用不存在的方法 | crash | 调用正确方法 | P0 |<br>| 调用系统DEPRECATED方法/属性 | crash、bug | 分系统进行调用 | P0 |<br>| 方法调用中参数类型错误 | crash、bug | 转化对象类型 | P0 |<br>| 赋值类型不一致 | crash、bug | 转化对象类型 | P0 |<br>| 未调用super方法 | 内存泄漏、bug | 调用super | P0 |<br>| 循环引用 | 内存泄漏 | weak strong dance | P0 |<br>| 重名代理 | bug | 改名 | P1 |<br>| 重名宏 | bug | 改名 | P1 |<br>| 子类与父类有重名同类型属性 | bug | 删除其中一个 | P1 |<br>| 子类与父类有重名不同类型属性 | bug | 子类添加忽略警告标记，@dynamic动态合成属性 | P1 |<br>| 格式化输出类型不一致 | bug | 强制转换类型 | P1 |<br>| @required代理未实现 | bug | 补齐代理方法 | P1 |<br>| 工程未按推荐方式配置 | warning提示等级、编译选项等存在风险 | 更新到recommend settings | P1 |<br>| MRC文件内存泄漏警告 | 性能浪费 | 修复代码或添加ARC标记 | P1 |<br>| 临时变量无初始值 | bug | 赋初始值 | P1 |<br>| 枚举赋值类型不一致 | bug | 修改代码 | P1 |<br>| 非对象属性加了* | bug | 删除* | P1 |<br>| 代码中包含非法字符 | 编译器无法识别 | 删除非法字符 | P1 |<br>| Nullable/NonNull标记不全 | 产生大量warning | 删除或补全该文件内的标记 | P2 |<br>| 未使用的临时变量 | 性能浪费 | 删除无用变量 | P2 |<br>| 未使用的static变量 | 性能浪费 | 删除无用变量 | P2 |<br>| 代理类未添加代理标记 | 类型检查警告 | 添加代理 | P2 |<br>| performSelector | 不推荐使用的方法调用方式 | 直接调用方法 | P2 |<br>| 第三方库最低版本与主工程不一致 | 编译警告 | 添加-w linker标记 | P2 |<br>| .c文件的64/32位警告 | 编译警告 | 添加-Wno-shorten-64-to-32文件标记 | P2 |<br>| import文件名大小写错误 | 无 | 修复文件名 | P3 |<br>| 非法注释 | 注释格式不规范，无法快捷查看定义 | 使用系统快捷注释 | P3 |<br>| block定义不规范 | 类型检查警告 | 补齐void | P3 |<br>| 工程有文件引用但文件不存在 | 文件索引失败 | bug | P3 |<br>| asset有索引无文件 | bug | 删除索引 | P3 |<br>| search path存在，文件不存在 | 找不到索引 | 删除search path | P3 |</p>
 <h2 id="修复warning的方式"><a href="#修复warning的方式" class="headerlink" title="修复warning的方式"></a>修复warning的方式</h2><ol>
 <li>根据编译器提示修复。</li>
-<li>对于暂不修复的warning有三种忽略方式。<br>2.1. 选中warning，右键选择Reveal in Log，复制warning类型，在代码中添加ignored标记。<br>2.2. 对于某个文件，忽略某种类型的warning，与打ARC标记相同，添加对应类型的编译标记。<br>2.3. 全局忽略某一类型warning，在工程配置中添加编译选项。</li>
+<li>对于暂不修复的warning有三种忽略方式。</li>
+<li><ol>
+<li>选中warning，右键选择Reveal in Log，复制warning类型，在代码中添加ignored标记。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>对于某个文件，忽略某种类型的warning，与打ARC标记相同，添加对应类型的编译标记。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>全局忽略某一类型warning，在工程配置中添加编译选项。</li>
+</ol>
+</li>
 </ol>
 
       

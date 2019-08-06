@@ -4,7 +4,7 @@
 
 
 <html class="theme-next mist">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -60,7 +60,7 @@
 <meta name="keywords" content="Xcode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="配置：Xcode快捷键">
-<meta property="og:url" content="https://leeouf.github.io/2016/09/21/配置：Xcode快捷键/index.html">
+<meta property="og:url" content="http://leouf.cn/2016/09/21/配置：Xcode快捷键/index.html">
 <meta property="og:site_name" content="LeOuf&#39;s Blog">
 <meta property="og:description" content="部分内容来自：简书：为Xcode添加删除当前行、复制当前行快捷键 感谢作者的分享。本文仅为记录个人的开发配置。 Xcode8以后，不再支持plugins，因此之前用来设置快捷键的boost等插件都已失效。有一些eclipse带过来的快捷键习惯该如何设置呢？ 上下移动当前行Xcode -&amp;gt; Preference -&amp;gt; Key Bindings -&amp;gt; Move Line Up &amp;am">
 <meta property="og:locale" content="zh-Hans">
@@ -322,10 +322,13 @@
 <p>Xcode8以后，不再支持plugins，因此之前用来设置快捷键的boost等插件都已失效。<br>有一些eclipse带过来的快捷键习惯该如何设置呢？</p>
 <h1 id="上下移动当前行"><a href="#上下移动当前行" class="headerlink" title="上下移动当前行"></a>上下移动当前行</h1><p>Xcode -&gt; Preference -&gt; Key Bindings -&gt; Move Line Up &amp; Move Line Down</p>
 <h1 id="复制当前行"><a href="#复制当前行" class="headerlink" title="复制当前行"></a>复制当前行</h1><h2 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 666 /Applications/Xcode.app/Contents/Frameworks/IDEKit.framework/Resources/IDETextKeyBindingSet.plist</span><br><span class="line"></span><br><span class="line">sudo chmod 777 /Applications/Xcode.app/Contents/Frameworks/IDEKit.framework/Resources/</span><br></pre></td></tr></table></figure>
+
 <h2 id="添加快捷键"><a href="#添加快捷键" class="headerlink" title="添加快捷键"></a>添加快捷键</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open /Applications/Xcode.app/Contents/Frameworks/IDEKit.framework/Resources/IDETextKeyBindingSet.plist</span><br></pre></td></tr></table></figure>
+
 <p>在<code>Insertions and Indentations</code>中添加<code>Duplicate Current Line</code> - <code>selectLine:, copy:, moveToEndOfLine:, insertNewline:, paste:, deleteBackward:</code></p>
 <h2 id="设置快捷键"><a href="#设置快捷键" class="headerlink" title="设置快捷键"></a>设置快捷键</h2><p>重启后<br>Xcode -&gt; Preference -&gt; Key Bindings -&gt; Insertions and Indentations</p>
 <h1 id="删除当前行"><a href="#删除当前行" class="headerlink" title="删除当前行"></a>删除当前行</h1><h2 id="添加快捷键-1"><a href="#添加快捷键-1" class="headerlink" title="添加快捷键"></a>添加快捷键</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open /Applications/Xcode.app/Contents/Frameworks/IDEKit.framework/Resources/IDETextKeyBindingSet.plist</span><br></pre></td></tr></table></figure>
+
 <p>在<code>Deletions</code>中添加<code>Delete Current Line</code> - <code>deleteToBeginningOfLine:, moveToEndOfLine:, deleteToBeginningOfLine:, deleteBackward:, moveDown:, moveToBeginningOfLine:</code></p>
 <h2 id="设置快捷键-1"><a href="#设置快捷键-1" class="headerlink" title="设置快捷键"></a>设置快捷键</h2><p>重启后<br>Xcode -&gt; Preference -&gt; Key Bindings -&gt; Delete Current Line</p>
 

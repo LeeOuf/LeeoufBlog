@@ -4,7 +4,7 @@
 
 
 <html class="theme-next mist">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -56,18 +56,18 @@
 
 
 
-<meta name="description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。 UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。 时间戳转换时间时会相差8小时，需要计算时区。 iOS10中UISwit">
+<meta name="description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。  UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。  时间戳转换时间时会相差8小时，需要计算时区。  iOS10中UIS">
 <meta name="keywords" content="踩坑记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记：iOS中踩坑记录">
-<meta property="og:url" content="https://leeouf.github.io/2016/12/19/笔记：iOS中踩坑记录/index.html">
+<meta property="og:url" content="http://leouf.cn/2016/12/19/笔记：iOS中踩坑记录/index.html">
 <meta property="og:site_name" content="LeOuf&#39;s Blog">
-<meta property="og:description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。 UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。 时间戳转换时间时会相差8小时，需要计算时区。 iOS10中UISwit">
+<meta property="og:description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。  UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。  时间戳转换时间时会相差8小时，需要计算时区。  iOS10中UIS">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-08-02T02:56:33.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="笔记：iOS中踩坑记录">
-<meta name="twitter:description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。 UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。 时间戳转换时间时会相差8小时，需要计算时区。 iOS10中UISwit">
+<meta name="twitter:description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。  UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。  时间戳转换时间时会相差8小时，需要计算时区。  iOS10中UIS">
 
 
 
@@ -319,26 +319,41 @@
 
       
         <ol>
-<li>NSNumber类型判断是否为0不能使用<code>aIntegerNum == 0</code>，而应使用<code>[aIntegerNum isEqualToNumber:@0]</code>，前者比较地址，后者比较值。</li>
-<li>UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。</li>
-<li>时间戳转换时间时会相差8小时，需要计算时区。</li>
-<li>iOS10中UISwitch的特异性</li>
-<li>快速便利Array\Set时，对元素进行操作必挂</li>
-<li>在block中使用成员变量，会导致循环引用</li>
-<li>iOS10以下导航栏问题<a href="导航栏隐藏 &amp;&amp; 导航栏错乱">http://www.jianshu.com/p/e4448c24d900</a> <a href="iOS 隐藏导航栏导致导航栏错乱的那些坑">http://www.jianshu.com/p/4b8af425a7d0</a></li>
+<li><p>NSNumber类型判断是否为0不能使用<code>aIntegerNum == 0</code>，而应使用<code>[aIntegerNum isEqualToNumber:@0]</code>，前者比较地址，后者比较值。</p>
+</li>
+<li><p>UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。</p>
+</li>
+<li><p>时间戳转换时间时会相差8小时，需要计算时区。</p>
+</li>
+<li><p>iOS10中UISwitch的特异性</p>
+</li>
+<li><p>快速便利Array\Set时，对元素进行操作必挂</p>
+</li>
+<li><p>在block中使用成员变量，会导致循环引用</p>
+</li>
+<li><p>iOS10以下导航栏问题[<a href="http://www.jianshu.com/p/e4448c24d900]" target="_blank" rel="noopener">http://www.jianshu.com/p/e4448c24d900]</a>(导航栏隐藏 &amp;&amp; 导航栏错乱) [<a href="http://www.jianshu.com/p/4b8af425a7d0]" target="_blank" rel="noopener">http://www.jianshu.com/p/4b8af425a7d0]</a>(iOS 隐藏导航栏导致导航栏错乱的那些坑)</p>
+</li>
 <li><p>__block相当于unsafe_unretain，在某些情况下，会导致crash</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.string1 = @&quot;String 1&quot;;   </span><br><span class="line">self.string2 = self.string1;   // unsafe_unretain</span><br><span class="line">self.string1 = nil;  </span><br><span class="line">NSLog(@&quot;String 2 = %@&quot;, self.string2);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>MRC goto语法，目标语句中的代码，与switch中的finally类似，正常执行。</p>
 </li>
-<li>A页面跳B页面，iOS11先走B页面的viewDidLoad再走A页面的viewWillDisappear，iOS10先走A页面的viewWillDisappear再走B页面的viewDidLoad，拓展：<a href="https://www.jianshu.com/p/2ca25b1ebe5a" target="_blank" rel="noopener">viewDidAppear和viewDidDisappear的执行顺序</a><a href="https://www.jianshu.com/p/9391b8043445" target="_blank" rel="noopener">iOS–viewDidAppear和viewDidDisappear调用顺序</a>。</li>
-<li>iOS10及以下系统，在viewDidLoad中设置导航栏标题的透明度是无效的，会被系统重设；而在iOS11中是生效的，但是，在滑动返回过程中，alpha会被重设为1。</li>
-<li>Notification在主线程中是同步执行的。</li>
-<li>若给UIButton高亮状态设置了backgroundImage，则需要相应地设置高亮状态icon及字色。</li>
-<li>iOS8以上系统加在Window上的UIViewController会自动调整frame，而iOS8不会。</li>
-<li>虽然GCD和UIViewAnimation不会造成循环引用，但是dispatch_after会持有对象使其无法释放。</li>
-<li>一个页面中有多个UIScrollView时，scrollsToTop需仅开启一个，否则状态栏返回顶部功能失效。</li>
-<li>UIButton的点击态有UIControlStateHighlighted和UIControlStateSelected | UIControlStateHighlighted，参照<a href="UIButton选中状态下的点击">https://www.jianshu.com/p/57b2c41448bf</a>。</li>
+<li><p>A页面跳B页面，iOS11先走B页面的viewDidLoad再走A页面的viewWillDisappear，iOS10先走A页面的viewWillDisappear再走B页面的viewDidLoad，拓展：<a href="https://www.jianshu.com/p/2ca25b1ebe5a" target="_blank" rel="noopener">viewDidAppear和viewDidDisappear的执行顺序</a><a href="https://www.jianshu.com/p/9391b8043445" target="_blank" rel="noopener">iOS–viewDidAppear和viewDidDisappear调用顺序</a>。</p>
+</li>
+<li><p>iOS10及以下系统，在viewDidLoad中设置导航栏标题的透明度是无效的，会被系统重设；而在iOS11中是生效的，但是，在滑动返回过程中，alpha会被重设为1。</p>
+</li>
+<li><p>Notification在主线程中是同步执行的。</p>
+</li>
+<li><p>若给UIButton高亮状态设置了backgroundImage，则需要相应地设置高亮状态icon及字色。</p>
+</li>
+<li><p>iOS8以上系统加在Window上的UIViewController会自动调整frame，而iOS8不会。</p>
+</li>
+<li><p>虽然GCD和UIViewAnimation不会造成循环引用，但是dispatch_after会持有对象使其无法释放。</p>
+</li>
+<li><p>一个页面中有多个UIScrollView时，scrollsToTop需仅开启一个，否则状态栏返回顶部功能失效。</p>
+</li>
+<li><p>UIButton的点击态有UIControlStateHighlighted和UIControlStateSelected | UIControlStateHighlighted，参照<a href="UIButton选中状态下的点击">https://www.jianshu.com/p/57b2c41448bf</a>。</p>
+</li>
 </ol>
 
       
