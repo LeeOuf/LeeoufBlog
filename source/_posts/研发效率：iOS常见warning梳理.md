@@ -5,8 +5,6 @@ categories: 研发效率
 tags:
     - warning
 ---
-# iOS常见warning梳理
-
 ## 常见warning类型
 |warning类型 | 影响 | 修复方式 | 严重等级 |
 |---|---|---|---|

@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="LeOuf&#39;s Blog">
 <meta property="og:description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。  UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。  时间戳转换时间时会相差8小时，需要计算时区。  iOS10中UIS">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-02T02:56:33.940Z">
+<meta property="og:updated_time" content="2020-08-24T10:28:41.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="笔记：iOS中踩坑记录">
 <meta name="twitter:description" content="NSNumber类型判断是否为0不能使用aIntegerNum == 0，而应使用[aIntegerNum isEqualToNumber:@0]，前者比较地址，后者比较值。  UITableView无数据源时，numberOfSections是1，但[tableView numberOfRowsInSection:0]是0。  时间戳转换时间时会相差8小时，需要计算时区。  iOS10中UIS">
@@ -354,6 +354,10 @@
 </li>
 <li><p>UIButton的点击态有UIControlStateHighlighted和UIControlStateSelected | UIControlStateHighlighted，参照<a href="UIButton选中状态下的点击">https://www.jianshu.com/p/57b2c41448bf</a>。</p>
 </li>
+<li><p>nil-&gt;_成员变量 会crash</p>
+</li>
+<li><p>iOS13以下，NSUserDefaults objectForKey:传nil会crash，nonnull参数务必小心。</p>
+</li>
 </ol>
 
       
@@ -556,7 +560,7 @@
         <div class="copyright">
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
