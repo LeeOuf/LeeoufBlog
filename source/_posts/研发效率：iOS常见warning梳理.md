@@ -9,7 +9,7 @@ tags:
 
 ## 常见warning类型
 |warning类型 | 影响 | 修复方式 | 严重等级 |
-|---|---|---|
+|---|---|---|---|
 | 方法有定义无实现 | crash | 补齐或删除方法 | P0 |
 | 调用不存在的方法 | crash | 调用正确方法 | P0 |
 | 调用系统DEPRECATED方法/属性 | crash、bug | 分系统进行调用 | P0 |
@@ -46,6 +46,6 @@ tags:
 ## 修复warning的方式
 1. 根据编译器提示修复。
 2. 对于暂不修复的warning有三种忽略方式。
-2.1. 选中warning，右键选择Reveal in Log，复制warning类型，在代码中添加ignored标记。
-2.2. 对于某个文件，忽略某种类型的warning，与打ARC标记相同，添加对应类型的编译标记。
-2.3. 全局忽略某一类型warning，在工程配置中添加编译选项。
+  2.1. 选中warning，右键选择Reveal in Log，复制warning类型，在代码中添加ignored标记。
+  2.2. 对于某个文件，忽略某种类型的warning，与打ARC标记相同，添加对应类型的编译标记。
+  2.3. 全局忽略某一类型warning，在工程配置中添加编译选项。
